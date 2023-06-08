@@ -1,0 +1,49 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Tutorial index{% endblock %}
+
+{% block body %}
+    <h1>Tutorial index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TutoName</th>
+                <th>TutoDescription</th>
+                <th>TutoFileName</th>
+                <th>TutoVideoName</th>
+                <th>TutoImageName</th>
+                <th>TutoSupportType</th>
+                <th>TutoSlug</th>
+                <th>TutoUpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tutorial in tutorials %}
+            <tr>
+                <td>{{ tutorial.id }}</td>
+                <td>{{ tutorial.tutoName }}</td>
+                <td>{{ tutorial.tutoDescription }}</td>
+                <td>{{ tutorial.tutoFileName }}</td>
+                <td>{{ tutorial.tutoVideoName }}</td>
+                <td>{{ tutorial.tutoImageName }}</td>
+                <td>{{ tutorial.tutoSupportType }}</td>
+                <td>{{ tutorial.tutoSlug }}</td>
+                <td>{{ tutorial.tutoUpdatedAt ? tutorial.tutoUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_tutorial_show', {'id': tutorial.id}) }}">show</a>
+                    <a href="{{ path('app_admin_tutorial_edit', {'id': tutorial.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_tutorial_new') }}">Create new</a>
+{% endblock %}

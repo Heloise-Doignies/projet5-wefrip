@@ -1,0 +1,54 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Event{% endblock %}
+
+{% block body %}
+    <h1>Event</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ event.id }}</td>
+            </tr>
+            <tr>
+                <th>EventName</th>
+                <td>{{ event.eventName }}</td>
+            </tr>
+            <tr>
+                <th>EventDate</th>
+                <td>{{ event.eventDate ? event.eventDate.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EventDescription</th>
+                <td>{{ event.eventDescription }}</td>
+            </tr>
+            <tr>
+                <th>EventImageName</th>
+                <td>{{ event.eventImageName }}</td>
+            </tr>
+            <tr>
+                <th>CoordinateLat</th>
+                <td>{{ event.coordinateLat }}</td>
+            </tr>
+            <tr>
+                <th>CoordinateLng</th>
+                <td>{{ event.coordinateLng }}</td>
+            </tr>
+            <tr>
+                <th>EventSlug</th>
+                <td>{{ event.eventSlug }}</td>
+            </tr>
+            <tr>
+                <th>EventUpdatedAt</th>
+                <td>{{ event.eventUpdatedAt ? event.eventUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_event_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_event_edit', {'id': event.id}) }}">edit</a>
+
+    {{ include('admin_event/_delete_form.html.twig') }}
+{% endblock %}

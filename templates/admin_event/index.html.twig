@@ -1,0 +1,49 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Event index{% endblock %}
+
+{% block body %}
+    <h1>Event index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>EventName</th>
+                <th>EventDate</th>
+                <th>EventDescription</th>
+                <th>EventImageName</th>
+                <th>CoordinateLat</th>
+                <th>CoordinateLng</th>
+                <th>EventSlug</th>
+                <th>EventUpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.eventName }}</td>
+                <td>{{ event.eventDate ? event.eventDate.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
+                <td>{{ event.eventDescription }}</td>
+                <td>{{ event.eventImageName }}</td>
+                <td>{{ event.coordinateLat }}</td>
+                <td>{{ event.coordinateLng }}</td>
+                <td>{{ event.eventSlug }}</td>
+                <td>{{ event.eventUpdatedAt ? event.eventUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_event_show', {'id': event.id}) }}">show</a>
+                    <a href="{{ path('app_admin_event_edit', {'id': event.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_event_new') }}">Create new</a>
+{% endblock %}
