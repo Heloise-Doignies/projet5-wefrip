@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230608131344 extends AbstractMigration
+final class Version20230609075832 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -36,6 +36,7 @@ final class Version20230608131344 extends AbstractMigration
         $this->addSql('CREATE TABLE user_user_participant (user_id INT NOT NULL, user_participant_id INT NOT NULL, INDEX IDX_391E059A76ED395 (user_id), INDEX IDX_391E059F699EF40 (user_participant_id), PRIMARY KEY(user_id, user_participant_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_creator (id INT AUTO_INCREMENT NOT NULL, creator_updated_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_participant (id INT AUTO_INCREMENT NOT NULL, participant_updated_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL, available_at DATETIME NOT NULL, delivered_at DATETIME DEFAULT NULL, INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA7C645C84A FOREIGN KEY (user_creator_id) REFERENCES user_creator (id)');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA7BC08CF77 FOREIGN KEY (type_event_id) REFERENCES type_event (id)');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA75CE9B6D9 FOREIGN KEY (infos_location_id) REFERENCES info_location (id)');
@@ -93,5 +94,6 @@ final class Version20230608131344 extends AbstractMigration
         $this->addSql('DROP TABLE user_user_participant');
         $this->addSql('DROP TABLE user_creator');
         $this->addSql('DROP TABLE user_participant');
+        $this->addSql('DROP TABLE messenger_messages');
     }
 }
