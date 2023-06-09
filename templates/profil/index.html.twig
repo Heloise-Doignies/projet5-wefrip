@@ -17,19 +17,20 @@
     
     {# Début de la zone "mon profil" #}
         <h2>Mes informations</h2>
-            <div class="card" style="width: 18rem;">
-                {% if app.user is not null and user.avatarName is not null %}
-                <img src="{{ path('app_profil_edit') }} ~ " alt="" class="avatar">
-                {% %}
-                <img src="{{ path('app_profil_edit') }} ~ " alt="" class="avatar">
-
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Email : </li>
-                    <li class="list-group-item">Pseudo :</li>
-                    <li class="list-group-item">Prénom : </li>
-                    <li class="list-group-item">Nom : </li>
-                    <li class="list-group-item">Mot de passe : </li>
-                </ul>
+            <div class="card profilUser">
+                    {# {% if user.avatarName is not null %}
+                    <img src="{{user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil"> 
+                    {% else %} #}
+                    <img src="/img/user-noavatar.jpg" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+                    {# {% endif %} #}
+                
+                {# <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Email : {{user.email}}</li>
+                    <li class="list-group-item">Pseudo : {{user.pseudo}}</li>
+                    <li class="list-group-item">Prénom : {{user.firstname}}</li>
+                    <li class="list-group-item">Nom : {{user.surname}}</li>
+                    <li class="list-group-item">Mot de passe : {{user.password}}</li>
+                </ul> #}
                 <a href="{{ path('app_profil_edit') }}" class="btn btn-primary">Modifier mon profil</a>
             </div>
 
