@@ -1,20 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Mon profil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<nav class="nav-fill">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-info" aria-selected="true">Mon profil</button>
+        <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Mes inscriptions aux évènements</button>
+        <button class="nav-link" id="nav-favoris-tab" data-bs-toggle="tab" data-bs-target="#nav-favoris" type="button" role="tab" aria-controls="nav-favoris" aria-selected="false">Mes tutoriels favoris</button>
+    </div>
+</nav>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/projet5/projet5-wefrip/src/Controller/ProfilController.php'|file_link(0) }}">src/Controller/ProfilController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/projet5/projet5-wefrip/templates/profil/index.html.twig'|file_link(0) }}">templates/profil/index.html.twig</a></code></li>
-    </ul>
+<div class="tab-content my-3" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">
+    
+    {# Début de la zone "mon profil" #}
+        <h2>Mes informations</h2>
+            <div class="card" style="width: 18rem;">
+                {% if app.user is not null and user.avatarName is not null %}
+                <img src="{{ path('app_profil_edit') }} ~ " alt="" class="avatar">
+                {% %}
+                <img src="{{ path('app_profil_edit') }} ~ " alt="" class="avatar">
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Email : </li>
+                    <li class="list-group-item">Pseudo :</li>
+                    <li class="list-group-item">Prénom : </li>
+                    <li class="list-group-item">Nom : </li>
+                    <li class="list-group-item">Mot de passe : </li>
+                </ul>
+                <a href="{{ path('app_profil_edit') }}" class="btn btn-primary">Modifier mon profil</a>
+            </div>
+
+    </div> 
+    {# Fin de la zone "mon profil" #}
+
+    {# Début de la zone "mes événements" #}
+    <div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab" tabindex="0">
+    ...
+    </div>
+    {# Fin de la zone "mes événements" #}
+
+    {# Fin de la zone "mes favoris" #}
+    <div class="tab-pane fade" id="nav-favoris" role="tabpanel" aria-labelledby="nav-favoris-tab" tabindex="0">
+    ...
+    </div>
+    {# Fin de la zone "mes favoris" #}
+
 </div>
+
 {% endblock %}
