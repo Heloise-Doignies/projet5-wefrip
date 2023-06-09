@@ -8,8 +8,39 @@
     <button type="submit" class="btn btn-primary">Les plus récents</button>
     <button type="submit" class="btn btn-primary">Voir les catégories</button>
     </div>
-    <video controls id="video">
+    <tutorial controls id="tutorial">
     <source src="../../public/videos" type=video/mp4 ></source>
- </video>
+ </tutorial>
+ {#On affiche tous les videos avec une boucle #}
+	<div class="row">
+	{% for tutorial in tutorials  %}
+		<div class="col-12 col-md-3 col-xl-2">
+		<div class="card">
+		{% if tutorial.tutoVideoName is defined and tutorial.tutoImageName is not null %}
+  	<img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top" alt="tutorial.tutoName">
+		{% else %}
+		<img src="{{ asset('/img/imageTuto/fixtImage1.jpg') }}" class="card-img-top" alt="image par default">
+		{% endif %}
+
+  <div class="card-body">
+		<a href="{{ path('app_tutorial_show', { tutoSlug: tutorial.tutoSlug}) }}" class="btn btn-primary">{{tutorial.tutoName }}</a>
+        {# {% if app.user is not null %} #}
+        {# {% if tutorial not in app.user.tutorials %} #}
+        <a href="{{ path('app_home', { id: tutorial.id}) }}" class="mt-3 btn btn-dark"><i data-feather="heart"></i></a>
+        {# {% endif %} #}
+        {# {% endif %} #}
+        <p> {{tutorial.tutoDescription }} </p>
+         <div class="d-flex justify-content-around ">
+    <button type="submit" class="btn btn-primary">Catégorie</button>
+    <button type="submit" class="btn btn-primary">{{tutorial.tutoSupportType}}</button>
+    </div>
+		
+  </div>
+</div>
+		
+		</div>
+	{% endfor %}
+        
     
+
    {% endblock %}
