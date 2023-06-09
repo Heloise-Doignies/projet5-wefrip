@@ -25,3 +25,9 @@ footer .media {
 footer .media:hover {
     background-color: #375CA6;
 }
+
+
+/* CSS pour le profil */
+.profilUser .avatarProfil {
+    width:100px;
+}
