@@ -1,20 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TutorialController!{% endblock %}
+{% block title %}Les tutoriels pour transformer vos vêtements{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/projet5/projet5-wefrip/src/Controller/TutorialController.php'|file_link(0) }}">src/Controller/TutorialController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/projet5/projet5-wefrip/templates/tutorial/index.html.twig'|file_link(0) }}">templates/tutorial/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+    <h1 class="text-center"> Les tutoriels pour transformer vos vêtements  </h1>
+    <div class="d-flex justify-content-around ">
+    <button type="submit" class="btn btn-primary">Les plus récents</button>
+    <button type="submit" class="btn btn-primary">Voir les catégories</button>
+    </div>
+    <video controls id="video">
+    <source src="../../public/videos" type=video/mp4 ></source>
+ </video>
+    
+   {% endblock %}
