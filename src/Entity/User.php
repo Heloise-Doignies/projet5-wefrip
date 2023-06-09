@@ -61,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->favoris = new ArrayCollection();
         $this->participantEvent = new ArrayCollection();
     }
-
+    
     public function getId(): ?int
     {
         return $this->id;

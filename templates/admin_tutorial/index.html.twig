@@ -1,10 +1,12 @@
 {% extends 'base-backend.html.twig' %}
 
-{% block title %}Tutorial index{% endblock %}
+{% block title %}Tutoriels{% endblock %}
 
 {% block body %}
-    <h1>Tutorial index</h1>
-
+<div class="d-flex flex-wrap justify-content-between align-items-center">
+    <h1>Tutoriels</h1>
+    <a href="{{ path('app_admin_tutorial_new') }}" class="btn btn-primary"><i class="align-middle" data-feather="file-plus"></i></a>
+</div>
     <table class="table">
         <thead>
             <tr>
@@ -33,8 +35,8 @@
                 <td>{{ tutorial.tutoSlug }}</td>
                 <td>{{ tutorial.tutoUpdatedAt ? tutorial.tutoUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_admin_tutorial_show', {'id': tutorial.id}) }}">show</a>
-                    <a href="{{ path('app_admin_tutorial_edit', {'id': tutorial.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_tutorial_show', {'id': tutorial.id}) }}" class="btn btn-warning"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('app_admin_tutorial_edit', {'id': tutorial.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-3"></i></a>
                 </td>
             </tr>
         {% else %}
@@ -45,5 +47,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_tutorial_new') }}">Create new</a>
 {% endblock %}
