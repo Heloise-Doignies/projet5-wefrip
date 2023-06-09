@@ -1,0 +1,27 @@
+/* font-family: 'Chewy', cursive;
+font-family: 'Red Hat Display', sans-serif; */
+
+body {
+    font-family: 'Red Hat Display', sans-serif;
+}
+
+a {
+    color: inherit;
+}
+
+nav .logoWeFrip {
+    width:120px;
+}
+
+nav .avatarProfil {
+    width:40px;
+}
+
+footer .media {
+    background-color: #D98E04;
+    cursor:pointer;
+}
+
+footer .media:hover {
+    background-color: #375CA6;
+}
