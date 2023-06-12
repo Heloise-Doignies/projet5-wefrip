@@ -11,35 +11,47 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TutorialType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('tutoName')
-            ->add('tutoDescription', CKEditorType::class)
+            ->add('tutoName', TextType::class,[
+                'label'=>'Nom du tutoriel',
+                ])
+            ->add('tutoDescription', CKEditorType::class, [
+                'label'=>'Description',
+                ])
             ->add('tutoFileName', FileType::class,[
                 'required' => false,
-                'label' => 'Image du document'
+                'label' => 'Image du document',
+                'data_class' => null,
                 ])
             ->add('tutoVideoName', FileType::class,[
                 'required' => false,
-                'label' => 'Image de la video'
+                'label' => 'Image du tutoriel',
+                'data_class' => null,
                 ])
             ->add('tutoImageName', FileType::class,[
                 'required' => false,
-                'label' => 'Image du tuto'
+                'label' => 'Image du tutoriel',
+                'data_class' => null,
                 ])
-            ->add('tutoSupportType')
+            ->add('tutoSupportType', TextType::class,[
+                'label'=>'Type de support',
+                ])
             //->add('tutoSlug')
             ->add('tutoUpdatedAt', DateTimeType::class, [
                 'widget'=>'single_text',
                 'data'=>new DateTimeImmutable(),
+                'label' => 'Ajouté le',
             ])
-            ->add('tutoFavoris')
+            ->remove('tutoFavoris')
             ->add('categories', EntityType::class, [
                 'class'=> 'App\Entity\Category',
+                'label' => 'Catégorie(s) du tutoriel',
                 'multiple'=> true,
                 'attr'=>[
                     "class"=>"select2",
