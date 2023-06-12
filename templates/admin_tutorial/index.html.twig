@@ -11,15 +11,14 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>TutoName</th>
-                <th>TutoDescription</th>
-                <th>TutoFileName</th>
-                <th>TutoVideoName</th>
-                <th>TutoImageName</th>
-                <th>TutoSupportType</th>
-                <th>TutoSlug</th>
-                <th>TutoUpdatedAt</th>
-                <th>actions</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Nom du fichier</th>
+                <th>Nom de l'image</th>
+                <th>Type de support</th>
+                <th>Slug</th>
+                <th>Ajouté le :</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -28,8 +27,7 @@
                 <td>{{ tutorial.id }}</td>
                 <td>{{ tutorial.tutoName }}</td>
                 <td>{{ tutorial.tutoDescription }}</td>
-                <td>{{ tutorial.tutoFileName }}</td>
-                <td>{{ tutorial.tutoVideoName }}</td>
+                <td>{{ tutorial.tutoFileName }} {{ tutorial.tutoVideoName }}</td>
                 <td>{{ tutorial.tutoImageName }}</td>
                 <td>{{ tutorial.tutoSupportType }}</td>
                 <td>{{ tutorial.tutoSlug }}</td>

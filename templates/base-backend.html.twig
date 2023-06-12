@@ -75,14 +75,14 @@
 					<ul class="navbar-nav navbar-align">
 
 						<li class="nav-item dropdown">
-							<a class="nav-link d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                                A changer pour nom de l'admin auto
+							<a class="nav-link d-none d-sm-inline-block" href="{{ path('app_profil') }}" data-bs-toggle="dropdown">
+                                {{ app.user.userIdentifier }}
                             </a>
 						</li>
                 
 						<li class="nav-item dropdown">
-                            <a class="nav-link d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            Se déconnecter
+                            <a class="nav-link d-none d-sm-inline-block" href="{{ path('app_logout') }}" data-bs-toggle="dropdown">
+                            <i data-feather="log-out"></i>
                             </a>
                         </li>
 

@@ -21,13 +21,13 @@ class ProfilController extends AbstractController
        //On rend la page en lui passant les vidéos correspondantes
         return $this->render('profil/index.html.twig', [
         'user' => $user,
-        ]);  
+        ]); 
     }
 
     #[Route('/profil-edit', name: 'app_profil_edit')]
     public function editProfil(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $encoder): Response
     {
-         // On recupere l'utilisateur
+         // On récupère l'utilisateur
         $user = $this->getUser();
          // On crée un formulaire avec les données de l'utilisateur
         $form = $this->createForm(UserType::class, $user);
@@ -42,45 +42,43 @@ class ProfilController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('app_profil'); 
         }
-        return $this->render('profil/index.html.twig', [
+        return $this->render('profil/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }
     
-    #[Route('/add-favori/{id}', name:'add_favori' )]
-    public function addFavori($id, TutorialRepository $tutorialRepository, EntityManagerInterface $em, Request $request):Response
-    {
-        // On récupère la video dans la BDD
-    $tutorial = $tutorialRepository->find($id);
-    // On récupère l'utilisateur
-    $user = $this ->getUser();
-    // On ajoute la video a la liste des favoris de l'utilisateur
-    $user->addTutorial($tutorial);
-    $this->addFlash('success',' Le tutoriel a bien été ajouté aux favoris.');
-    //On enregistre les modification 
-    $em->persist($user);
-    $em->flush();
-    //On redirige vers la page vidéo
-    return $this->redirect($request->headers->get('referer'));
+    // #[Route('/add-favori/{id}', name:'add_favori' )]
+    // public function addFavori($id, TutorialRepository $tutorialRepository, EntityManagerInterface $em, Request $request):Response
+    // {
+    //     // On récupère la video dans la BDD
+    // $tutorial = $tutorialRepository->find($id);
+    // // On récupère l'utilisateur
+    // $user = $this ->getUser();
+    // // On ajoute la video a la liste des favoris de l'utilisateur
+    // $user->addTutorial($tutorial);
+    // $this->addFlash('success',' Le tutoriel a bien été ajouté aux favoris.');
+    // //On enregistre les modification 
+    // $em->persist($user);
+    // $em->flush();
+    // //On redirige vers la page vidéo
+    // return $this->redirect($request->headers->get('referer'));
+    // }
 
-
-    }
-
-    #[Route('/remove-tutorial/{id}', name:'remove_tutorial' )]
-    public function removeTutorial($id, TutorialRepository $tutorialRepository, EntityManagerInterface $em, Request $request):Response
-    {
-        // On récupère la video dans la BDD
-    $tutorial = $tutorialRepository->find($id);
-    // On récupère l'utilisateur
-    $user = $this ->getUser();
-    // On ajoute la video a la liste des favoris de l'utilisateur
-    $user->removeTutorial($tutorial);
-    $this->addFlash('success',' Le tutoriel a bien été supprimé des favoris.');
-    //On enregistre les modification 
-    $em->persist($user);
-    $em->flush();
-    //On redirige vers la page vidéo
-    return $this->redirect($request->headers->get('referer'));
+    // #[Route('/remove-tutorial/{id}', name:'remove_tutorial' )]
+    // public function removeTutorial($id, TutorialRepository $tutorialRepository, EntityManagerInterface $em, Request $request):Response
+    // {
+    //     // On récupère la video dans la BDD
+    // $tutorial = $tutorialRepository->find($id);
+    // // On récupère l'utilisateur
+    // $user = $this ->getUser();
+    // // On ajoute la video a la liste des favoris de l'utilisateur
+    // $user->removeTutorial($tutorial);
+    // $this->addFlash('success',' Le tutoriel a bien été supprimé des favoris.');
+    // //On enregistre les modification 
+    // $em->persist($user);
+    // $em->flush();
+    // //On redirige vers la page vidéo
+    // return $this->redirect($request->headers->get('referer'));
     
-    }
+    // }
 }
