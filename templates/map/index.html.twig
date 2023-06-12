@@ -3,9 +3,12 @@
 {% block title %}WeFrip'{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
     <h1>{{ controller_name }}</h1>
     <div id="maCarte"></div>
 <button>Ajouter Marker</button>
+=======
+>>>>>>> 6dbbec13bd429b07e362bcd71eac753623bf62cc
 
 {# Script pour la carte #}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -20,8 +23,20 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
 }).addTo(carte);
 
+<<<<<<< HEAD
 {% for marker in markers %}
     L.marker([{{ marker.lat }}, {{ marker.lng }}]).addTo(carte);
 {% endfor %}
 </script>
+=======
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/projet5/projet5-wefrip/src/Controller/MapController.php'|file_link(0) }}">src/Controller/MapController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/wamp64/www/projet5/projet5-wefrip/templates/map/index.html.twig'|file_link(0) }}">templates/map/index.html.twig</a></code></li>
+    </ul>
+</div>
+
+
+>>>>>>> 6dbbec13bd429b07e362bcd71eac753623bf62cc
 {% endblock %}
+

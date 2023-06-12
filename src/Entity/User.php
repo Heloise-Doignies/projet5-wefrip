@@ -62,6 +62,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->participantEvent = new ArrayCollection();
     }
 
+    //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
+    public function __toString(): string
+    {
+        return $this->email;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;

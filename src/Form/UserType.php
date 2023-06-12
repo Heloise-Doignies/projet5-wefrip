@@ -6,6 +6,8 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use DateTimeImmutable;
 
 class UserType extends AbstractType
 {
@@ -19,8 +21,11 @@ class UserType extends AbstractType
             ->add('avatarName')
             ->add('lastname')
             ->add('firstname')
-            ->add('userSlug')
-            ->add('userUpdatedAt')
+            //->add('userSlug')
+            ->add('userUpdatedAt', DateTimeType::class, [
+                'widget'=>'single_text',
+                'data'=>new DateTimeImmutable(),
+            ])
             ->add('favoris')
             ->add('userCreator')
             ->add('participantEvent')

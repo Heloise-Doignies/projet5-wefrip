@@ -1,24 +1,26 @@
 {% extends 'base-backend.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
-
+<div class="d-flex flex-wrap justify-content-between align-items-center">
+    <h1>Utilisateurs</h1>
+    <a href="{{ path('app_admin_user_new') }}" class="btn btn-primary"><i class="align-middle" data-feather="file-plus"></i></a>
+</div>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
+                <th>Mot de passe</th>
                 <th>Pseudo</th>
-                <th>AvatarName</th>
-                <th>Lastname</th>
-                <th>Firstname</th>
-                <th>UserSlug</th>
-                <th>UserUpdatedAt</th>
-                <th>actions</th>
+                <th>Nom de l'avatar</th>
+                <th>Nom de famille</th>
+                <th>Prénom</th>
+                <th>Slug</th>
+                <th>Ajouté le :</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -35,17 +37,16 @@
                 <td>{{ user.userSlug }}</td>
                 <td>{{ user.userUpdatedAt ? user.userUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn btn-warning"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-3"></i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="11">no records found</td>
+                <td colspan="11">Pas de données enregistrées</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_user_new') }}">Create new</a>
 {% endblock %}

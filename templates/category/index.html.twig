@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoryController!{% endblock %}
+
+{% block body %}
+<h1 class="mb-3"></i> Tutoriels - Toutes les catégories </h1>
+
+
+    <div class="row">
+    {% for category in categories %}
+
+    <div class=" col-12 col-md-3 col-lg-3 mb-3">
+        
+            <a href="{{ path ('app_category_show', {categorySlug :category.categorySlug}) }}" class="btn btn-light btn-outline-primary shadow">
+                <img src="{{ asset('/category/' ~ category.categoryName) }}" class="card-img-top" alt="{{category.categoryName}}">
+                <h2>{{category.categoryName}}</h2>
+            </a>
+        
+    </div>
+{% endfor %}
+{% endblock %}

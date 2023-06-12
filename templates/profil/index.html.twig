@@ -1,20 +1,151 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Mon profil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<nav class="nav-fill">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-info" aria-selected="true">Mon profil</button>
+        <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Mes inscriptions aux évènements</button>
+        <button class="nav-link" id="nav-favoris-tab" data-bs-toggle="tab" data-bs-target="#nav-favoris" type="button" role="tab" aria-controls="nav-favoris" aria-selected="false">Mes tutoriels favoris</button>
+    </div>
+</nav>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/projet5/projet5-wefrip/src/Controller/ProfilController.php'|file_link(0) }}">src/Controller/ProfilController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/projet5/projet5-wefrip/templates/profil/index.html.twig'|file_link(0) }}">templates/profil/index.html.twig</a></code></li>
-    </ul>
+<div class="tab-content my-3" id="nav-tabContent">
+    {# Début de la zone "mon profil" #}
+    <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">
+    
+        <div class="container text-center profilUser p-3 rounded">
+            <h2>Mes informations</h2>
+                <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
+
+                    <ul class="list">
+                        <li class="list-group-item p-1">Email : {{user.email}}</li>
+                        <li class="list-group-item p-1">Pseudo : 
+                        {% if user.pseudo is not null %}
+                        {{user.pseudo}}
+                        {% else %}
+                        Non-renseigné
+                        {% endif %}
+                        </li>
+                        <li class="list-group-item p-1">Prénom : 
+                        {% if user.firstname is not null %}
+                        {{user.firstname}}
+                        {% else %}
+                        Non-renseigné
+                        {% endif %}
+                        </li>
+                        <li class="list-group-item p-1">Nom de famille : 
+                        {% if user.lastname is not null %}
+                        {{user.lastname}}
+                        {% else %}
+                        Non-renseigné
+                        {% endif %}
+                        </li>
+                        <li class="list-group-item p-1">Mot de passe : ****</li>
+                    </ul>
+
+                    <div>
+                    {% if user.avatarName is not null %}
+                    <img src="{{user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil"> 
+                    {% else %}
+                    <img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+                    {% endif %}
+                    </div>
+
+                </div>
+
+            <a href="{{ path('app_profil_edit') }}"><button class="btn">Modifier mes informations</button></a>
+        </div>
+
+    </div>
+    {# Fin de la zone "mon profil" #}
+
+    {# Début de la zone "mes événements" #}
+    <div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab" tabindex="0">
+    
+        <div class="container text-center profilUser p-3 rounded">
+            <h2>Mes inscriptions aux événements</h2>
+                <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
+A venir 
+                {#{% if app.user.events|length > 0 %}
+                    <div class="row d-flex justify-content-center">
+                        {% for event in app.user.events %}
+                        <div class="col-12 col-md-4 col-xl-3 mb-3"> 
+                            <div class="card shadow">
+                                <div class="card-body text-center">
+                                    <a href="{{ path ('app_event_show', {eventSlug:event.eventSlug }) }}" class="btn btn-primary">{{event.eventName}}</a>
+                                    <p class="card-text">Date : {{event.eventDate}}</p>
+                                    <p class="card-text">Organisé par : 
+                                    {% if event.userCreator is user.userName %}
+                                    vous ({{event.userCreator}})
+                                    {% else %}
+                                    {{event.userCreator}}
+                                    {% endif %}
+                                    </p>
+                                    <p class="card-text">Informations pratiques : {{event.infosLocation}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %} 
+                    </div>
+
+                {% else %}
+                <p class="text-center">Vous n'avez aucun événement auquel vous participez ou que vous avez créé pour l'instant.</p>
+
+                {% endif %}#}
+
+                </div>
+        </div>
+    </div>
+    {# Fin de la zone "mes événements" #}
+
+    {# Fin de la zone "mes favoris" #}
+    <div class="tab-pane fade" id="nav-favoris" role="tabpanel" aria-labelledby="nav-favoris-tab" tabindex="0">
+        <div class="container text-center profilUser p-3 rounded">
+            <h2>Mes tutoriels favoris</h2>
+                <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
+A venir 
+                {#{% if app.user.tutorials|length > 0 %}
+                    <div class="row d-flex justify-content-center">
+                        {% for tutorial in app.user.tutorials %}
+                        <div class="col-12 col-md-4 col-xl-3 mb-3"> 
+                            <div class="card shadow">
+
+                                <div class="position-relative">
+                                    {% if  tutorial.imageName is defined and tutorial.imageName is not null  %}
+                                    <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top" alt="{{tutorial.tutoName}}">
+                                    {% else %}
+                                    <img src="{{ asset('/img/imageTuto/tuto-noimage.png') }}" class="img-fluid" alt="{{tutorial.tutoName}}">
+                                    {% endif %}
+                                    <a href="{{ path ('app_tutorial_show', { tutoSlug:tutorial.tutoSlug }) }}" class="btn btn-primary rounded-circle position-absolute top-50 start-50 translate-middle p-2">
+                                        <i data-feather="play"></i>
+                                    </a>
+                                    <a href="{{ path ('remove_video', {id:video.id }) }}" class="btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2">
+                                    <i data-feather="heart" class="text-light"></i>
+                                    </a>
+                                </div>
+                                <div class="card-body text-center">
+                                    <a href="{{ path ('app_tutorial_show', { tutoSlug:tutorial.tutoSlug }) }}" class="btn btn-primary">{{tutorial.tutoName}}</a>
+                                    <p class="card-text">{{tutorial.tutoDescription}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %} 
+                    </div>
+
+                {% else %}
+                <p class="text-center">Vous n'avez aucun favori pour l'instant.</p>
+
+                {% endif %}#}
+
+                </div>
+        </div>
+    </div>
+
+    {# Fin de la zone "mes favoris" #}
+
 </div>
+
 {% endblock %}

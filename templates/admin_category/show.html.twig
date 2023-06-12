@@ -1,10 +1,15 @@
 {% extends 'base-backend.html.twig' %}
 
-{% block title %}Category{% endblock %}
+{% block title %}Catégories{% endblock %}
 
 {% block body %}
-    <h1>Category</h1>
+    <h1>Catégories</h1>
 
+    <div class="d-flex flex-row justify-content-between">
+    <a href="{{ path('app_admin_category_index') }}" class="btn btn-primary mb-3"><i class="align-middle" data-feather="skip-back"></i></a>
+    {{ include('admin_category/_delete_form.html.twig') }}
+    </div>
+    
     <table class="table">
         <tbody>
             <tr>
@@ -12,23 +17,21 @@
                 <td>{{ category.id }}</td>
             </tr>
             <tr>
-                <th>CategoryName</th>
+                <th>Nom</th>
                 <td>{{ category.categoryName }}</td>
             </tr>
             <tr>
-                <th>CategorySlug</th>
+                <th>Slug</th>
                 <td>{{ category.categorySlug }}</td>
             </tr>
             <tr>
-                <th>CategoryUpdatedAt</th>
+                <th>Ajouté le</th>
                 <td>{{ category.categoryUpdatedAt ? category.categoryUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_category_index') }}">back to list</a>
 
-    <a href="{{ path('app_admin_category_edit', {'id': category.id}) }}">edit</a>
+    <a href="{{ path('app_admin_category_edit', {'id': category.id}) }}" class="btn btn-success mb-3"><i class="align-middle" data-feather="edit-3"></i> Modifier</a>
 
-    {{ include('admin_category/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,9 +1,14 @@
 {% extends 'base-backend.html.twig' %}
 
-{% block title %}Event{% endblock %}
+{% block title %}Evénements{% endblock %}
 
 {% block body %}
-    <h1>Event</h1>
+    <h1>Evénements</h1>
+
+    <div class="d-flex flex-row justify-content-between">
+    <a href="{{ path('app_admin_event_index') }}" class="btn btn-primary mb-3"><i class="align-middle" data-feather="skip-back"></i></a>
+    {{ include('admin_event/_delete_form.html.twig') }}
+    </div>
 
     <table class="table">
         <tbody>
@@ -12,43 +17,41 @@
                 <td>{{ event.id }}</td>
             </tr>
             <tr>
-                <th>EventName</th>
+                <th>Nom</th>
                 <td>{{ event.eventName }}</td>
             </tr>
             <tr>
-                <th>EventDate</th>
+                <th>Date</th>
                 <td>{{ event.eventDate ? event.eventDate.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
             </tr>
             <tr>
-                <th>EventDescription</th>
+                <th>Description</th>
                 <td>{{ event.eventDescription }}</td>
             </tr>
             <tr>
-                <th>EventImageName</th>
+                <th>Nom de l'image</th>
                 <td>{{ event.eventImageName }}</td>
             </tr>
             <tr>
-                <th>CoordinateLat</th>
+                <th>Coordonnées (lat)</th>
                 <td>{{ event.coordinateLat }}</td>
             </tr>
             <tr>
-                <th>CoordinateLng</th>
+                <th>Coordonnées (lng)</th>
                 <td>{{ event.coordinateLng }}</td>
             </tr>
             <tr>
-                <th>EventSlug</th>
+                <th>Slug</th>
                 <td>{{ event.eventSlug }}</td>
             </tr>
             <tr>
-                <th>EventUpdatedAt</th>
+                <th>Ajouté le</th>
                 <td>{{ event.eventUpdatedAt ? event.eventUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_event_index') }}">back to list</a>
 
-    <a href="{{ path('app_admin_event_edit', {'id': event.id}) }}">edit</a>
+    <a href="{{ path('app_admin_event_edit', {'id': event.id}) }}" class="btn btn-success mb-3"><i class="align-middle" data-feather="edit-3"></i> Modifier</a>
 
-    {{ include('admin_event/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mes informations{% endblock %}
+
+{% block body %}
+
+        <div class="container-lg col-12 mt-3 rounded py-2 m-auto" id="profil-container">
+            {# On affiche un formulaire #}
+                    {{form_start(form) }}
+                    {{form_widget(form) }}
+                    <button type="submit" class="btn m-3" id="profil-button">Enregistrer</button>
+                    {{form_end(form) }}
+        </div>
+
+{% endblock %}
