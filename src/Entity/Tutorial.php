@@ -52,6 +52,12 @@ class Tutorial
         $this->categories = new ArrayCollection();
     }
 
+    //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
+    public function __toString(): string
+    {
+        return $this->tutoName;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
