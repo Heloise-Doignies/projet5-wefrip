@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MapController!{% endblock %}
+{% block title %}WeFrip'{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>{{ controller_name }}</h1>
+    <div id="maCarte"></div>
+<button>Ajouter Marker</button>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{# Script pour la carte #}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// On initialise la map
+var carte = L.map('maCarte').setView([{{ latitude }}, {{ longitude }}], {{ zoom }});
+// On charge des tuiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Liens vers la source des données
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    minZoom: 1,
+    maxZoom: 18,
+}).addTo(carte);
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/projet5/projet5-wefrip/src/Controller/MapController.php'|file_link(0) }}">src/Controller/MapController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/projet5/projet5-wefrip/templates/map/index.html.twig'|file_link(0) }}">templates/map/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% for marker in markers %}
+    L.marker([{{ marker.lat }}, {{ marker.lng }}]).addTo(carte);
+{% endfor %}
+</script>
 {% endblock %}

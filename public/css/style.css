@@ -1,0 +1,9 @@
+#maCarte{
+    width: 50%;
+    height: 500px;
+    margin:auto;
+    border-radius: 25px;
+    border:1px solid black;
+    width: 70%;
+    height:500px;
+}
