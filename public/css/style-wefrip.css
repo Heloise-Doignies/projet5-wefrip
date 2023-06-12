@@ -31,3 +31,12 @@ footer .media:hover {
 .profilUser .avatarProfil {
     width:100px;
 }
+
+/* CSS pour le home */
+.accueil h1, .accueil h2 {
+    font-family: 'Chewy';
+}
+
+.concept{
+    font-size: 18px;
+}
