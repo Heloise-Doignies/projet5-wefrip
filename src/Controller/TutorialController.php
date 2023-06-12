@@ -19,7 +19,7 @@ class TutorialController extends AbstractController
         ]);
     }
     #[Route('/tutorial/{tutoSlug}', name: 'app_tutorial_show')]
-    public function showBook($tutoSlug, TutorialRepository $tutorialRepository): Response
+    public function showTutorial($tutoSlug, TutorialRepository $tutorialRepository): Response
     {
         //Jn récupère le video correspondant au slug
         $tutorial = $tutorialRepository->findOneBy(['tutoSlug' => $tutoSlug]);
