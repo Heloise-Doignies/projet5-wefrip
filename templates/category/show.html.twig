@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{category.categoryName}}{% endblock %}
+
+{% block body %}
+<h1>catégories : {{ category.categoryName }}</h1>
+
+{% if category.tutorials is not empty %}
+    <div class="row d-flex justify-content-center">
+
+    {% for tutorial in category.tutorials %}
+        <div class="col-12 col-md-4 col-xl-3 mb-3"> 
+            <div class="card shadow">
+
+                <div class="position-relative">
+                    {% if  tutorial.tutoVideoName is defined and tutorial.tutoVideoName is not null  %}
+                    <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top" alt="{{tutorial.tutoName}}">
+                    {% else %}
+                    <img src="{{ asset('/img/imageTuto/tuto-noimage.png') }}" class="img-fluid" alt="{{tutorial.tutoName}}">
+                    {% endif %}
+                    <a href="{{ path ('app_tutorial_show', {tutoSlug:tutorial.tutoSlug }) }}" class="btn btn-primary rounded-circle position-absolute top-50 start-50 translate-middle p-2">
+                        <i data-feather="play"></i>
+                    </a>
+
+                    {# {% if tutorial not in app.user.tutorials %}
+                    <a href="{{ path ('add_favori', {id:tutorial.id }) }}" class="btn btn-light rounded-circle position-absolute bottom-0 end-0 p-1 m-2">
+                    <i data-feather="heart" class="text-danger"></i>
+                    </a>
+                    {% else %}
+                    <a href="{{ path ('remove_tutorial', {id:tutorial.id }) }}" class="btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2">
+                    <i data-feather="heart" class="text-light"></i>
+                    </a>
+                    {% endif %} #}
+
+                </div>                
+
+                <div class="card-body text-center">
+                    <a href="{{ path ('app_tutorial_show', {tutoSlug:tutorial.tutoSlug }) }}" class="btn btn-primary">{{tutorial.tutoName}}</a>
+                    <p class="card-text">{{tutorial.tutoDescription}}</p>
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+    </div>
+
+{% else %}
+
+    <p class="text-center">
+    Aucun tutoriel trouvé pour cette catégorie.
+    <br>
+    <a href="{{ path ('app_category') }}" class="btn btn-primary mt-3">Explorer d'autres catégories</a>
+    </p>
+
+{% endif %} 
+
+
+{% endblock %}
