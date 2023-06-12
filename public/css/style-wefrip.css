@@ -3,6 +3,7 @@ font-family: 'Red Hat Display', sans-serif; */
 
 body {
     font-family: 'Red Hat Display', sans-serif;
+    background-color: #F7F3F3;
 }
 
 a {
@@ -17,20 +18,25 @@ nav .avatarProfil {
     width:40px;
 }
 
-footer .media {
+footer .media, .profilUser button {
     background-color: #D98E04;
     cursor:pointer;
 }
 
-footer .media:hover {
+footer .media:hover, .profilUser button:hover {
     background-color: #375CA6;
+    color:#F7F3F3;
 }
 
-
 /* CSS pour le profil */
+.profilUser {
+    background-color: #E1C9B3;
+}
+
 .profilUser .avatarProfil {
     width:100px;
 }
+
 
 /* CSS pour le home */
 .accueil h1, .accueil h2 {
@@ -40,3 +46,4 @@ footer .media:hover {
 .concept{
     font-size: 18px;
 }
+

@@ -2,9 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}WeFrip'{% endblock %}</title>
+        <title>{% block title %}Bienvenue sur WeFrip'{% endblock %}</title>
         <link rel="shortcut icon" href="/img/wefripLogo.png" type="image/x-icon">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
         {# Links pour les fonts #}
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,22 +49,20 @@
                 {% if app.user is not null %}
                 <li class="nav-item">
                     <a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_profil') }}">
-                    {# {% if user.avatarName is not null %}
+                    {% if app.user.avatarName is not null %}
                     <img src="{{user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil"> 
-                    {% else %} #}
-                    <img src="/img/user-noavatar.jpg" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
-                    {# {% endif %} #}
+                    {% else %}
+                    <img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+                    {% endif %}
                     Mon profil
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i data-feather="log-out"></i></a>
-                    {# Mettre lien pour logout #}
+                    <a class="nav-link" href="{{ path('app_logout') }}"><i data-feather="log-out"></i></a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link d-flex flex-column align-items-center py-2" href="#">
-                    {# Mettre lien pour login #}
+                    <a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_login') }}">
                     <i data-feather="user"></i>
                     Se connecter<br>ou s'inscrire
                     </a>
