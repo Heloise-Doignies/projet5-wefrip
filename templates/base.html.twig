@@ -12,8 +12,6 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         {# Link pour Leaflet (map) #}
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-        <link href="{{asset('css/style.css')}}" type="text/css" rel="stylesheet">
-
         {# Link pour le css de WeFrip #}
         <link rel="stylesheet" href="/css/style-wefrip.css">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -81,7 +79,7 @@
 
 
 <main class="content">
-    <div class="container my-3">
+    <div class="container m-auto">
         {% block body %}{% endblock %}
     </div>
 </main>

@@ -2,31 +2,44 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Event;
+use App\Repository\EventRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MapController extends AbstractController
 {
     #[Route("/map", name: "app_map")]
-    public function index(): Response
+    public function index(EventRepository $eventRepository): Response
     {
-        $latitude = 48.85;
-        $longitude = 2.349903;
-        $popupContent = "";
-        $zoom = 19;
-        $markers = [
-            ["lat" => 48.85, "lng" => 2.349903, "ok" => "contenue"],
-/*             ["lat" => 48.862395726039516, "lng" => 2.399574555185428, "popupContent" => 'cacacacaca'], */
-        ];
-
-        return $this->render("map/index.html.twig", [
-            "controller_name" => "WeFrip'",
-            "latitude" => $latitude,
-            "longitude" => $longitude,
-            "popupContent" => $popupContent,
-            "zoom" => $zoom,
-            "markers" => $markers,
+        //Affichage des events (markers) déjà enregistrés
+        $events = $eventRepository->findAll();
+        return $this->render('map/index.html.twig', [
+            'events'=> $events,
         ]);
     }
-}
+
+    #[Route("/map_newEvent", name: "create_newEvent", methods: ['GET', 'POST'])]
+    public function newEvent(Request $request, EventRepository $eventRepository): Response
+    {
+        //Création d'un nouvel événement par les utilisateurs
+            $event = new Event();
+            $form = $this->createForm(EventType::class, $event);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                //On enregistre dans la base de données
+                $eventRepository->save($event, true);
+                //On redirige l'utilisateur vers la map
+                return $this->redirectToRoute('app_map', [], Response::HTTP_SEE_OTHER);
+            }
+    
+            return $this->renderForm('map/new.html.twig', [
+                'event' => $event,
+                'form' => $form,
+            ]);
+        }
+
+    }
