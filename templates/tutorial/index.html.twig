@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Les tutoriels pour transformer vos vêtements{% endblock %}
+{% block title %}Les tutoriels{% endblock %}
 {% block body %}
     <h1 class="text-center">Les tutoriels pour transformer vos vêtements</h1>
     <div class="d-flex justify-content-around">
@@ -15,9 +15,9 @@
                 <div class="card h-100">
                     <div class="position-relative">
                         {% if tutorial.tutoVideoName is defined and tutorial.tutoImageName is not null %}
-                            <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top" alt="tutorial.tutoName">
+                            <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top img-fluid" alt="tutorial.tutoName">
                         {% else %}
-                            <img src="{{ asset('/img/imageTuto/tuto-noimage.png') }}" class="card-img-top" alt="image par défaut">
+                        <img src="{{ asset('/img/imageTuto/tuto-noimage.png') }}" class="card-img-top img-fluid" alt="image par défaut">
                         {% endif %}
                         <a href="{{ path('app_home', { id: tutorial.id }) }}" class="mt-3 btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
                             <i data-feather="heart"></i>

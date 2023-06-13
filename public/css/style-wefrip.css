@@ -47,3 +47,14 @@ footer .media:hover, .profilUser button:hover {
     font-size: 18px;
 }
 
+
+/*CSS pour la map*/
+#maCarte{
+    width: 100%;
+    height: 500px;
+}
+
+#eventInfo {
+    height:500px;
+    overflow-y: auto;
+}
