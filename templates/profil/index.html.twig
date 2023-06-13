@@ -21,23 +21,23 @@
                 <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
 
                     <ul class="list">
-                        <li class="list-group-item p-1">Email : {{user.email}}</li>
+                        <li class="list-group-item p-1">Email : {{app.user.email}}</li>
                         <li class="list-group-item p-1">Pseudo : 
-                        {% if user.pseudo is not null %}
+                        {% if app.user.pseudo is not null %}
                         {{user.pseudo}}
                         {% else %}
                         Non-renseigné
                         {% endif %}
                         </li>
                         <li class="list-group-item p-1">Prénom : 
-                        {% if user.firstname is not null %}
+                        {% if app.user.firstname is not null %}
                         {{user.firstname}}
                         {% else %}
                         Non-renseigné
                         {% endif %}
                         </li>
                         <li class="list-group-item p-1">Nom de famille : 
-                        {% if user.lastname is not null %}
+                        {% if app.user.lastname is not null %}
                         {{user.lastname}}
                         {% else %}
                         Non-renseigné
@@ -47,19 +47,23 @@
                     </ul>
 
                     <div>
-                    {% if user.avatarName is not null %}
+                    {% if app.user.avatarName is not null %}
                     <img src="{{user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil"> 
                     {% else %}
                     <img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
                     {% endif %}
                     </div>
-
                 </div>
 
-            <a href="{{ path('app_profil_edit') }}"><button class="btn">Modifier mes informations</button></a>
-        </div>
-
+          </div>
+  {# On affiche le formulaire #}
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <a href="{{ path('app_profil_edit') }}"><button type="submit" class="btn btn-primary">Modifier mes informations</button></a>
+            
     </div>
+
+ </div>
     {# Fin de la zone "mon profil" #}
 
     {# Début de la zone "mes événements" #}

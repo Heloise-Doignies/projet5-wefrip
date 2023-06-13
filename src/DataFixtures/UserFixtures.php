@@ -23,8 +23,8 @@ class UserFixtures extends Fixture
         $user->setEmail('user@user.com');
         $user->setUserSlug('user-user');
         $user->setPassword($this->encoder->hashPassword($user, 'password'));
-        $user->setRoles(['ROLE_USER']);
-        // $user->setIsVerified(true);
+        //$user->setRoles(['ROLE_USER']);
+        $user->setIsVerified(true);
         $manager->persist($user);
 
         $user = new User();
@@ -32,7 +32,7 @@ class UserFixtures extends Fixture
         $user->setUserSlug('admin-admin');
         $user->setPassword($this->encoder->hashPassword($user, 'admin'));
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-        // $user->setIsVerified(true);
+        $user->setIsVerified(true);
         $manager->persist($user);
 
         $manager->flush();

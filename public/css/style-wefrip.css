@@ -47,3 +47,7 @@ footer .media:hover, .profilUser button:hover {
     font-size: 18px;
 }
 
+/* css pour l'inscription */
+#register-container{
+    background-color: #D98E04;
+}

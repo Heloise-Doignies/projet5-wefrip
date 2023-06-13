@@ -3,11 +3,12 @@
 namespace App\Form;
 
 use App\Entity\User;
+use DateTimeImmutable;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use DateTimeImmutable;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserType extends AbstractType
 {
@@ -15,13 +16,15 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
-            ->add('password')
+            //->add('roles')
+            ->add('plainPassword',PasswordType::class,[
+                'mapped'=>false,
+            ])
             ->add('pseudo')
             ->add('avatarName')
             ->add('lastname')
             ->add('firstname')
-            //->add('userSlug')
+            ->add('userSlug')
             ->add('userUpdatedAt', DateTimeType::class, [
                 'widget'=>'single_text',
                 'data'=>new DateTimeImmutable(),
