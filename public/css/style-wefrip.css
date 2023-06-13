@@ -48,6 +48,11 @@ footer .media:hover, .profilUser button:hover {
 }
 
 
+/* css pour l'inscription */
+#register-container{
+    background-color: #D98E04;
+
+
 /*CSS pour la map*/
 #maCarte{
     width: 100%;
