@@ -19,8 +19,8 @@ class Event
     #[ORM\Column(length: 255)]
     private ?string $eventName = null;
 
-    #[ORM\Column]
-    private ?\DateInterval $eventDate = null;
+    #[ORM\Column (nullable: true)] //Modif pour test : en nullable true
+    private ?\DateTime $eventDate = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $eventDescription = null;
@@ -44,15 +44,15 @@ class Event
     private Collection $userParticipant;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)] //Modif pour test
     private ?UserCreator $userCreator = null;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)] //Modif pour test
     private ?TypeEvent $typeEvent = null;
 
     #[ORM\OneToOne(inversedBy: 'event', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)] //Modif pour test
     private ?InfoLocation $infosLocation = null;
 
     public function __construct()
@@ -77,12 +77,12 @@ class Event
         return $this;
     }
 
-    public function getEventDate(): ?\DateInterval
+    public function getEventDate(): ?\DateTime
     {
         return $this->eventDate;
     }
 
-    public function setEventDate(\DateInterval $eventDate): static
+    public function setEventDate(\DateTime $eventDate): static
     {
         $this->eventDate = $eventDate;
 
