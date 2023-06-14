@@ -24,11 +24,11 @@ class UserType extends AbstractType
             ->add('avatarName')
             ->add('lastname')
             ->add('firstname')
-            ->add('userSlug')
-            ->add('userUpdatedAt', DateTimeType::class, [
-                'widget'=>'single_text',
-                'data'=>new DateTimeImmutable(),
-            ])
+            //->add('userSlug')
+            // ->add('userUpdatedAt', DateTimeType::class, [
+            //     'widget'=>'single_text',
+            //     'data'=>new DateTimeImmutable(),
+            // ])
             ->add('favoris')
             ->add('userCreator')
             ->add('participantEvent')

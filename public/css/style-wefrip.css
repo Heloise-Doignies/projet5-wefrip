@@ -70,10 +70,21 @@ footer .media:hover, .profilUser button:hover {
 .images-tuto {
     height: 260px;
     object-fit: cover;
+}
 
 /* css pour l'inscription */
 #register-container{
-    background-color: #D98E04;
+    background-color: pink;
+}
+
+h1{
+    font-family: "Pacifico";
+}
+
+
+#login-inscrire a{
+    text-decoration: underline;
+    color: #375CA6;
 }
 
 /*CSS pour la map*/
