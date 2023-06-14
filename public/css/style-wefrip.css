@@ -8,6 +8,7 @@ body {
 
 a {
     color: inherit;
+    text-decoration: none;
 }
 
 nav .logoWeFrip {
@@ -16,6 +17,10 @@ nav .logoWeFrip {
 
 nav .avatarProfil {
     width:40px;
+}
+
+.bg-cardBanner{
+    background-color: #f7f3f3;
 }
 
 footer .media, .profilUser button {
@@ -47,6 +52,24 @@ footer .media:hover, .profilUser button:hover {
     font-size: 18px;
 }
 
+
+/* .title-tuto{
+    color: #e2e6eb;
+} */
+
+.carte-interactive{
+    height: 96px;
+}
+
+/* couleur des favoris #dc3545 */
+.title-tuto:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.images-tuto {
+    height: 260px;
+    object-fit: cover;
 
 /* css pour l'inscription */
 #register-container{
