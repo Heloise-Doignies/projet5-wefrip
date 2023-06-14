@@ -94,6 +94,10 @@ h1{
     z-index:0;
 }
 
+#zoneMaCarte {
+    z-index:0;
+}
+
 #eventInfo {
     height:500px;
 }
