@@ -20,30 +20,35 @@ class CategoryFixtures extends Fixture
 
         $category = new Category();
         $category->setCategoryName('Customisation');
+        $category->setCategoryImageName('customisation.jpg');
         $category->setCategorySlug('customisation');
         $manager->persist($category);
         $this->addReference(self::CUSTOMISATION, $category);
 
         $category = new Category();
         $category->setCategoryName('Couture');
+        $category->setCategoryImageName('couture.jpg');
         $category->setCategorySlug('couture');
         $manager->persist($category);
         $this->addReference(self::COUTURE, $category);
 
         $category = new Category();
         $category->setCategoryName('Réparation');
+        $category->setCategoryImageName('Réparation.jpg');
         $category->setCategorySlug('reparation');
         $manager->persist($category);
         $this->addReference(self::REPARATION, $category);
 
         $category = new Category();
         $category->setCategoryName('Teinture');
+        $category->setCategoryImageName('Teinture.jpg');
         $category->setCategorySlug('teinture');
         $manager->persist($category);
         $this->addReference(self::TEINTURE, $category);
 
         $category = new Category();
         $category->setCategoryName('Accessoires');
+        $category->setCategoryImageName('Accessoires.jpg');
         $category->setCategorySlug('accessoires');
         $manager->persist($category);
         $this->addReference(self::ACCESSOIRES, $category);

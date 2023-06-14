@@ -70,7 +70,7 @@ footer .media:hover, .profilUser button:hover {
 .images-tuto {
     height: 260px;
     object-fit: cover;
-
+}
 /* css pour l'inscription */
 #register-container{
     background-color: #D98E04;
