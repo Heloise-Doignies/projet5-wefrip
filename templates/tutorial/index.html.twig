@@ -4,10 +4,10 @@
     <h1 class="text-center mx-auto my-5 pt-4">Les tutoriels pour transformer vos vêtements</h1>
     <div class="d-flex justify-content-around">
         <a href="#">
-            <button type="submit" class="btn btn-primary m-5">Les plus récents</button>
+            <button type="submit" class="btn btn-primary  btn-lg m-5">Les plus récents</button>
         </a>
         <a href="{{ path('app_category') }}">
-            <button type="submit" class="btn btn-primary m-5">Voir les catégories</button>
+            <button type="submit" class="btn btn-primary btn-lg m-5 ">Voir les catégories</button>
         </a>
     </div>
     {# On affiche toutes les vidéos avec une boucle #}
@@ -26,13 +26,13 @@
                         </a>
                     </div>
                     <a href="{{ path('app_tutorial_show', { tutoSlug: tutorial.tutoSlug }) }}">
-                        <div class="m-2">
+                        <div class="m-3 p-5">
                             <h2 class="title-tuto">{{ tutorial.tutoName }}</h2>
                             <p>{{ tutorial.tutoDescription }}</p>
                         </div>
                     </a>
-                    <div class="position-absolute bottom-0 m-2">
-                        <button type="submit" class="btn btn-primary">Catégorie</button>
+                    <div class="d-flex gap-5 position-absolute bottom-0 m-4 p-3">
+                        <button type="submit" class="btn btn-primary ">Catégorie</button>
                         <button type="submit" class="btn btn-warning">{{ tutorial.tutoSupportType }}</button>
                     </div>
                 </div>
