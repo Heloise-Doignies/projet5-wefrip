@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class EventType extends AbstractType
 {
@@ -23,21 +24,24 @@ class EventType extends AbstractType
             ->add('eventName', TextType::class, [
                 'label'=>"Nom de l'événement",
             ])
-            ->add('eventDate', DateIntervalType::class, [
+            ->add('eventDate', DateTimeType::class, [
                 'widget' => 'single_text',
                 'label' => 'Organisé le',
             ])
             ->add('eventDescription', CKEditorType::class, [
                 'label'=>"Description de l'événement",
+                'config' => [
+                    'removePlugins' => 'exportpdf',
+                ],
             ])
             ->add('eventImageName', FileType::class,[
                 'required' => false,
                 'label' => 'Image de l\'événement',
                 ])
-            //->add('coordinateLat')
-            //->add('coordinateLng')
-            //->add('eventSlug')
-            ->add('eventUpdatedAt', DateTimeType::class, [
+            ->add('coordinateLat', HiddenType::class)
+            ->add('coordinateLng', HiddenType::class)
+            ->remove('eventSlug')
+            ->remove('eventUpdatedAt', DateTimeType::class, [
                 'widget'=>'single_text',
                 'data'=>new \DateTimeImmutable(),
                 'label' => 'Ajouté le :',

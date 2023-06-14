@@ -6,9 +6,32 @@
     <a href="{{ path('app_map') }}" class="btn btn-primary mb-3"><i class="align-middle" data-feather="skip-back"></i></a>
     <h1>Créer un nouvel événement</h1>
 
+{# Formulaire repris du modèle de l'admin (new event) #}
     {{ form_start(form) }}
+
+    {# Ajout de ces deux éléments pour gérer les coordonnées #}
+    {{ form_row(form.coordinateLat) }}
+    {{ form_row(form.coordinateLng) }}
+
     {{ form_widget(form) }}
     <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
     {{ form_end(form) }}
+
+<script>
+    //Fonction pour créer des marqueurs
+    carte.on ('click', function addNewMarker(e) {
+        //On récupère la lat et lng du point cliqué
+        var eventLat = e.latlng.lat;
+        var eventLng = e.latlng.lng;
+        var laModale = document.querySelector('#laModale');
+        laModale.showModal();
+
+
+        //On attribue la lat et la lng aux éléments du formulaire
+        document.getElementById('form_coordinateLat').value = eventLat;
+        document.getElementById('form_coordinateLng').value = eventLng;
+    
+    })
+</script>
 
 {% endblock %}

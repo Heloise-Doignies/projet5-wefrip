@@ -23,6 +23,9 @@ class TutorialType extends AbstractType
                 ])
             ->add('tutoDescription', CKEditorType::class, [
                 'label'=>'Description',
+                'config' => [
+                    'removePlugins' => 'exportpdf',
+                ],
                 ])
             ->add('tutoFileName', FileType::class,[
                 'required' => false,

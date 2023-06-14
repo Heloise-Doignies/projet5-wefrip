@@ -1,0 +1,7 @@
+#Fichier créé à la main pour le ckeditor
+# config/packages/fos_ck_editor.yaml
+fos_ck_editor:
+    configs:
+        my_config:
+            toolbar: basic
+
