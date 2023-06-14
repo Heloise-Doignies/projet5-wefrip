@@ -43,9 +43,9 @@
     // On initialise la map
     var carte = L.map('maCarte').setView([48.866667, 2.333333], 12);
     // On charge des tuiles (on pourra changer ici le fond de la carte)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
         // Lien vers la source des données
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
         minZoom: 1,
         maxZoom: 18,
     }).addTo(carte);
