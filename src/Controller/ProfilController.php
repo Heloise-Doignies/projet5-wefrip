@@ -19,15 +19,15 @@ class ProfilController extends AbstractController
        //On récupère les informations du profil de l'utilisateur
         $user = $this->getUser();
        // on crée un formulaire avec les données de l'utilisateur
-         $form = $this->createForm(UserType::class, $user);
-         $form->handleRequest($request);
-         if($form->isSubmitted() && $form->isValid()){
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
         // on vérifie si l'utilisateur a changé de mdp
-             if(!is_null($request->request->get('plainPassword'))){
+            if(!is_null($request->request->get('plainPassword'))){
         // on encode le nouveau mdp et on l'affecte au user
-         $password = $encoder->hashPassword($user, $request->request->get('plainPassword'));
-          $user->setPassword($password);
-     }
+        $password = $encoder->hashPassword($user, $request->request->get('plainPassword'));
+        $user->setPassword($password);
+    }
         // on met en place un message flash
         $this->addFlash('success', 'Votre profil a bien été ajouté');
         // on enregistre les modifications
