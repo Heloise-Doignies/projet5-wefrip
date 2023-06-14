@@ -28,8 +28,8 @@
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Pesudo</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="choisi un pesudo">
+<label for="exampleFormControlInput1" class="form-label">Pesudo</label>
+<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="choisi un pesudo">
 </div>
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
@@ -47,7 +47,7 @@
 
     {{ form_end(registrationForm)}} #}
         <button type="submit" class="btn btn-primary d-grid gap-2 col-6 mx-auto">M'inscrire</button>
-   <div id="login-inscrire">
+<div id="login-inscrire">
         <p>Déjà un compte ? <a href= "{{path('app_login')}}">Connecte-toi.</a></p>
     </div>
 </div>
