@@ -15,11 +15,9 @@
 <div class="tab-content my-3" id="nav-tabContent">
     {# Début de la zone "mon profil" #}
     <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">
-    
         <div class="container text-center profilUser p-3 rounded">
             <h2>Mes informations</h2>
                 <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
-
                     <ul class="list">
                         <li class="list-group-item p-1">Email : {{app.user.email}}</li>
                         <li class="list-group-item p-1">Pseudo : 
@@ -55,15 +53,13 @@
                     </div>
                 </div>
 
-          </div>
-  {# On affiche le formulaire #}
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <a href="{{ path('app_profil_edit') }}"><button type="submit" class="btn btn-primary">Modifier mes informations</button></a>
-            
-    </div>
-
- </div>
+        </div>
+        {# On affiche le formulaire #}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <a href="{{ path('app_profil_edit') }}"><button type="submit" class="btn btn-primary">Modifier mes informations</button></a>
+        </div>
+</div>
     {# Fin de la zone "mon profil" #}
 
     {# Début de la zone "mes événements" #}

@@ -14,8 +14,8 @@
     <h1>Utilisateurs</h1>
     <a href="{{ path('app_admin_user_new') }}" class="btn btn-primary"><i class="align-middle" data-feather="file-plus"></i></a>
 </div>
-    <table class="table">
-        <thead>
+    <table class="table-responsive table-striped table-hover">
+        <thead class="table-primary">
             <tr>
                 <th>Id</th>
                 <th>Email</th>
@@ -55,5 +55,4 @@
         {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}
