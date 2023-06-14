@@ -4,45 +4,52 @@
 {% endblock %}
 
 {% block body %}
-
-	<div class="accueil container">
-		<div class="row">
-			<h1 class="d-flex justify-content-center col-12">Bienvenue sur WeFrip'</h1>
-			<div class="d-flex align-items-center py-5 ml-2">
-				<div class="d-flex col-6 mr-4 concept">
-					Chez nous, les vêtements prennent une seconde vie,
-					<br>
-					transformés avec amour et créativité.
-					<br>
-					Chaque pièce raconte une histoire unique, mêlant style,
-					<br>
-					durabilité et conscience écologique.
-					<br>Rejoignez-nous dans notre voyage pour une mode plus
-					<br>responsable, où la beauté se marie à la réduction des déchets.
-					<br>
-					Ensemble, réinventons la mode, une couture à la fois.</div>
-				<div class="col-6"><img src="{{ asset('img/imageHome/schemawefrip.png') }}" alt="schema" class="img-fluid"></div>
+	<div class="row d-flex align-items-center">
+		<h1 class="card-title text-center m-5">Bienvenue sur WeFrip'</h1>
+		<div class="col-sm-6">
+			<div class="card border-0">
+				<div class="card-body bg-cardBanner">
+					<p class="card-text">Chez nous, les vêtements prennent une seconde vie,
+					transformés avec amour et créativité.</p>
+					<p class="card-text">Chaque pièce raconte une histoire unique, mêlant style,
+					durabilité et conscience écologique.</p>
+					<p class="card-text">Rejoignez-nous dans notre voyage pour une mode plus
+					responsable, où la beauté se marie à la réduction des déchets.</p>
+					<p class="card-text">Ensemble, réinventons la mode, une couture à la fois.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="card border-0">
+				<div class="card-body bg-cardBanner">
+					<img src="{{ asset('img/imageHome/schemawefrip.png') }}" alt="schema" class="img-fluid">
+				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="accueil col-12 d-flex justify-content-center py-4 gap-3">
-		<div class="card">
-			<img src="{{ asset('img/imageEvent/videdressing.jpg') }}" class="evenement" alt="...">
+		<div class="card card-img-top">
+			<img src="{{ asset('img/imageEvent/videdressing.jpg') }}" class="evenement rounded-right rounded-top" alt="...">
 			<div class="card-body">
-				<h1 class="card-title">Carte interactive</h1>
-				<p class="card-text">Explorez notre carte interactive pour dénicher des trésors uniques au sein des vide-dressings entre particuliers. Une mode responsable et authentique à portée de clic !
+				<h1 class="card-title"> Carte interactive </h1>
+				<p class="card-text carte-interactive">Explorez notre carte interactive pour dénicher des trésors uniques au sein des vide-dressings entre particuliers. Une mode responsable et authentique à portée de clic !
 				</p>
-				<a href="{{ path('app_map', { }) }}" class="btn btn-primary d-grid gap-2 col-6 mx-auto">Découvrir la carte</a>
+				<button class="btn btn-primary d-grid gap-2 col-6 mx-auto">
+					<a href="{{ path('app_map', { }) }}">Découvrir la carte</a>
+				</button>
 			</div>
 		</div>
-
-		<div class="card">
-			<img src="{{ asset('img/imageTuto/fixtImage1.jpg') }}" class="evenement2" alt="...">
+		<div class="card card-img-top">
+			<img src="{{ asset('img/imageTuto/fixtImage1.jpg') }}" class="evenement rounded-right rounded-top" alt="...">
 			<div class="card-body">
-				<h2 class="card-title-home">Tutoriels upcycling</h5>
+				<h1 class="card-title-home"> Tutoriels upcycling </h1>
 				<p class="card-text">Développez votre créativité et maîtrisez l'art de la couture avec nos tutorials de vêtements. Du débutant passionné à l'expert en quête d'inspiration, découvrez des instructions simples et des astuces pratiques pour donner vie à vos propres pièces uniques, à la fois stylées et durables.</p>
-				<a href="{{ path('app_tutorial', { }) }}" class="btn btn-primary d-grid gap-2 col-6 mx-auto" style="justify-content:center">Explorer les tutoriels</a>
+				<button class="btn btn-primary d-grid gap-2 col-6 mx-auto" >
+				<a href="{{ path('app_tutorial', { }) }}" style="justify-content:center">Explorer les tutoriels</a>
+				</button>
 			</div>
 		</div>
 	</div>
+
 {% endblock %}

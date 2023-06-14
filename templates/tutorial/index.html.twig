@@ -1,35 +1,39 @@
 {% extends 'base.html.twig' %}
-{% block title %}Les tutoriels pour transformer vos vêtements{% endblock %}
+{% block title %}Les tutoriels{% endblock %}
 {% block body %}
-    <h1 class="text-center">Les tutoriels pour transformer vos vêtements</h1>
+    <h1 class="text-center mx-auto my-5 pt-4">Les tutoriels pour transformer vos vêtements</h1>
     <div class="d-flex justify-content-around">
-        <button type="submit" class="btn btn-primary m-3">Les plus récents</button>
+        <a href="#">
+            <button type="submit" class="btn btn-primary m-5">Les plus récents</button>
+        </a>
         <a href="{{ path('app_category') }}">
-            <button type="submit" class="btn btn-primary m-3">Voir les catégories</button>
+            <button type="submit" class="btn btn-primary m-5">Voir les catégories</button>
         </a>
     </div>
     {# On affiche toutes les vidéos avec une boucle #}
-    <div class="row">
+    <div class="row mt-5">
         {% for tutorial in tutorials %}
             <div class="col-4 mb-3">
-                <div class="card h-100">
+                <div class="card h-100 position-relative">
                     <div class="position-relative">
                         {% if tutorial.tutoVideoName is defined and tutorial.tutoImageName is not null %}
-                            <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top" alt="tutorial.tutoName">
+                            <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top images-tuto" alt="tutorial.tutoName">
                         {% else %}
-                            <img src="{{ asset('/img/imageTuto/tuto-noimage.png') }}" class="card-img-top" alt="image par défaut">
+                            <img src="{{ asset('/img/imageTuto/tuto-noimage.png') }}" class="card-img-top images-tuto" alt="image par défaut">
                         {% endif %}
                         <a href="{{ path('app_home', { id: tutorial.id }) }}" class="mt-3 btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
                             <i data-feather="heart"></i>
                         </a>
                     </div>
-                    <div class="card-body">
-                        <a href="{{ path('app_tutorial_show', { tutoSlug: tutorial.tutoSlug }) }}" class="btn btn-primary">{{ tutorial.tutoName }}</a>
-                        <p>{{ tutorial.tutoDescription }}</p>
-                        <div class="d-flex justify-content-around">
-                            <button type="submit" class="btn btn-primary">Catégorie</button>
-                            <button type="submit" class="btn btn-warning">{{ tutorial.tutoSupportType }}</button>
+                    <a href="{{ path('app_tutorial_show', { tutoSlug: tutorial.tutoSlug }) }}">
+                        <div class="m-2">
+                            <h2 class="title-tuto">{{ tutorial.tutoName }}</h2>
+                            <p>{{ tutorial.tutoDescription }}</p>
                         </div>
+                    </a>
+                    <div class="position-absolute bottom-0 m-2">
+                        <button type="submit" class="btn btn-primary">Catégorie</button>
+                        <button type="submit" class="btn btn-warning">{{ tutorial.tutoSupportType }}</button>
                     </div>
                 </div>
             </div>
