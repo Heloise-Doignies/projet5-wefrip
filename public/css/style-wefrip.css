@@ -70,6 +70,7 @@ footer .media:hover, .profilUser button:hover {
 .images-tuto {
     height: 260px;
     object-fit: cover;
+}
 
 /* css pour l'inscription */
 #register-container{
@@ -80,9 +81,14 @@ footer .media:hover, .profilUser button:hover {
 #maCarte{
     width: 100%;
     height: 500px;
+    z-index:0;
 }
 
 #eventInfo {
     height:500px;
-    overflow-y: auto;
+}
+
+#maModale {
+    display:none;
+    z-index:10;
 }
