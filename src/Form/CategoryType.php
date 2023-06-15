@@ -34,6 +34,10 @@ class CategoryType extends AbstractType
                     "id"=>"select2-tutorials",
                 ]
             ])
+            ->add('categoryImageName', FileType::class,[
+                'required' => false,
+                'label' => 'Image de la catégorie',
+                ])
         ;
     }
 

@@ -6,45 +6,54 @@
 {# Code HTML pour la carte et les fonctionnalités #}
 <h1 class="text-center">Tous les événements près de chez vous</h1>
     
-<div id="zoneCarteEvent" class="container d-flex flex-row w-100 my-3 align-items-center justify-content-center">
+<div id="zoneCarteEvent" class="container d-flex flex-row w-100 my-3 align-items-center justify-content-center position-relative">
     {# Affichage de la carte #}
     <div id="zoneCarte" class="col-md-12">
         <div id="maCarte" class="m-0 rounded border"></div> 
     </div>
 </div>
-{# On crée le formulaire pour ajouter un marqueur #}
-    {# <form action="{{ path('create_newEvent') }}" method="post">
-        <label for="latitude">Latitude :</label>
-        <input type="text" id="latitude" name="latitude" required><br>
 
-        <label for="longitude">Longitude :</label>
-        <input type="text" id="longitude" name="longitude" required><br>
+<div id="maModale" class="h-75 w-75 m-3 position-absolute top-0 start-0">
+    <div class="h-100 w-75 text-center mt-5 p-3 d-flex align-items-center flex-column rounded border overflow-auto bg-light shadow">
+        {# Formulaire repris du modèle de l'admin (new event) #}
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <div></div>
+            <h3>Ajouter un événement</h3>
+            <button id="btnClose" type="button" class="btn-close" aria-label="Close"></button>
+        </div>
 
-        <label for="title">Titre :</label>
-        <input type="text" id="title" name="title" required><br>
+        {{ form_start(form) }}
 
-        <button type="submit">Ajouter le marqueur</button>
-    </form> #}
+        {# Ajout de ces deux éléments pour gérer les coordonnées #}
+        {{ form_row(form.coordinateLat) }}
+        {{ form_row(form.coordinateLng) }}
+
+        {{ form_widget(form) }}
+        <button class="btn btn-success" id="btnSend">{{ button_label|default('Enregistrer') }}</button>
+        {{ form_end(form) }}
+    </div>
+</div>
 
 
 {# Script pour la carte #}
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> {#script à mettre avant l'import de la carte#}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> 
+{#script à mettre avant l'import de la carte#}
 
 <script>
-// On initialise la map
-var carte = L.map('maCarte').setView([48.866667, 2.333333], 12);
-// On charge des tuiles (on pourra changer ici le fond de la carte)
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    // Lien vers la source des données
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-    minZoom: 1,
-    maxZoom: 18,
-}).addTo(carte);
+    // On initialise la map
+    var carte = L.map('maCarte').setView([48.866667, 2.333333], 12);
+    // On charge des tuiles (on pourra changer ici le fond de la carte)
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
+        // Lien vers la source des données
+        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        minZoom: 1,
+        maxZoom: 18,
+    }).addTo(carte);
 
-//On initialise les icones avec des filtres pour atelier et événement
-//A FAIRE
+    //On initialise les icones avec des filtres pour atelier et événement
+    //A FAIRE
 
-//On affiche le contenu au clic sur un marqueur d'événement
+    //On affiche le contenu au clic sur un marqueur d'événement
     function onMarkerClick(e) {
         var marker = e.target;
         // Vérifier si la div d'informations existe déjà
@@ -66,23 +75,38 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
         //Contenu à afficher quand on clique sur un marqueur
         eventInfo.innerHTML = 
-                '<div class="card-body text-center px-3 d-flex align-items-center justify-content-center flex-column h-100 rounded border">' +
-                    '<h5 class="card-title">' + marker.options.eventName + ' - ' + marker.options.userCreator + '</h5>' +
+                '<div class="h-100 card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
+                    '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + ' - ' + marker.options.userCreator + '</h5>' +
                     '<p class="card-text">' + marker.options.typeEvent + '</p>' +
-                    '<p class="card-text">' + marker.options.eventDate + '</p>' +
+                    '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
                     '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
                     '<p class="card-text">Taille(s) disponible(s) : </p>' +
                     '<p class="card-text">Genre(s) : </p>' +
-                    '<a href="#" class="btn btn-warning">Je participe</a>' +
+                    '<a href="#" class="btn btn-warning mb-3">Je participe</a>' +
                 '</div>';
 
-        // Insérer la nouvelle div d'informations dans le conteneur approprié
+        // Insérer la nouvelle div d'informations dans le conteneur approprié (avant celle de la carte)
         var zoneCarteEvent = document.getElementById('zoneCarteEvent');
         zoneCarteEvent.insertBefore(eventInfo, zoneCarteEvent.firstChild);
     }
 
-    //Fonction pour créer des marqueurs
+    var maModale = document.getElementById('maModale');
+    //Fonction pour créer des nouveaux marqueurs
+    carte.on ('click', function(e) {
+        maModale.style.display = 'block';
 
+        //On récupère la lat et lng du point cliqué
+        var eventLat = e.latlng.lat;
+        var eventLng = e.latlng.lng;
+        //On attribue la lat et la lng aux éléments du formulaire
+        document.getElementById('event_coordinateLat').value = eventLat;
+        document.getElementById('event_coordinateLng').value = eventLng;
+    });
+
+    var btnClose = document.getElementById('btnClose');
+    btnClose.addEventListener('click', function(e) {
+        maModale.style.display = 'none';
+    });
 
     //On affiche les marqueurs au chargement de la page
     {% for event in events %}
@@ -91,12 +115,13 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             userCreator: '{{ event.userCreator }}',
             typeEvent: '{{ event.typeEvent }}',
             eventDate: '{{ event.eventDate.format('d/m/Y H:i') }}',
-            eventDescription: '{{ event.eventDescription }}'
+            eventDescription: '{{ event.eventDescription|e('js') }}',
         })
             .addTo(carte)
             .bindPopup("{{ event.eventName }}")
             .on('click', onMarkerClick);
     {% endfor %}
+
 
 </script>
 {% endblock %}

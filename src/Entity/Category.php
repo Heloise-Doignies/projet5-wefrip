@@ -21,11 +21,16 @@ class Category
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $categorySlug = null;
 
+   
+
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $categoryUpdatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Tutorial::class, mappedBy: 'categories')]
     private Collection $tutorials;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $categoryImageName = null;
 
     public function __construct()
     {
@@ -66,6 +71,7 @@ class Category
 
         return $this;
     }
+   
 
     public function getCategoryUpdatedAt(): ?\DateTimeImmutable
     {
@@ -102,6 +108,18 @@ class Category
         if ($this->tutorials->removeElement($tutorial)) {
             $tutorial->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getCategoryImageName(): ?string
+    {
+        return $this->categoryImageName;
+    }
+
+    public function setCategoryImageName(?string $categoryImageName): static
+    {
+        $this->categoryImageName = $categoryImageName;
 
         return $this;
     }

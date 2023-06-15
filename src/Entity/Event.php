@@ -60,6 +60,12 @@ class Event
         $this->userParticipant = new ArrayCollection();
     }
 
+        //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
+    public function __toString(): string
+    {
+        return $this->eventName;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
