@@ -34,6 +34,11 @@ class UserParticipant
         $this->infoLocations = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getId(); // ou toute autre représentation en chaîne de caractères de l'objet
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -20,14 +20,6 @@
     </head>
 
 <body>
-{% for label, messages in app.flashes() %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-
 {# Navbar #}
 <header class="border-bottom">
 <nav class="navbar navbar-expand-lg navbar-light text-center">
@@ -58,12 +50,12 @@
                     {# si l utilisateur est authentifié #}
                     <li class="nav-item">
                         <a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_profil') }}">
-                        {% if app.user.avatarName is not null %}
+                            {% if app.user.avatarName is not null %}
                             <img src="{{user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil"> 
-                            {#{% else %}
+                            {% else %}
                             <img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
-                            Mon profil #}
-                        {% endif %}
+                            {% endif %}
+                            Mon profil
                         </a>
                     </li>
                     <li class="nav-item">
@@ -109,6 +101,15 @@
 </header>
 
 <main class="content">
+
+{% for label, messages in app.flashes() %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
     <div class="container m-auto">
         {% block body %}{% endblock %}
     </div>

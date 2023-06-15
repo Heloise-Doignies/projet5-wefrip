@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\UserParticipant;
 use App\Form\UserType;
+use App\Repository\EventRepository;
 use App\Repository\TutorialRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,30 +20,35 @@ class ProfilController extends AbstractController
     {
        //On récupère les informations du profil de l'utilisateur
         $user = $this->getUser();
+        // Récupérer les événements auxquels l'utilisateur participe
+        $participantEvent = $user->getParticipantEvent();
+
        // on crée un formulaire avec les données de l'utilisateur
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-        // on vérifie si l'utilisateur a changé de mdp
-            if(!is_null($request->request->get('plainPassword'))){
-        // on encode le nouveau mdp et on l'affecte au user
-        $password = $encoder->hashPassword($user, $request->request->get('plainPassword'));
-        $user->setPassword($password);
-    }
-        // on met en place un message flash
-        $this->addFlash('success', 'Votre profil a bien été ajouté');
-        // on enregistre les modifications
-        $em->persist($user);
-        $em->flush();
-        // on redirige vers la home page
-        return $this->redirectToRoute('app_home');
-    }
-       //On rend la page en lui passant les vidéos correspondantes
+            if($form->isSubmitted() && $form->isValid()){
+            // on vérifie si l'utilisateur a changé de mdp
+                if(!is_null($request->request->get('plainPassword'))){
+                    // on encode le nouveau mdp et on l'affecte au user
+                    $password = $encoder->hashPassword($user, $request->request->get('plainPassword'));
+                    $user->setPassword($password);
+                }
+            // on met en place un message flash
+            $this->addFlash('success', 'Votre profil a bien été ajouté');
+            // on enregistre les modifications
+            $em->persist($user);
+            $em->flush();
+            // on redirige vers la home page
+            return $this->redirectToRoute('app_home');
+            }
+       //On rend la page en lui passant les tuto et les événements
         return $this->render('profil/index.html.twig', [
         'form' => $form->createView(),
+        'participantEvent' => $participantEvent, // Pour les événements
         ]); 
     }
 
+    //Route pour modifier les informations du profil
     #[Route('/profil-edit', name: 'app_profil_edit')]
     public function editProfil(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $encoder): Response
     {
@@ -99,4 +106,53 @@ class ProfilController extends AbstractController
     // return $this->redirect($request->headers->get('referer'));
     
     // }
+
+
+
+
+    //Route pour ajouter les événements dans le profil (quand les personnes participent)
+    #[Route('/add-event/{id}', name:'add_event' )]
+    public function addEvent($id, EventRepository $eventRepository, EntityManagerInterface $em, Request $request):Response
+    {
+        // On récupère la video dans la BDD
+    $event = $eventRepository->find($id);
+    // On récupère l'utilisateur
+    $user = $this ->getUser();
+
+    //On crée un nouvel objet UserParticipant
+    $participant = new UserParticipant();
+    $participant -> addEvent($event);
+    $participant -> addUsersId($user);
+    
+    $this->addFlash('success',' L\'événement a bien été ajouté dans votre profil.');
+    //On enregistre les modifications
+    $em->persist($participant);
+    $em->flush();
+    //On reste sur la page où on est
+    return $this->redirect($request->headers->get('referer'));
+    }
+
+    #[Route('/remove-event/{id}', name:'remove_event' )]
+    public function removeEvent($id, EventRepository $eventRepository, EntityManagerInterface $em, Request $request):Response
+    {
+        // On récupère la video dans la BDD
+    $event = $eventRepository->find($id);
+    // On récupère l'utilisateur
+    $user = $this ->getUser();
+    // Rechercher la participation de l'utilisateur à cet événement
+    $participant = $event->getParticipantByUser($user);
+    if ($participant) {
+        //Supprimer l'événement de la liste
+        $participant->removeEvent($event);
+        //Supprimer l'utilisateur de la liste
+        $event->removeUsersId($user);
+        //Enregistrer les modifications
+        $this->addFlash('success',' L\'événement a bien été supprimé de votre profil : vous n\'êtes plus considéré.e comme participant.e.');
+        $em->persist($user);
+        $em->flush();
+    }
+    //On reste sur la page où on est
+    return $this->redirect($request->headers->get('referer'));
+    
+    }
 }

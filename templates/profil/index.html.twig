@@ -68,33 +68,33 @@
         <div class="container text-center profilUser p-3 rounded">
             <h2>Mes inscriptions aux événements</h2>
                 <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
-A venir 
-                {#{% if app.user.events|length > 0 %}
+
+                {% if participantEvent|length > 0 %}
                     <div class="row d-flex justify-content-center">
-                        {% for event in app.user.events %}
-                        <div class="col-12 col-md-4 col-xl-3 mb-3"> 
-                            <div class="card shadow">
-                                <div class="card-body text-center">
-                                    <a href="{{ path ('app_event_show', {eventSlug:event.eventSlug }) }}" class="btn btn-primary">{{event.eventName}}</a>
-                                    <p class="card-text">Date : {{event.eventDate}}</p>
-                                    <p class="card-text">Organisé par : 
-                                    {% if event.userCreator is user.userName %}
-                                    vous ({{event.userCreator}})
-                                    {% else %}
-                                    {{event.userCreator}}
-                                    {% endif %}
-                                    </p>
-                                    <p class="card-text">Informations pratiques : {{event.infosLocation}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %} 
+                        {% for userParticipant in participantEvent %}
+                            {% for event in userParticipant.getEvents() %}
+                                    <div class="card shadow mb-3">
+                                        <div class="card-body text-center ">
+                                            <h3>{{event.eventName}}</h3>
+                                            <p class="card-text">Date : {{event.eventDate.format('d/m/Y H:i') }}</p>
+                                            <p class="card-text">Organisé par : 
+                                            {# {% if event.userCreator is user.userName %}
+                                            vous ({{event.userCreator}})
+                                            {% else %}
+                                            {{event.userCreator}}
+                                            {% endif %} #}
+                                            </p>
+                                            <p class="card-text">Informations pratiques : {{event.infosLocation}}</p>
+                                        </div>
+                                    </div>
+                            {% endfor %}
+                        {% endfor %} 
                     </div>
 
                 {% else %}
                 <p class="text-center">Vous n'avez aucun événement auquel vous participez ou que vous avez créé pour l'instant.</p>
 
-                {% endif %}#}
+                {% endif %}
 
                 </div>
         </div>
