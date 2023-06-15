@@ -9,7 +9,6 @@
 
 		{% for flash_error in app.flashes('verify_email_error') %}
 			<div class="alert alert-danger alert-dismissible" role="alert">{{ flash_error }}
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> ou es tu</button>
 			</div>
 			
 		{% endfor %}
@@ -23,18 +22,20 @@
 	{% else %}
 
 {# py=padding vertical , je mets 2 mais ça peut aller jusqu'à 5#}
-		<div class="container m-auto w-50 my-5 rounded py-2 bg-warning" id="register-container">
+		<div class="container m-auto w-50 my-5 rounded py-2 p-5" id="register-container">
 			<h1>Formulaire d'inscription</h1>
 			{{ form_errors(registrationForm) }}
 
 			{{ form_start(registrationForm) }}
-			{{ form_row(registrationForm.email) }}
+			{{ form_row(registrationForm.email, {
+				label: 'Email*'
+			}) }}
 			<div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label">Pseudo</label>
-				<input type="text" class="form-control" placeholder="choisir un pesudo">
+				<input type="text" class="form-control" placeholder="Choisir un pesudo...">
 			</div>
 			{{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
+            label: 'Mot de passe*'
         }) }}
 			<div class="mb-3">
 				<label for="formFile" class="form-label">Avatar</label>

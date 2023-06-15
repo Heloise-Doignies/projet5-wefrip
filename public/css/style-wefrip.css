@@ -45,7 +45,7 @@ footer .media:hover, .profilUser button:hover {
 
 /* CSS pour le home */
 .accueil h1, .accueil h2 {
-    font-family: 'Chewy';
+    font-family: 'Cherry Bomb One';
 }
 
 .concept{
@@ -74,15 +74,15 @@ footer .media:hover, .profilUser button:hover {
 
 /* css pour l'inscription */
 #register-container{
-    background-color: pink;
+    background-color: #E1C9B3;
 }
 
 h1{
-    font-family: "Pacifico";
+    font-family: "Cherry Bomb One";
 }
 
 
-#login-inscrire a{
+#login-inscrire a, .connecter a{
     text-decoration: underline;
     color: #375CA6;
 }

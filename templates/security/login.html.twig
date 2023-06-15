@@ -6,20 +6,22 @@
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i data-feather="x-octagon"></i></button>
         </div>
     {% endif %}
 
     {% if app.user %}
-        <div class="mb-3">
-            Tu es connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+        <div class="alert alert-success mb-3">
+            Tu es connecté(e) en tant que {{ app.user.userIdentifier }} 
+            <p class="connecter"> <a href="{{ path('app_logout') }}">Déconnexion</a></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     {% endif %}
-<div class="container m-auto w-50 my-5 rounded py-2 bg-warning" id="register-container">
+
+<div class="container m-auto w-50 my-5 rounded py-2 p-5" id="register-container">
     <h1 >Connexion</h1>
-    <label for="inputEmail">Email</label>
+    <label for="inputEmail">Email*</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
+    <label for="inputPassword">Password*</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
