@@ -17,7 +17,7 @@ class TutorialFixtures extends Fixture
         $tutorial -> setTutoImageName('fixtImage1.jpg');
         $tutorial -> setTutoSupportType('Fiche');
         $tutorial -> setTutoSlug('broder-un-tee-shirt');
-        $tutorial -> addCategory($this->getReference(CategoryFixtures::CUSTOMISATION));
+        $tutorial -> addCategory($this->getReference(CategoryFixtures::BRODERIE));
         $manager->persist($tutorial);
 
         $tutorial = new Tutorial();
@@ -47,7 +47,7 @@ class TutorialFixtures extends Fixture
         $tutorial -> setTutoImageName('fixtImage4.jpg');
         $tutorial -> setTutoSupportType('Vidéo');
         $tutorial -> setTutoSlug('tie-and-dye');
-        $tutorial -> addCategory($this->getReference(CategoryFixtures::CUSTOMISATION));
+        $tutorial -> addCategory($this->getReference(CategoryFixtures::BRODERIE));
         $tutorial -> addCategory($this->getReference(CategoryFixtures::TEINTURE));
         $manager->persist($tutorial);
 
