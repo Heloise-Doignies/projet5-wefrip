@@ -11,24 +11,19 @@
 
     </head>
     <body>
-
     <div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="index.html">
-
                 <span class="align-middle">WeFrip' - Admin</span>
                 </a>
 
-
 				<ul class="sidebar-nav">
-					
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="{{ path('app_admin_dashboard') }}">
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                         </a>
 					</li>
-
 
                     <li class="sidebar-header">
 						Pages
@@ -38,14 +33,12 @@
 						<a class="sidebar-link" href="{{ path('app_admin_event_index') }}">
                         <i class="align-middle" data-feather="map-pin"></i> <span class="align-middle">Evénements</span>
                         </a>
-
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="{{ path('app_admin_tutorial_index') }}">
                         <i class="align-middle" data-feather="video"></i> <span class="align-middle">Tutoriels</span>
                         </a>
-
 					</li>
 
 					<li class="sidebar-item">
@@ -59,13 +52,11 @@
                         <i class="align-middle" data-feather="users"></i> <span class="align-middle">Utilisateurs</span>
                         </a>
 					</li>
-
 				</ul>
-
 			</div>
 		</nav>
 
-		<div class="main">
+		<div class="container-fluid bg-white">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
@@ -73,20 +64,24 @@
 
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
-
 						<li class="nav-item dropdown">
 							<a class="nav-link d-none d-sm-inline-block" href="{{ path('app_profil') }}" data-bs-toggle="dropdown">
                                 {{ app.user.userIdentifier }}
                             </a>
 						</li>
-                
-						<li class="nav-item dropdown">
+{# 						<li class="nav-item dropdown">
                             <a class="nav-link d-none d-sm-inline-block" href="{{ path('app_logout') }}" data-bs-toggle="dropdown">
                             <i data-feather="log-out"></i>
                             </a>
+                        </li> #}
+						<li class="nav-item">
+                            {% if app.user('ROLE_ADMIN') %}
+                                {# is l utilisateur est authentifié et est admin #} 
+                                <a href="{{ path('app_logout') }}" class="nav-link d-flex flex-column align-items-center py-2">
+								<i data-feather="log-out"></i>
+								</a>
+                            {% endif %}
                         </li>
-
-
 					</ul>
 				</div>
 			</nav>
@@ -100,7 +95,7 @@
 					<div class="row text-muted">
 						<div class="col-6 text-start">
 							<p class="mb-0">
-								<a class="text-muted" href="#" target="_blank"><strong>WeFrip' - 2023</strong></a>
+								<a class="text-muted" href="#" target="_blank"><strong>WeFrip' - &copy 2023</strong></a>
 							</p>
 						</div>
 						<div class="col-6 text-end">
@@ -116,18 +111,16 @@
 		</div>
 	</div>
 
-
-{# documentation SELECT2 et JQUERY #}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script src="{{ asset('js/app.js') }}"></script>
-        
-			<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-			<script src="{{ asset('js/app.js') }}"></script>
-			{# <script>
-			$(document).ready(function() {
-				$('.select2').select2();
-			});
-			</script> #}
-        {% block javascripts %}{% endblock %}
+	{# documentation SELECT2 et JQUERY #}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<script src="{{ asset('js/app.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script src="{{ asset('js/app.js') }}"></script>
+	{# <script>
+	$(document).ready(function() {
+		$('.select2').select2();
+	});
+	</script> #}
+    {% block javascripts %}{% endblock %}
     </body>
 </html>

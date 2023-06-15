@@ -49,6 +49,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $userUpdatedAt = null;
 
+    /*     #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $registeredAt = null; */
+
     #[ORM\ManyToMany(targetEntity: Favori::class, inversedBy: 'users')]
     private Collection $favoris;
 
@@ -233,6 +236,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+/*     public function $registeredAt(): ?\DateTimeImmutable
+    {
+        return $this->registeredAt;
+    }
+
+    public function setUserUpdatedAt(?\DateTimeImmutable $registeredAt): static
+    {
+        $this->registeredAt = $registeredAt;
+
+        return $this;
+    } */
 
     /**
      * @return Collection<int, Favori>
