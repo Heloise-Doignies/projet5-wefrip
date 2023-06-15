@@ -22,12 +22,12 @@
                         </a>
                     </div>
                     <a href="{{ path('app_tutorial_show', { tutoSlug: tutorial.tutoSlug }) }}">
-                        <div class="m-2">
+                        <div class="m-3 p-5">
                             <h2 class="title-tuto">{{ tutorial.tutoName }}</h2>
                             <p>{{ tutorial.tutoDescription }}</p>
                         </div>
                     </a>
-                    <div class="position-absolute bottom-0 m-2">
+                    <div class="d-flex gap-5 position-absolute bottom-0 m-4 p-3">
                         <button type="submit" class="btn btn-primary">Catégorie</button>
                         <button type="submit" class="btn btn-warning">{{ tutorial.tutoSupportType }}</button>
                     </div>
