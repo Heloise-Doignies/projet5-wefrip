@@ -46,30 +46,28 @@
                     </a>
                 </li>
 
-                {% if app.user is not null %}
+                {% if is_granted('ROLE_USER')%}
                     {# si l utilisateur est authentifié #}
                     <li class="nav-item">
                         <a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_profil') }}">
                         {% if app.user.avatarName is not null %}
                             <img src="{{user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil"> 
-                        {% else %}
+                            {#{% else %}
                             <img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+                            Mon profil #}
                         {% endif %}
-                            Mon profil
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_profil') }}">Mon compte </a>
+                        {# <a class="nav-link" href="{{ path('app_profil') }}">Mon compte </a> #}
                         <a class="nav-link" href="{{ path('app_logout') }}">
                             <i data-feather="log-out">Déconnexion</i>
                         </a>
+                    {# Si l'utilisateur est authentifié et qu'il est admin #}
+                    {#{% elseif is_granted('ROLE_ADMIN')%}
                     </li>
-                    {# redirect to admin page#}
-{#                 {% else if app.user('ROLE_ADMIN') %}
-                    <li>
-                        {# Si l'utilisateur est authentifié et qu'il est admin #}
-{#                         <a class="btn btn-outline-warning" href="{{ path('app_admin_dashboard') }}">admin</a>
-                    </li> #} #}
+                        <a class="btn btn-outline-warning" href="{{ path('app_admin_dashboard') }}">admin</a>
+                    </li>  #}
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
@@ -81,6 +79,24 @@
         </div>
     </div>
 </nav>
+
+{# <ul class="navbar-nav">
+    {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item">
+            <a class="nav-link" href="/admin">Admin</a>
+        </li>
+    {% elseif is_granted('ROLE_UTILISATEUR') %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_profil') }}">Profil</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+            <a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_login') }}">
+            <i data-feather="user"></i>Connexion</a>
+        </li>
+    {% endif %}
+</ul> #}
 </header>
 
 <main class="content">
