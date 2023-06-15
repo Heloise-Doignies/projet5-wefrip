@@ -82,8 +82,12 @@
                     '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
                     '<p class="card-text">Taille(s) disponible(s) : </p>' +
                     '<p class="card-text">Genre(s) : </p>' +
-                    '<a href="#" class="btn btn-warning mb-3">Je participe</a>' +
+                    '<a href="add-event/'+ marker.options.eventId +'" class="btn btn-warning mb-3">Je participe</a>' +
                 '</div>';
+
+            console.log(marker.options.eventName);
+            console.log(marker.options.eventId);
+
 
         // Insérer la nouvelle div d'informations dans le conteneur approprié (avant celle de la carte)
         var zoneCarteEvent = document.getElementById('zoneCarteEvent');
@@ -91,22 +95,27 @@
     }
 
     var maModale = document.getElementById('maModale');
-    //Fonction pour créer des nouveaux marqueurs
-    carte.on ('click', function(e) {
-        maModale.style.display = 'block';
+    //Fonction pour créer des nouveaux marqueurs seulement pour les utilisateurs authentifiés
+    
+    {% if is_granted('ROLE_USER')%}
+        carte.on ('click', function(e) {
+            maModale.style.display = 'block';
 
-        //On récupère la lat et lng du point cliqué
-        var eventLat = e.latlng.lat;
-        var eventLng = e.latlng.lng;
-        //On attribue la lat et la lng aux éléments du formulaire
-        document.getElementById('event_coordinateLat').value = eventLat;
-        document.getElementById('event_coordinateLng').value = eventLng;
-    });
+            //On récupère la lat et lng du point cliqué
+            var eventLat = e.latlng.lat;
+            var eventLng = e.latlng.lng;
+            //On attribue la lat et la lng aux éléments du formulaire
+            document.getElementById('event_coordinateLat').value = eventLat;
+            document.getElementById('event_coordinateLng').value = eventLng;
+        });
+    {% endif %}
+
 
     var btnClose = document.getElementById('btnClose');
     btnClose.addEventListener('click', function(e) {
         maModale.style.display = 'none';
     });
+
 
     //On affiche les marqueurs au chargement de la page
     {% for event in events %}
@@ -116,6 +125,7 @@
             typeEvent: '{{ event.typeEvent }}',
             eventDate: '{{ event.eventDate.format('d/m/Y H:i') }}',
             eventDescription: '{{ event.eventDescription|e('js') }}',
+            eventId: '{{ event.id }}',
         })
             .addTo(carte)
             .bindPopup("{{ event.eventName }}")
