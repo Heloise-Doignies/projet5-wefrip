@@ -43,7 +43,7 @@ class Event
     #[ORM\ManyToMany(targetEntity: UserParticipant::class, inversedBy: 'events')]
     private Collection $userParticipant;
 
-    #[ORM\ManyToOne(inversedBy: 'events')]
+    #[ORM\ManyToOne(inversedBy: 'events', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true)] //Modif pour test
     private ?UserCreator $userCreator = null;
 

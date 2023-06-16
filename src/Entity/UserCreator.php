@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserCreatorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserCreatorRepository::class)]
@@ -27,10 +28,23 @@ class UserCreator
     #[ORM\OneToMany(mappedBy: 'userCreator', targetEntity: InfoLocation::class)]
     private Collection $infoLocations;
 
+    #[ORM\Column(type: 'json', nullable: true)]
+    private array $userData = [];
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
         $this->infoLocations = new ArrayCollection();
+    }
+
+    //Pour utiliser le UserCreator comme string
+    public function __toString(): string
+    {
+        $pseudo = $this->userData['pseudo'] ?? '';
+        $firstname = $this->userData['firstname'] ?? '';
+        $lastname = $this->userData['lastname'] ?? '';
+    
+        return $pseudo . ' ' .  $firstname . ' ' . $lastname;
     }
 
     public function getId(): ?int
@@ -128,6 +142,18 @@ class UserCreator
                 $infoLocation->setUserCreator(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserData(): array
+    {
+        return $this->userData;
+    }
+
+    public function setUserData(?array $userData): static
+    {
+        $this->userData = $userData;
 
         return $this;
     }

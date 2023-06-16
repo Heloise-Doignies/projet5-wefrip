@@ -21,6 +21,7 @@ class EventFixtures extends Fixture
             $typeEvent->setTypeSlug('vide-dressing');
             $manager->persist($typeEvent);
             $this->addReference(self::VIDEDRESSING, $typeEvent);
+
     
             $typeEvent = new TypeEvent();
             $typeEvent->setTypeName('Atelier');

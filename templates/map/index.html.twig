@@ -90,12 +90,11 @@
         //Contenu à afficher quand on clique sur un marqueur
         eventInfo.innerHTML = 
                 '<div class="h-100 card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
-                    '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + ' - ' + marker.options.userCreator + '</h5>' +
+                    '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + '</h5>' +
+                    '<p class="card-text text-uppercase fw-bold">' + marker.options.userCreator + '</p>' +
                     '<p class="card-text">' + marker.options.typeEvent + '</p>' +
                     '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
                     '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
-                    '<p class="card-text">Taille(s) disponible(s) : </p>' +
-                    '<p class="card-text">Genre(s) : </p>' +
                     '<a href="add-event/'+ marker.options.eventId +'" class="btn btn-warning mb-3">Je participe</a>' +
                 '</div>';
 

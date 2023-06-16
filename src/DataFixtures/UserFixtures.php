@@ -22,6 +22,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail('user@user.com');
         $user->setUserSlug('user-user');
+        $user->setPseudo('User Toto');
         $user->setPassword($this->encoder->hashPassword($user, 'password'));
         //$user->setRoles(['ROLE_USER']);
         $user->setIsVerified(true);
@@ -30,6 +31,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail('admin@wefrip.com');
         $user->setUserSlug('admin-admin');
+        $user->setPseudo('Admin Titi');
         $user->setPassword($this->encoder->hashPassword($user, 'admin'));
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $user->setIsVerified(true);
