@@ -15,7 +15,7 @@
 <div class="tab-content my-3" id="nav-tabContent">
     {# Début de la zone "mon profil" #}
     <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">
-        <div class="container text-center profilUser p-3 rounded">
+        <div class="container text-center profilUser p-3 rounded profilInfo">
             <h2>Mes informations</h2>
                 <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
                     <ul class="list">
@@ -101,44 +101,61 @@
     </div>
     {# Fin de la zone "mes événements" #}
 
-    {# Fin de la zone "mes favoris" #}
+    
     <div class="tab-pane fade" id="nav-favoris" role="tabpanel" aria-labelledby="nav-favoris-tab" tabindex="0">
         <div class="container text-center profilUser p-3 rounded">
             <h2>Mes tutoriels favoris</h2>
                 <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
-A venir 
-                {#{% if app.user.tutorials|length > 0 %}
-                    <div class="row d-flex justify-content-center">
-                        {% for tutorial in app.user.tutorials %}
-                        <div class="col-12 col-md-4 col-xl-3 mb-3"> 
-                            <div class="card shadow">
+     {# debut de la zone "mes favori" #}
+                {% if app.user.favoris|length > 0 %}
+                    <div class="row d-flex justify-content-center mx-3">
+                        {% for tutoFavoris in app.user.favoris %}
+                            {% for tutorial in tutoFavoris.getTutorials() %}
+                            <div class="col-12 col-md-4 col-xl-4 mb-3"> 
+                                <div class="card h-100 position-relative">
 
-                                <div class="position-relative">
-                                    {% if  tutorial.imageName is defined and tutorial.imageName is not null  %}
-                                    <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top" alt="{{tutorial.tutoName}}">
-                                    {% else %}
-                                    <img src="{{ asset('/img/imageTuto/tuto-noimage.png') }}" class="img-fluid" alt="{{tutorial.tutoName}}">
-                                    {% endif %}
-                                    <a href="{{ path ('app_tutorial_show', { tutoSlug:tutorial.tutoSlug }) }}" class="btn btn-primary rounded-circle position-absolute top-50 start-50 translate-middle p-2">
-                                        <i data-feather="play"></i>
+                                    <div class="position-relative">
+                                        {% if  tutorial.tutoImageName is defined and tutorial.tutoImageName is not null  %}
+                                        <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top images-tuto" alt="{{tutorial.tutoName}}">
+                                        {% else %}
+                                        <img src="{{ asset('/img/imageTuto/tuto-noimage.png') }}" class="card-img-top images-tuto" alt="image par défaut">
+                                        {% endif %}
+
+                                        {# Une boucle qui dit que : 
+                                        si c'est un tuto déjà dans les favoris : bouton poubelle
+                                        Sinon (donc pas dans les favoris) : bouton coeur #}
+                                        {% if tutoFavoris not in app.user.favoris %}
+                                        <a href="{{ path('add_favori', { id: tutorial.id }) }}" class="mt-3 btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
+                                            <i data-feather="heart"></i>
+                                        </a>
+                                        {% else %}
+                                        <a href="{{ path('remove_favori', { id: tutoFavoris.id }) }}" class="btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
+                                        <i data-feather="trash"></i>
+                                         </a>
+                                        {% endif %}
+                                    </div>
+
+                                    <a href="{{ path('app_tutorial_show', { tutoSlug: tutorial.tutoSlug }) }}">
+                                        <div class="m-3 p-5">
+                                            <h2 class="title-tuto">{{ tutorial.tutoName }}</h2>
+                                            <p>{{ tutorial.tutoDescription }}</p>
+                                        </div>
                                     </a>
-                                    <a href="{{ path ('remove_video', {id:video.id }) }}" class="btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2">
-                                    <i data-feather="heart" class="text-light"></i>
-                                    </a>
-                                </div>
-                                <div class="card-body text-center">
-                                    <a href="{{ path ('app_tutorial_show', { tutoSlug:tutorial.tutoSlug }) }}" class="btn btn-primary">{{tutorial.tutoName}}</a>
-                                    <p class="card-text">{{tutorial.tutoDescription}}</p>
+                                    
+                                    <div class="d-flex gap-5 position-absolute bottom-0 m-4 p-3">
+                                        <button type="submit" class="btn btn-primary ">Catégorie</button>
+                                        <button type="submit" class="btn btn-warning">{{ tutorial.tutoSupportType }}</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            {% endfor %}
                     {% endfor %} 
                     </div>
 
                 {% else %}
                 <p class="text-center">Vous n'avez aucun favori pour l'instant.</p>
 
-                {% endif %}#}
+                {% endif %}
 
                 </div>
         </div>

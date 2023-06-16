@@ -23,12 +23,12 @@ nav .avatarProfil {
     background-color: #f7f3f3;
 }
 
-footer .media, .profilUser button {
+footer .media, .profilInfo button {
     background-color: #D98E04;
     cursor:pointer;
 }
 
-footer .media:hover, .profilUser button:hover {
+footer .media:hover, .profilInfo button:hover {
     background-color: #375CA6;
     color:#F7F3F3;
 }

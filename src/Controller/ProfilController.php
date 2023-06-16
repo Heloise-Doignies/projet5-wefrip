@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\UserParticipant;
+use App\Entity\Favori;
 use App\Form\UserType;
+use App\Entity\Tutorial;
+use App\Entity\UserParticipant;
 use App\Repository\EventRepository;
+use App\Repository\FavoriRepository;
 use App\Repository\TutorialRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -155,4 +158,77 @@ class ProfilController extends AbstractController
     return $this->redirect($request->headers->get('referer'));
     
     }
+   // Ajouter un favori
+#[Route('/add-favori/{id}', name: 'add_favori')]
+public function addFavori($id, TutorialRepository $tutorialRepository, EntityManagerInterface $em, Request $request): Response
+{
+    // On récupère le tutoriel dans la base de données
+    $tutorial = $tutorialRepository->find($id);
+    
+    // On récupère l'utilisateur actuel
+    $user = $this->getUser();
+
+    // On vérifie si le favori n'existe pas déjà pour éviter les doublons
+    $existingFavori = $user->getFavoris()->contains($tutorial);
+    if (!$existingFavori) {
+        // On crée un nouvel objet Favori
+        $favori = new Favori();
+        $favori->addTutorial($tutorial);
+        $favori->addUser($user);
+
+        // On enregistre le favori
+        $em->persist($favori);
+        $em->flush();
+
+        $this->addFlash('success', 'Le favori a bien été ajouté dans votre profil.');
+    } else {
+        $this->addFlash('error', 'Ce favori existe déjà dans votre profil.');
+    }
+
+    // On redirige vers la page précédente
+    return $this->redirect($request->headers->get('referer'));
 }
+// // Supprimer un favori
+// #[Route('/remove-favori/{id}', name: 'remove_favori')]
+// public function removeFavori($id, TutorialRepository $tutorialRepository, EntityManagerInterface $em, Request $request): Response
+// {
+//     // On récupère le favori dans la base de données
+//     $favori = $tutorialRepository->find($id);
+//     // On récupère l'utilisateur actuel
+//     $user = $this->getUser();
+//     // On vérifie si l'utilisateur a déjà ce favori
+//     if ($favori && $favori->getUser() === $user) {
+//         // On supprime le favori
+//         $em->remove($favori);
+//         $em->flush();
+//         $this->addFlash('success', 'Le favori a bien été supprimé de votre profil.');
+//     } else {
+//         $this->addFlash('erreur', 'Ce favori n\'existe pas dans votre profil.');
+//     }
+//     // On redirige vers la page précédente
+//     return $this->redirect($request->headers->get('referer'));
+// 
+#[Route('/remove-favori/{id}', name:'remove_favori' )]
+public function removeFavori($id, FavoriRepository $favoriRepository, EntityManagerInterface $em, Request $request):Response
+{
+    // On récupère la video dans la BDD
+$favori = $favoriRepository->find($id);
+// On récupère l'utilisateur
+$user = $this ->getUser();
+// Rechercher la participation de l'utilisateur à cet événement
+$tutorial = $favori->getTutorials($user);
+if ($tutorial) {
+    //Supprimer l'événement de la liste
+    $tutorial->removeFavori($favori);
+    //Supprimer l'utilisateur de la liste
+    $favori->removeUsersId($user);
+    //Enregistrer les modifications
+    $this->addFlash('success',' favori a bien été supprimé de votre profil : vous n\'êtes plus considéré.e comme participant.e.');
+    $em->persist($user);
+    $em->flush();
+}
+//On reste sur la page où on est
+return $this->redirect($request->headers->get('referer'));
+}
+}
+
