@@ -4,13 +4,31 @@ namespace App\DataFixtures;
 
 use App\Entity\Event;
 use DateTimeImmutable;
+use App\Entity\TypeEvent;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class EventFixtures extends Fixture
 {
+    public const VIDEDRESSING = 'vide-dressing';
+    public const ATELIER = 'atelier';
+        
     public function load(ObjectManager $manager): void
-    {
+        {
+            //Fixtures pour les types d'événements (vide drssing ou atelier)
+            $typeEvent = new TypeEvent();
+            $typeEvent->setTypeName('Vide dressing');
+            $typeEvent->setTypeSlug('vide-dressing');
+            $manager->persist($typeEvent);
+            $this->addReference(self::VIDEDRESSING, $typeEvent);
+    
+            $typeEvent = new TypeEvent();
+            $typeEvent->setTypeName('Atelier');
+            $typeEvent->setTypeSlug('atelier');
+            $manager->persist($typeEvent);
+            $this->addReference(self::ATELIER, $typeEvent);
+    
+            //Fixtures pour les événements 
         $event = new Event();
         $event -> setEventName('Atelier de couture');
         $event -> setEventDescription('Atelier pour apprendre les bases de la couture avec Henriette. Rdv chez moi samedi, de 14h à 17h.');
@@ -23,7 +41,7 @@ class EventFixtures extends Fixture
         $event -> setCoordinateLat('48.8919423');
         $event -> setCoordinateLng('2.3421511');
         $event -> setEventSlug('atelier-de-couture-Henriette');
-        // $event -> setTypeEvent('Atelier');
+        $event -> setTypeEvent($this->getReference(EventFixtures::ATELIER));
         // $event -> setUserCreator('Henriette');
         // $event -> setInfosLocation('Interphone 1234 - 2ème étage');
         $manager->persist($event);
@@ -41,7 +59,7 @@ class EventFixtures extends Fixture
         $event -> setCoordinateLat('48.8694901');
         $event -> setCoordinateLng('2.3893574');
         $event -> setEventSlug('vide-dressing-Yani');
-        // $event -> setTypeEvent('Vide dressing');
+        $event -> setTypeEvent($this->getReference(EventFixtures::VIDEDRESSING));
         // $event -> setUserCreator('Yani');
         // $event -> setInfosLocation('Sonnez chez Bachi - 3ème étage');
         $manager->persist($event);
