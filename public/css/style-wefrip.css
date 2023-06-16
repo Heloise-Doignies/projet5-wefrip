@@ -8,7 +8,7 @@ body {
 
 a {
     color: inherit;
-    text-decoration: none;
+    /* text-decoration: none; */
 }
 
 nav .logoWeFrip {
@@ -106,3 +106,29 @@ h1{
     display:none;
     z-index:10;
 }
+
+.circle-info {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background-color: #E1C9B3;
+    border-radius: 50%;
+    cursor: pointer;
+    }
+
+.circle-info:hover .info-text {
+    opacity: 1;
+    visibility: visible;
+    }
+
+.info-text {
+    position: absolute;
+    background-color: #E1C9B3;
+    top: -700%;
+    left: -650%;
+    width:50vw;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
