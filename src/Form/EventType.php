@@ -12,9 +12,10 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class EventType extends AbstractType
 {
@@ -57,15 +58,24 @@ class EventType extends AbstractType
                 'multiple' => false,
                 'label' => 'Créateur de l\'événement',
             ])
-            ->add('typeEvent', EntityType::class, [
-                'class' => TypeEvent::class,
-                'choice_label' => 'typeName',
+            
+            //Ajout pour le type d'événement
+            ->add('typeEvent', ChoiceType::class, [
                 'label' => 'Type d\'événement',
+                'choices'=> [
+                    'Vide dressing' => 'vide-dressing',
+                    'Atelier' => 'atelier',
+                ],
+                'multiple' => false,
+                'required' => true,
             ])
+            
             ->remove('infosLocation', EntityType::class,[
                 'class'=> 'App\Entity\InfoLocation',
                 'label' => 'Informations d\'accès',
             ])
+
+            
         ;
     }
 
