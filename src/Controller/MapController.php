@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\UserCreator;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,20 @@ class MapController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Ajout de cette ligne pour générer le slug automatiquement
             $newEvent->setEventSlug(strtolower($slugger->slug($newEvent->getEventName())));
-        
+    
+            //On récupère les informations de l'utilisateur pour le UserCreator
+            $user=$this->getUser();
+
+            $userCreator = new UserCreator();
+            $userCreator->setUserData([
+                'pseudo' => $user->getPseudo(),
+                'firstname' => $user->getFirstname(),
+                'lastname' => $user->getLastname(),
+                ]);
+
+            // On associe le UserCreator à l'événement
+            $newEvent->setUserCreator($userCreator);
+
             //On enregistre dans la base de données
             $eventRepository->save($newEvent, true);
             //On redirige l'utilisateur vers la map
@@ -51,26 +65,5 @@ class MapController extends AbstractController
         }
 
     }
-
-    #[Route("/map_newEvent", name: "create_newEvent", methods: ['GET', 'POST'])]
-    public function newEvent(Request $request, EventRepository $eventRepository): Response
-    {
-        //Création d'un nouvel événement par les utilisateurs
-            $event = new Event();
-            $form = $this->createForm(EventType::class, $event);
-            $form->handleRequest($request);
-    
-            if ($form->isSubmitted() && $form->isValid()) {
-                //On enregistre dans la base de données
-                $eventRepository->save($event, true);
-                //On redirige l'utilisateur vers la map
-                return $this->redirectToRoute('app_map', [], Response::HTTP_SEE_OTHER);
-            }
-    
-            return $this->renderForm('map/new.html.twig', [
-                'event' => $event,
-                'form' => $form,
-            ]);
-        }
 
     }

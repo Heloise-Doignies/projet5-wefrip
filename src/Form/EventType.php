@@ -29,13 +29,24 @@ class EventType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Organisé le',
             ])
+            //Ajout pour le type d'événement
+            ->add('typeEvent', EntityType::class, [
+                'label' => 'Type d\'événement',
+                'class'=> TypeEvent::class,
+                'choice_label'=> 'typeName',
+                'multiple' => false,
+                'required' => true,
+            ])
             ->add('eventDescription', CKEditorType::class, [
                 'label'=>"Description de l'événement",
+                'required' => true,
                 'config' => [
                     'removePlugins' => 'exportpdf',
+                    'editorplaceholder' => 'Pour un vide-dressing, précisez le type de vêtements disponibles (tailles, genres). Pour un atelier, précisez le matériel dont les participants auront besoin.',
                 ],
             ])
-            ->add('eventImageName', FileType::class,[
+            
+            ->remove('eventImageName', FileType::class,[
                 'required' => false,
                 'label' => 'Image de l\'événement',
                 ])
@@ -53,22 +64,7 @@ class EventType extends AbstractType
                 'expanded' => true,
                 'label' => 'Participant(s) à l\'événement',
             ])
-            ->add('userCreator', EntityType::class,[
-                'class'=> 'App\Entity\UserCreator',
-                'multiple' => false,
-                'label' => 'Créateur de l\'événement',
-            ])
-            
-            //Ajout pour le type d'événement
-            ->add('typeEvent', ChoiceType::class, [
-                'label' => 'Type d\'événement',
-                'choices'=> [
-                    'Vide dressing' => 'vide-dressing',
-                    'Atelier' => 'atelier',
-                ],
-                'multiple' => false,
-                'required' => true,
-            ])
+            ->remove('userCreator')
             
             ->remove('infosLocation', EntityType::class,[
                 'class'=> 'App\Entity\InfoLocation',
