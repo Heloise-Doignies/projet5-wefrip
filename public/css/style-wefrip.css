@@ -33,6 +33,14 @@ footer .media:hover, .profilUser button:hover {
     color:#F7F3F3;
 }
 
+/* CSS pour la catégorie */
+.category-image {
+    width: 350px; 
+    height: 200px; 
+    object-fit: cover; /* Ajustement de l'image pour remplir le conteneur */
+}
+
+
 /* CSS pour le profil */
 .profilUser {
     background-color: #E1C9B3;

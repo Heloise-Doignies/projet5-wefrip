@@ -3,22 +3,24 @@
 {% block title %}Hello CategoryController!{% endblock %}
 
 {% block body %}
+<div class="d-flex">
+        <a href="{{ path ('app_tutorial') }}">
+            <button type="submit" class="btn btn-primary mt-3"> Retour </button>
+        </a>
+</div>
+
 <h1 class="m-5 p-3 text-center"></i> Tutoriels - Toutes les catégories </h1>
-
-
-    <div class="row">
+<div class="row mt-4">
     {% for category in categories %}
-
-    <div class=" col-12 col-md-3 col-lg-3 mb-3">
-        
+    <div class="col-12 col-md-6 col-lg-4 mb-3">
+        <div class="card">
             <a href="{{ path ('app_category_show', {categorySlug :category.categorySlug}) }}" class="btn btn-light btn-outline-primary shadow">
-                <img src="{{ asset('/img/imageCategory/' ~ category.categoryImageName) }}" class="card-img-top" alt="{{category.categoryImageName}}">
-                
+                <img src="{{ asset('/img/imageCategory/' ~ category.categoryImageName) }}" class="card-img-top category-image" alt="{{category.categoryImageName}}">
                 <h2>{{category.categoryName}}</h2>
-                
-                
             </a>
-        
+        </div>
     </div>
-{% endfor %}
+    {% endfor %}
+</div>
+
 {% endblock %}
