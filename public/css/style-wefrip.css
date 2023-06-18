@@ -48,8 +48,8 @@ footer .media:hover, .profilInfo button:hover {
 
 /* CSS pour la catégorie */
 .category-image {
-    width: 350px; 
-    height: 200px; 
+    width: 250px; 
+    height: 150px; 
     object-fit: cover; /* Ajustement de l'image pour remplir le conteneur */
 }
 
@@ -68,7 +68,7 @@ footer .media:hover, .profilInfo button:hover {
 
 #zoneCarte, #zoneMaCarte {
     z-index:0;
-    width:100%;
+    width:80%;
 }
 
 #eventInfo {
@@ -99,7 +99,7 @@ footer .media:hover, .profilInfo button:hover {
     background-color: #E1C9B3;
     top: -700%;
     left: -650%;
-    width:70vw;
+    width:60vw;
     transform: translateX(-50%);
     opacity: 0;
     visibility: hidden;
