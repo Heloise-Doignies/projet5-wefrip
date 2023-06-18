@@ -7,6 +7,8 @@ use DateTimeImmutable;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -19,19 +21,30 @@ class UserType extends AbstractType
             //->add('roles')
             ->add('plainPassword',PasswordType::class,[
                 'mapped'=>false,
+                'label'=>'Changer le mot de passe',
             ])
-            ->add('pseudo')
-            ->add('avatarName')
-            ->add('lastname')
-            ->add('firstname')
+            ->add('pseudo', TextType::class,[
+                'label'=>'Pseudo',
+                ])
+            ->add('lastname', TextType::class,[
+                'label'=>'Nom de famille',
+                ])
+            ->add('firstname', TextType::class,[
+                'label'=>'Prénom',
+                ])
+            ->add('avatarName', FileType::class,[
+                    'required' => false,
+                    'label' => 'Avatar',
+                    'data_class' => null,
+                ])
             //->add('userSlug')
             // ->add('userUpdatedAt', DateTimeType::class, [
             //     'widget'=>'single_text',
             //     'data'=>new DateTimeImmutable(),
             // ])
-            ->add('favoris')
-            ->add('userCreator')
-            ->add('participantEvent')
+            ->remove('favoris')
+            ->remove('userCreator')
+            ->remove('participantEvent')
         ;
     }
 
