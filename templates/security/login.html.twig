@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion!{% endblock %}
+{% block title %}Connexion - WeFrip'{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -17,16 +17,21 @@
         </div>
     {% endif %}
 
-<div class="container m-auto w-50 my-5 rounded py-2 p-5" id="register-container">
-    <h1 >Connexion</h1>
+<div class="container m-auto w-50 my-5 rounded py-2 p-5" id="BGcontainer">
+    <h1 class="text-center m-3">Connexion</h1>
+
+    <div class="mb-3">
     <label for="inputEmail">Email*</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password*</label>
+    </div>
+    <div class="mb-3">
+    <label for="inputPassword">Mot de passe*</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
         value="{{ csrf_token('authenticate') }}"
     >
+    </div>
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
         See https://symfony.com/doc/current/security/remember_me.html
@@ -38,7 +43,7 @@
         </div>
     #}
 
-    <button type="submit" class="btn btn-primary my-3 d-grid gap-2 col-6 mx-auto">Me connecter</button>
+    <button type="submit" class="btn bouton my-3 d-grid gap-2 col-6 mx-auto">Me connecter</button>
     <div id="login-inscrire">
 				<p>Tu n'as pas de compte ?
 					<a href="{{path('app_register')}}">Inscris-toi.</a>

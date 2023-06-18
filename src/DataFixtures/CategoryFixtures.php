@@ -11,7 +11,7 @@ class CategoryFixtures extends Fixture
     //On associe l'instance de l'autre à une référence pour pouvoir récupérer dans une autre fixture
     public const MAISON = 'maison';
     public const COUTURE = 'couture';
-    public const REPARATION = 'reparation';
+    public const REPARATION = 'réparation';
     public const TEINTURE = 'teinture';
     public const ACCESSOIRES = 'accessoires';
     public const PATRON = 'patron';

@@ -9,6 +9,7 @@ use App\Entity\UserParticipant;
 use App\Repository\EventRepository;
 use App\Repository\FavoriRepository;
 use App\Repository\TutorialRepository;
+use App\Repository\UserParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -117,7 +118,7 @@ class ProfilController extends AbstractController
     #[Route('/add-event/{id}', name:'add_event' )]
     public function addEvent($id, EventRepository $eventRepository, EntityManagerInterface $em, Request $request):Response
     {
-        // On récupère la video dans la BDD
+        // On récupère l'événement dans la BDD
     $event = $eventRepository->find($id);
     // On récupère l'utilisateur
     $user = $this ->getUser();
@@ -135,29 +136,25 @@ class ProfilController extends AbstractController
     return $this->redirect($request->headers->get('referer'));
     }
 
+    //Route pour supprimer les événements dans le profil
     #[Route('/remove-event/{id}', name:'remove_event' )]
-    public function removeEvent($id, EventRepository $eventRepository, EntityManagerInterface $em, Request $request):Response
+    public function removeEvent($id, UserParticipantRepository $userParticipantRepository, EntityManagerInterface $em, Request $request):Response
     {
-        // On récupère la video dans la BDD
-    $event = $eventRepository->find($id);
     // On récupère l'utilisateur
-    $user = $this ->getUser();
-    // Rechercher la participation de l'utilisateur à cet événement
-    $participant = $event->getParticipantByUser($user);
-    if ($participant) {
-        //Supprimer l'événement de la liste
-        $participant->removeEvent($event);
-        //Supprimer l'utilisateur de la liste
-        $event->removeUsersId($user);
-        //Enregistrer les modifications
-        $this->addFlash('success',' L\'événement a bien été supprimé de votre profil : vous n\'êtes plus considéré.e comme participant.e.');
-        $em->persist($user);
-        $em->flush();
-    }
+    $user = $this->getUser();
+    // On recherche le UserParticipant correspondant à l'ID
+    $participant = $userParticipantRepository->findOneBy([
+        'id' => $id,
+        'usersId' => $user,
+    ]);
+    //On supprime le participant de l'événement
+    $em->remove($participant);
+    $em->flush();
+    $this->addFlash('success',' L\'événement a bien été supprimé de votre profil : vous n\'êtes plus considéré.e comme participant.e.');
     //On reste sur la page où on est
     return $this->redirect($request->headers->get('referer'));
-    
     }
+
    // Ajouter un favori
 #[Route('/add-favori/{id}', name: 'add_favori')]
 public function addFavori($id, TutorialRepository $tutorialRepository, EntityManagerInterface $em, Request $request): Response

@@ -21,14 +21,7 @@
     </head>
 
 <body>
-{% for label, messages in app.flashes() %}
-        {% for message in messages %}
-            <div class="alert alert alert-dismissible fade show -{{ label }}" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-    {% endfor %}
+
 
 {# Navbar #}
 <header class="border-bottom">
@@ -114,11 +107,14 @@
 
 {% for label, messages in app.flashes() %}
     {% for message in messages %}
-        <div class="alert alert-{{ label }}">
+        <div class="alert alert alert-dismissible fade show -{{ label }}" role="alert">
             {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     {% endfor %}
 {% endfor %}
+
+
 
     <div class="container m-auto">
         {% block body %}{% endblock %}
