@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Tutorial;
 use App\Form\TutorialType;
 use App\Repository\TutorialRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/tutorial')]
 class AdminTutorialController extends AbstractController
@@ -22,13 +23,15 @@ class AdminTutorialController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_tutorial_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, TutorialRepository $tutorialRepository): Response
+    public function new(Request $request, TutorialRepository $tutorialRepository, SluggerInterface $slugger): Response
     {
         $tutorial = new Tutorial();
         $form = $this->createForm(TutorialType::class, $tutorial);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // // Ajout de cette ligne pour générer le slug automatiquement
+            $tutorial->setTutoSlug(strtolower($slugger->slug($tutorial->getTutoName())));
             $tutorialRepository->save($tutorial, true);
 
             return $this->redirectToRoute('app_admin_tutorial_index', [], Response::HTTP_SEE_OTHER);

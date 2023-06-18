@@ -3,6 +3,13 @@
 {% block title %}Catégories des tutoriels - WeFrip'{% endblock %}
 
 {% block body %}
+
+<div class="d-flex">
+        <a href="{{ path ('app_tutorial') }}">
+            <button type="submit" class="btn bouton mt-3"> Retour </button>
+        </a>
+</div>
+
 <h1 class="text-center m-3"></i> Tutoriels - Toutes les catégories </h1>
 
 <div class="row">
@@ -17,4 +24,5 @@
     </div>
 {% endfor %}
 </div>
+
 {% endblock %}

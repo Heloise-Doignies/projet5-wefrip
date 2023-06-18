@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\FavoriRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Tutorial;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FavoriRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: FavoriRepository::class)]
 class Favori
@@ -100,6 +101,7 @@ class Favori
      */
     public function getTutorials(): Collection
     {
+        
         return $this->tutorials;
     }
 

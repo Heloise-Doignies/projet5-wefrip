@@ -20,7 +20,7 @@
                         {% endif %}
 
                         {# Condition pour les favoris : si fav, bouton trash / si non fav, bouton heart #}
-                        {% if tutoFavoris not in app.user.favoris %}
+                        {% if tutorial not in app.user.favoris %}
                         <a href="{{ path('add_favori', { id: tutorial.id }) }}" class="mt-3 btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
                             <i data-feather="heart"></i>
                         </a>
