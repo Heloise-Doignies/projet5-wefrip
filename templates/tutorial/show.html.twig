@@ -32,6 +32,7 @@
                 </a>
 
                 {# Condition pour les favoris : si fav, bouton trash / si non fav, bouton heart #}
+                {% if is_granted('ROLE_USER')%}
                 {% if tutorial not in app.user.favoris %}
                 <a href="{{ path('add_favori', { id: tutorial.id }) }}" class="btn btn-danger rounded-circle p-1 text-light">
                     <i data-feather="heart"></i>
@@ -40,6 +41,7 @@
                 <a href="{{ path('remove_favori', { id: tutoFavoris.id }) }}" class="btn btn-dark rounded-circle p-1 text-light">
                 <i data-feather="trash"></i>
                 </a>
+                {% endif %}
                 {% endif %}
 
             </div>
