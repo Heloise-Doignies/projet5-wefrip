@@ -3,14 +3,19 @@
 {% block title %}{{category.categoryName}}{% endblock %}
 
 {% block body %}
-<h1>catégories : {{ category.categoryName }}</h1>
+<div class="d-flex">
+        <a href="{{ path ('app_category') }}">
+            <button type="submit" class="btn btn-primary mt-3"> Retour </button>
+        </a>
+</div>
 
+<h1 class="text-center mx-auto my-4 pt-3">catégories : {{ category.categoryName }}</h1>
 {% if category.tutorials is not empty %}
     {# On affiche toutes les vidéos de la catégorie avec une boucle #}
-    <div class="row mt-5">
+    <div class="row mt-5 p-3">
         {% for tutorial in category.tutorials %}
             <div class="col-4 mb-3">
-                <div class="card h-100 position-relative">
+                <div class="card-category">
                     <div class="position-relative">
                         {% if tutorial.tutoVideoName is defined and tutorial.tutoImageName is not null %}
                             <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top images-tuto" alt="tutorial.tutoName">
