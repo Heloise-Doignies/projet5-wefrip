@@ -124,3 +124,7 @@ footer .media:hover, .profilInfo button:hover {
     text-decoration: underline;
     color: #375CA6;
 }
+.fichier{
+    height: 250px;
+    object-fit: contain;
+}
