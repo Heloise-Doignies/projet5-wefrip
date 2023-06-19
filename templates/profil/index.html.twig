@@ -57,8 +57,14 @@
                 </div>
 
                 <a href="{{ path('app_profil_edit') }}">
-                    <button type="submit" class="btn bouton">Modifier mes informations</button>
+                    <button class="btn bouton2">Modifier mes informations</button>
                 </a>
+
+                {% if is_granted('ROLE_ADMIN')%}
+                <a href="{{ path('app_admin') }}">
+                    <button class="btn bouton">Aller sur l'administration</button>
+                </a>
+                {% endif %}
 
                 
 
@@ -74,14 +80,14 @@
 
                 {% if app.user.eventsParticipation|length > 0 %}
                     <div class="row d-flex justify-content-center">
-                         {% for event in app.user.eventsParticipation %}
+                        {% for event in app.user.eventsParticipation %}
                             <div class="card shadow mb-3">
                                 <div class="card-body text-center ">
                                     <h3>{{event.eventName}}</h3>
                                     <p class="card-text">Date : {{event.eventDate.format('d/m/Y H:i') }}</p>
-                                    <p class="card-text">Organisé par : {{event.userCreator}} </p>
-                                    <p class="card-text">Informations pratiques : {{event.infosLocation}}</p>
-                                    <a href="{{ path('remove_event', { id: event.id }) }}">Je me désinscris de cet événement</a>
+                                    <p class="card-text">Organisé par : {{event.eventName}} </p>
+                                    <p class="card-text">Informations pratiques : {{event.infoLocation|raw}}</p>
+                                    <a href="{{ path('remove_event', { id: event.id }) }}" class="eventremove">Je me désinscris de cet événement</a>
                                 </div>
                             </div>
                         {% endfor %} 
