@@ -40,20 +40,15 @@ class Event
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $eventUpdatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'events', cascade:['persist'])]
-    #[ORM\JoinColumn(nullable: true)] //Modif pour test
-    private ?UserCreator $userCreator = null;
-
     #[ORM\ManyToOne(inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: true)] //Modif pour test
     private ?TypeEvent $typeEvent = null;
 
-    #[ORM\OneToOne(inversedBy: 'event', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: true)] //Modif pour test
-    private ?InfoLocation $infosLocation = null;
-
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'eventsParticipation')]
     private Collection $participants;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $infoLocation = null;
 
     public function __construct()
     {
@@ -167,18 +162,6 @@ class Event
         return $this;
     }
 
-    public function getUserCreator(): ?UserCreator
-    {
-        return $this->userCreator;
-    }
-
-    public function setUserCreator(?UserCreator $userCreator): static
-    {
-        $this->userCreator = $userCreator;
-
-        return $this;
-    }
-
     public function getTypeEvent(): ?TypeEvent
     {
         return $this->typeEvent;
@@ -187,18 +170,6 @@ class Event
     public function setTypeEvent(?TypeEvent $typeEvent): static
     {
         $this->typeEvent = $typeEvent;
-
-        return $this;
-    }
-
-    public function getInfosLocation(): ?InfoLocation
-    {
-        return $this->infosLocation;
-    }
-
-    public function setInfosLocation(InfoLocation $infosLocation): static
-    {
-        $this->infosLocation = $infosLocation;
 
         return $this;
     }
@@ -226,4 +197,17 @@ class Event
 
         return $this;
     }
+
+    public function getInfoLocation(): ?string
+    {
+        return $this->infoLocation;
+    }
+
+    public function setInfoLocation(string $infoLocation): static
+    {
+        $this->infoLocation = $infoLocation;
+
+        return $this;
+    }
+    
 }

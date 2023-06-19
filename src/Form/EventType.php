@@ -57,13 +57,14 @@ class EventType extends AbstractType
                 'data'=>new \DateTimeImmutable(),
                 'label' => 'Ajouté le :',
             ])
-            ->remove('userCreator')
-            ->remove('infosLocation', EntityType::class,[
-                'class'=> 'App\Entity\InfoLocation',
-                'label' => 'Informations d\'accès',
+            ->add('infoLocation', CKEditorType::class, [
+                'label'=>"Informations pratiques",
+                'required' => true,
+                'config' => [
+                    'removePlugins' => 'exportpdf',
+                    'editorplaceholder' => 'Précisez comment accéder à l\'événement (adresse, interphone, numéro de téléphone...). Ces informations ne seront visibles que par les utilisateurs inscrits à l\'événement.',
+                ],
             ])
-
-            
         ;
     }
 

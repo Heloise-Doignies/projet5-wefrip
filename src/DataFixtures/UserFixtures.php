@@ -24,7 +24,7 @@ class UserFixtures extends Fixture
         $user->setUserSlug('user-user');
         $user->setPseudo('User Toto');
         $user->setPassword($this->encoder->hashPassword($user, 'password'));
-        //$user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_USER']);
         $user->setIsVerified(true);
         $manager->persist($user);
 

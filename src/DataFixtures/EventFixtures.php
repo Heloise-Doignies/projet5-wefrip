@@ -44,7 +44,7 @@ class EventFixtures extends Fixture
         $event -> setEventSlug('atelier-de-couture-Henriette');
         $event -> setTypeEvent($this->getReference(EventFixtures::ATELIER));
         // $event -> setUserCreator('Henriette');
-        // $event -> setInfosLocation('Interphone 1234 - 2ème étage');
+        $event -> setInfoLocation('Interphone 1234 - 2ème étage');
         $manager->persist($event);
 
         $event = new Event();
@@ -62,7 +62,7 @@ class EventFixtures extends Fixture
         $event -> setEventSlug('vide-dressing-Yani');
         $event -> setTypeEvent($this->getReference(EventFixtures::VIDEDRESSING));
         // $event -> setUserCreator('Yani');
-        // $event -> setInfosLocation('Sonnez chez Bachi - 3ème étage');
+        $event -> setInfoLocation('Sonnez chez Bachi - 3ème étage');
         $manager->persist($event);
 
         $manager->flush();

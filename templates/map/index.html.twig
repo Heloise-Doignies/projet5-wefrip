@@ -20,7 +20,7 @@
         <span class="info-text text-dark rounded">
             <p class="m-2">Grâce à WeFrip', participez à des événements ajoutés par d'autres utilisateurs : vide-dressings ou ateliers. Cliquez sur un marqueur pour voir les informations associées. Attention, pour participer à un événement et voir les informations pratiques d'accès, il faut être connecté.
             <br>Pour organiser un événement, il faut également être connecté. Cliquez sur la carte pour ajouter un marqueur vers l'endroit où vous organisez votre événement et remplissez le formulaire. 
-            <br>Pour information, l'organisation d'un vide-dressing est soumise à la déclaration préalable d'une vente au déballage (<a href='https://entreprendre.service-public.fr/vosdroits/R18906' target="_blank">formulaire de déclaration</a>).
+            <br>Pour information, l'organisation d'un vide-dressing est soumise à la déclaration préalable d'une vente au déballage (<a href='https://entreprendre.service-public.fr/vosdroits/R18906' " target="_blank">formulaire de déclaration</a>).
             </p>
         </span>
     </div>
@@ -150,7 +150,7 @@ var videDressingIcon = L.icon({
         var marker = L.marker([{{ event.coordinateLat }}, {{ event.coordinateLng }}], {
             icon: icon,
             eventName: '{{ event.eventName }}',
-            userCreator: '{{ event.userCreator }}',
+            userCreator: '{{ event.eventName }}',
             typeEvent: '{{ event.typeEvent }}',
             eventDate: '{{ event.eventDate.format('d/m/Y H:i') }}',
             eventDescription: '{{ event.eventDescription|e('js') }}',

@@ -52,9 +52,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /*     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $registeredAt = null; */
 
-    #[ORM\OneToOne(inversedBy: 'userId', cascade: ['persist', 'remove'])]
-    private ?UserCreator $userCreator = null;
-
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
@@ -249,18 +246,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     } */
 
-    public function getUserCreator(): ?UserCreator
-    {
-        return $this->userCreator;
-    }
-
-    public function setUserCreator(?UserCreator $userCreator): static
-    {
-        $this->userCreator = $userCreator;
-
-        return $this;
-    }
-
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -323,4 +308,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }
