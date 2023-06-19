@@ -61,10 +61,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'participants')]
     private Collection $eventsParticipation;
 
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Event::class)]
+    private Collection $eventCreator;
+
     public function __construct()
     {
         $this->tutorials = new ArrayCollection();
         $this->eventsParticipation = new ArrayCollection();
+        $this->eventCreator = new ArrayCollection();
     }
 
     //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
@@ -304,6 +308,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->eventsParticipation->removeElement($eventsParticipation)) {
             $eventsParticipation->removeParticipant($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEventCreator(): Collection
+    {
+        return $this->eventCreator;
+    }
+
+    public function addEventCreator(Event $eventCreator): static
+    {
+        if (!$this->eventCreator->contains($eventCreator)) {
+            $this->eventCreator->add($eventCreator);
+            $eventCreator->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventCreator(Event $eventCreator): static
+    {
+        if ($this->eventCreator->removeElement($eventCreator)) {
+            // set the owning side to null (unless already changed)
+            if ($eventCreator->getCreator() === $this) {
+                $eventCreator->setCreator(null);
+            }
         }
 
         return $this;

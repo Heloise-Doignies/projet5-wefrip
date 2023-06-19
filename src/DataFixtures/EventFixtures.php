@@ -61,7 +61,7 @@ class EventFixtures extends Fixture
         $event -> setCoordinateLng('2.3893574');
         $event -> setEventSlug('vide-dressing-Yani');
         $event -> setTypeEvent($this->getReference(EventFixtures::VIDEDRESSING));
-        // $event -> setUserCreator('Yani');
+        // $event -> setCreator('Yani');
         $event -> setInfoLocation('Sonnez chez Bachi - 3ème étage');
         $manager->persist($event);
 

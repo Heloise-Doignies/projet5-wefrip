@@ -42,7 +42,7 @@ class UserType extends AbstractType
             //     'widget'=>'single_text',
             //     'data'=>new DateTimeImmutable(),
             // ])
-
+            ->remove('eventCreator')
         ;
     }
 
