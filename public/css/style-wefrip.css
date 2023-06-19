@@ -23,14 +23,16 @@ a , a:hover {
 }
 
 /* Tous les boutons #375CA6 texte #F7F3F3, hover #D98E04 */
-.bouton, .bouton2:hover {
+.bouton, .bouton2:hover, .media:hover  {
     background-color: #375CA6;
     color: #F7F3F3;
+    cursor:pointer;
 }
 
-.bouton:hover, .bouton2 {
+.bouton:hover, .bouton2, .media {
     background-color: #D98E04;
     color: #F7F3F3;
+    cursor:pointer;
 }
 
 /* Pour la barre de navigation */
@@ -42,16 +44,6 @@ nav .avatarProfil {
     width:40px;
 }
 
-/* Pour le footer */
-footer .media, .profilInfo button {
-    background-color: #D98E04;
-    cursor:pointer;
-}
-
-footer .media:hover, .profilInfo button:hover {
-    background-color: #375CA6;
-    color:#F7F3F3;
-}
 
 /* CSS pour la catégorie */
 .category-image {
@@ -127,7 +119,7 @@ footer .media:hover, .profilInfo button:hover {
     background-color: #E1C9B3;
 }
 
-#login-inscrire a, .connecter a{
+#login-inscrire a, .connecter a, .eventremove, .info-text a{
     text-decoration: underline;
     color: #375CA6;
 }

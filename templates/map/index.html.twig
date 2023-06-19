@@ -65,7 +65,19 @@
     }).addTo(carte);
 
     //On initialise les icones avec des filtres pour atelier et événement
-    //A FAIRE
+    var atelierIcon = L.icon({
+    iconUrl: '{{ asset('/img/marker-orange.png')}}',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [0, -41]
+});
+
+var videDressingIcon = L.icon({
+    iconUrl: '{{ asset('/img/marker-violet.png')}}',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [0, -41]
+});
 
     //On affiche le contenu au clic sur un marqueur d'événement
     function onMarkerClick(e) {
@@ -128,7 +140,15 @@
 
     //On affiche les marqueurs au chargement de la page
     {% for event in events %}
+        var icon;
+        {% if event.typeEvent == 'Atelier' %}
+            icon = atelierIcon;
+        {% elseif event.typeEvent == 'Vide-dressing' %}
+            icon = videDressingIcon;
+        {% endif %}
+
         var marker = L.marker([{{ event.coordinateLat }}, {{ event.coordinateLng }}], {
+            icon: icon,
             eventName: '{{ event.eventName }}',
             userCreator: '{{ event.userCreator }}',
             typeEvent: '{{ event.typeEvent }}',
