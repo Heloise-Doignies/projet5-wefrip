@@ -65,6 +65,7 @@ class EventType extends AbstractType
                     'editorplaceholder' => 'Précisez comment accéder à l\'événement (adresse, interphone, numéro de téléphone...). Ces informations ne seront visibles que par les utilisateurs inscrits à l\'événement.',
                 ],
             ])
+            ->remove('creator')
         ;
     }
 

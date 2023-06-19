@@ -50,6 +50,10 @@ class Event
     #[ORM\Column(type: Types::TEXT)]
     private ?string $infoLocation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'eventCreator')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?User $creator = null;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -206,6 +210,18 @@ class Event
     public function setInfoLocation(string $infoLocation): static
     {
         $this->infoLocation = $infoLocation;
+
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): static
+    {
+        $this->creator = $creator;
 
         return $this;
     }
