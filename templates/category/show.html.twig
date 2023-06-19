@@ -11,7 +11,7 @@
 
         {% for tutorial in category.tutorials %}
             <div class="col-12 col-md-4 col-xl-4 mb-3">
-                <div class="card h-100">
+                <div class="card h-100 p-3">
                     <div class="position-relative">
                         {% if tutorial.tutoVideoName is defined and tutorial.tutoImageName is not null %}
                             <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top images-tuto" alt="tutorial.tutoName">

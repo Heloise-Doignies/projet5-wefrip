@@ -30,7 +30,7 @@ class AdminUserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setUserSlug(strtolower($slugger->slug($user->getUsername())));
+            $user->setUserSlug(strtolower($slugger->slug($user->getUserIdentifier())));
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);

@@ -126,22 +126,48 @@ class ProfilController extends AbstractController
         return $this->redirect($request->headers->get('referer'));
     }
 
-    #[Route('/remove-favori/{id}', name: 'remove_favori')]
-    public function removeTutorial($id, TutorialRepository $tutorialRepository, EntityManagerInterface $em, Request $request): Response
-    { 
-        // On récupère le tutoriel dans la base de données
-        $tutorial = $tutorialRepository->find($id);
-        // On récupère l'utilisateur actuel
-        $user = $this->getUser();
-        //On enlève le tutoriel de la liste des favoris de l'utilisateur
-        $user->removeTutorial($tutorial);
-        //On met en place un message flash
-        $this->addFlash('success', 'Le favori a bien été supprimé de votre profil.');
-        //On enregistre la modif
-        $em->persist($user);
-        $em->flush();
-        //On reste sur la page où on est
-        return $this->redirect($request->headers->get('referer'));
-    }
+//     #[Route('/remove-favori/{id}', name: 'remove_favori')]
+//     public function removeTutorial($id, TutorialRepository $tutorialRepository, EntityManagerInterface $em, Request $request): Response
+//     { 
+//         // On récupère le tutoriel dans la base de données
+//         $tutorial = $tutorialRepository->find($id);
+//         // On récupère l'utilisateur actuel
+//         $user = $this->getUser();
+//         //On enlève le tutoriel de la liste des favoris de l'utilisateur
+//         $user->removeTutorial($tutorial);
+//         //On met en place un message flash
+//         $this->addFlash('success', 'Le favori a bien été supprimé de votre profil.');
+//         //On enregistre la modif
+//         $em->persist($user);
+//         $em->flush();
+//         //On reste sur la page où on est
+//         return $this->redirect($request->headers->get('referer'));
+//     }
 
+
+
+#[Route('/remove-favori/{id}', name:'remove_favori' )]
+public function removeFavori($id, FavoriRepository $favoriRepository, EntityManagerInterface $em, Request $request):Response
+{
+    // On récupère la video dans la BDD
+$favori = $favoriRepository->find($id);
+// On récupère l'utilisateur
+$user = $this ->getUser();
+// Rechercher la participation de l'utilisateur à cet événement
+$tutorial = $favori->getTutorials($user);
+if ($tutorial) {
+    //Supprimer l'événement de la liste
+    $tutorial->removeFavori($favori);
+    //Supprimer l'utilisateur de la liste
+    $favori->removeUsersId($user);
+    //Enregistrer les modifications
+    $this->addFlash('success',' Le favori a bien été supprimé de votre profil : vous n\'êtes plus considéré.e comme participant.e.');
+    $em->persist($user);
+    $em->flush();
 }
+//On reste sur la page où on est
+return $this->redirect($request->headers->get('referer'));
+}
+}
+
+
