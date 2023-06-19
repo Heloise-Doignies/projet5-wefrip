@@ -10,14 +10,14 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class EventFixtures extends Fixture
 {
-    public const VIDEDRESSING = 'vide-dressing';
-    public const ATELIER = 'atelier';
+    public const VIDEDRESSING = 'Vide-dressing';
+    public const ATELIER = 'Atelier';
         
     public function load(ObjectManager $manager): void
         {
             //Fixtures pour les types d'événements (vide drssing ou atelier)
             $typeEvent = new TypeEvent();
-            $typeEvent->setTypeName('Vide dressing');
+            $typeEvent->setTypeName('Vide-dressing');
             $typeEvent->setTypeSlug('vide-dressing');
             $manager->persist($typeEvent);
             $this->addReference(self::VIDEDRESSING, $typeEvent);
@@ -48,7 +48,7 @@ class EventFixtures extends Fixture
         $manager->persist($event);
 
         $event = new Event();
-        $event -> setEventName('Vide dressing');
+        $event -> setEventName('Vide-dressing');
         $event -> setEventDescription('La coloc organise son vide dressing annuel ! Nous sommes trois garçons et nous vendons des vêtements de taille S et M. Dimanche après-midi, jusqu\'à 19h.');
         //     $startDate = new DateTimeImmutable('2023-07-10 14:00:00');
         //     $endDate = new DateTimeImmutable('2023-07-10 19:00:00');
