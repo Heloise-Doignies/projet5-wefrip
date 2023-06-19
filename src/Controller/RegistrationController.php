@@ -40,6 +40,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            
            // on ajoute un role d l'utilisateur
             $user->setRoles(['ROLE_USER']);
             $entityManager->persist($user);
@@ -82,4 +83,6 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Tu es connecté(e)');
         return $this->redirectToRoute('app_home');
     }
+
+  
 }

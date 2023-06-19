@@ -24,24 +24,26 @@
                     <ul class="list">
                         <li class="list-group-item p-1">Email : {{app.user.email}}</li>
                         <li class="list-group-item p-1">Pseudo : 
-                        {% if app.user.pseudo is not null %}
-                        {{app.user.pseudo}}
-                        {% else %}
-                        Non-renseigné
-                        {% endif %}
+                            {% if app.user.pseudo is not null %}
+                                {{app.user.pseudo}}
+                            {% else %}
+                                Non-renseigné
+                            {% endif %}
                         </li>
+
                         <li class="list-group-item p-1">Prénom : 
-                        {% if app.user.firstname is not null %}
-                        {{app.user.firstname}}
+                            {% if app.user.firstname is not null %}
+                            {{app.user.firstname}}
                         {% else %}
-                        Non-renseigné
+                            Non-renseigné
                         {% endif %}
                         </li>
+
                         <li class="list-group-item p-1">Nom de famille : 
                         {% if app.user.lastname is not null %}
-                        {{app.user.lastname}}
+                            {{app.user.lastname}}
                         {% else %}
-                        Non-renseigné
+                            Non-renseigné
                         {% endif %}
                         </li>
                         <li class="list-group-item p-1">Mot de passe : ****</li>
@@ -49,9 +51,9 @@
 
                     <div>
                         {% if app.user.avatarName is not null %}
-                        <img src="{{app.user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil"> 
+                            <img src="{{app.user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil"> 
                         {% else %}
-                        <img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+                            <img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
                         {% endif %}
                     </div>
                 </div>
