@@ -85,8 +85,8 @@
                                 <div class="card-body text-center ">
                                     <h3>{{event.eventName}}</h3>
                                     <p class="card-text">Date : {{event.eventDate.format('d/m/Y H:i') }}</p>
-                                    <p class="card-text">Organisé par : {{event.userCreator}} </p>
-                                    <p class="card-text">Informations pratiques : {{event.infosLocation}}</p>
+                                    <p class="card-text">Organisé par : {{event.eventName}} </p>
+                                    <p class="card-text">Informations pratiques : {{event.infoLocation|raw}}</p>
                                     <a href="{{ path('remove_event', { id: event.id }) }}" class="eventremove">Je me désinscris de cet événement</a>
                                 </div>
                             </div>
