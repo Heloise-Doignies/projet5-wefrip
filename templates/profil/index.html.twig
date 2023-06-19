@@ -72,20 +72,18 @@
             <h2>Mes inscriptions aux événements</h2>
             <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
 
-                {% if participantEvent|length > 0 %}
+                {% if app.user.eventsParticipation|length > 0 %}
                     <div class="row d-flex justify-content-center">
-                        {% for userParticipant in participantEvent %}
-                            {% for event in userParticipant.getEvents() %}
-                                    <div class="card shadow mb-3">
-                                        <div class="card-body text-center ">
-                                            <h3>{{event.eventName}}</h3>
-                                            <p class="card-text">Date : {{event.eventDate.format('d/m/Y H:i') }}</p>
-                                            <p class="card-text">Organisé par : {{event.userCreator}} </p>
-                                            <p class="card-text">Informations pratiques : {{event.infosLocation}}</p>
-                                            <a href="{{ path('remove_event', { id: event.id }) }}">Je me désinscris de cet événement</a>
-                                        </div>
-                                    </div>
-                            {% endfor %}
+                         {% for event in app.user.eventsParticipation %}
+                            <div class="card shadow mb-3">
+                                <div class="card-body text-center ">
+                                    <h3>{{event.eventName}}</h3>
+                                    <p class="card-text">Date : {{event.eventDate.format('d/m/Y H:i') }}</p>
+                                    <p class="card-text">Organisé par : {{event.userCreator}} </p>
+                                    <p class="card-text">Informations pratiques : {{event.infosLocation}}</p>
+                                    <a href="{{ path('remove_event', { id: event.id }) }}">Je me désinscris de cet événement</a>
+                                </div>
+                            </div>
                         {% endfor %} 
                     </div>
 

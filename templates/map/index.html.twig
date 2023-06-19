@@ -88,19 +88,15 @@
         zoneCarte.classList.add('col-md-8');
 
         //Contenu à afficher quand on clique sur un marqueur
-        eventInfo.innerHTML = 
-                '<div class="h-100 card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
-                    '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + '</h5>' +
-                    '<p class="card-text text-uppercase fw-bold">' + marker.options.userCreator + '</p>' +
-                    '<p class="card-text">' + marker.options.typeEvent + '</p>' +
-                    '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
-                    '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
-                    '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>' +
-                '</div>';
-
-            console.log(marker.options.eventName);
-            console.log(marker.options.eventId);
-
+                eventInfo.innerHTML = 
+        '<div class="h-100 card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
+            '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + '</h5>' +
+            '<p class="card-text text-uppercase fw-bold">' + marker.options.userCreator + '</p>' +
+            '<p class="card-text">' + marker.options.typeEvent + '</p>' +
+            '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
+            '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
+            '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>' +
+        '</div>';
 
         // Insérer la nouvelle div d'informations dans le conteneur approprié (avant celle de la carte)
         var zoneCarteEvent = document.getElementById('zoneCarteEvent');

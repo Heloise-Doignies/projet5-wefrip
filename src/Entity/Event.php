@@ -40,9 +40,6 @@ class Event
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $eventUpdatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: UserParticipant::class, inversedBy: 'events')]
-    private Collection $userParticipant;
-
     #[ORM\ManyToOne(inversedBy: 'events', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true)] //Modif pour test
     private ?UserCreator $userCreator = null;
@@ -55,9 +52,12 @@ class Event
     #[ORM\JoinColumn(nullable: true)] //Modif pour test
     private ?InfoLocation $infosLocation = null;
 
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'eventsParticipation')]
+    private Collection $participants;
+
     public function __construct()
     {
-        $this->userParticipant = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
         //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
@@ -167,30 +167,6 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection<int, UserParticipant>
-     */
-    public function getUserParticipant(): Collection
-    {
-        return $this->userParticipant;
-    }
-
-    public function addUserParticipant(UserParticipant $userParticipant): static
-    {
-        if (!$this->userParticipant->contains($userParticipant)) {
-            $this->userParticipant->add($userParticipant);
-        }
-
-        return $this;
-    }
-
-    public function removeUserParticipant(UserParticipant $userParticipant): static
-    {
-        $this->userParticipant->removeElement($userParticipant);
-
-        return $this;
-    }
-
     public function getUserCreator(): ?UserCreator
     {
         return $this->userCreator;
@@ -223,6 +199,30 @@ class Event
     public function setInfosLocation(InfoLocation $infosLocation): static
     {
         $this->infosLocation = $infosLocation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(User $participant): static
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(User $participant): static
+    {
+        $this->participants->removeElement($participant);
 
         return $this;
     }

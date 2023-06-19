@@ -43,7 +43,6 @@ class UserType extends AbstractType
             //     'data'=>new DateTimeImmutable(),
             // ])
             ->remove('userCreator')
-            ->remove('participantEvent')
         ;
     }
 

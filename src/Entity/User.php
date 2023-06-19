@@ -55,19 +55,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(inversedBy: 'userId', cascade: ['persist', 'remove'])]
     private ?UserCreator $userCreator = null;
 
-    #[ORM\ManyToMany(targetEntity: UserParticipant::class, inversedBy: 'usersId')]
-    private Collection $participantEvent;
-
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
     #[ORM\ManyToMany(targetEntity: Tutorial::class, inversedBy: 'users')]
     private Collection $tutorials;
 
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'participants')]
+    private Collection $eventsParticipation;
+
     public function __construct()
     {
-        $this->participantEvent = new ArrayCollection();
         $this->tutorials = new ArrayCollection();
+        $this->eventsParticipation = new ArrayCollection();
     }
 
     //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
@@ -261,30 +261,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, UserParticipant>
-     */
-    public function getParticipantEvent(): Collection
-    {
-        return $this->participantEvent;
-    }
-
-    public function addParticipantEvent(UserParticipant $participantEvent): static
-    {
-        if (!$this->participantEvent->contains($participantEvent)) {
-            $this->participantEvent->add($participantEvent);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipantEvent(UserParticipant $participantEvent): static
-    {
-        $this->participantEvent->removeElement($participantEvent);
-
-        return $this;
-    }
-
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -317,6 +293,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeTutorial(Tutorial $tutorial): static
     {
         $this->tutorials->removeElement($tutorial);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEventsParticipation(): Collection
+    {
+        return $this->eventsParticipation;
+    }
+
+    public function addEventsParticipation(Event $eventsParticipation): static
+    {
+        if (!$this->eventsParticipation->contains($eventsParticipation)) {
+            $this->eventsParticipation->add($eventsParticipation);
+            $eventsParticipation->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventsParticipation(Event $eventsParticipation): static
+    {
+        if ($this->eventsParticipation->removeElement($eventsParticipation)) {
+            $eventsParticipation->removeParticipant($this);
+        }
 
         return $this;
     }
