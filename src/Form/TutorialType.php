@@ -51,7 +51,6 @@ class TutorialType extends AbstractType
                 'data'=>new DateTimeImmutable(),
                 'label' => 'Ajouté le',
             ])
-            ->remove('tutoFavoris')
             ->add('categories', EntityType::class, [
                 'class'=> 'App\Entity\Category',
                 'label' => 'Catégorie(s) du tutoriel',

@@ -52,9 +52,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /*     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $registeredAt = null; */
 
-    #[ORM\ManyToMany(targetEntity: Favori::class, inversedBy: 'users')]
-    private Collection $favoris;
-
     #[ORM\OneToOne(inversedBy: 'userId', cascade: ['persist', 'remove'])]
     private ?UserCreator $userCreator = null;
 
@@ -64,10 +61,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\ManyToMany(targetEntity: Tutorial::class, inversedBy: 'users')]
+    private Collection $tutorials;
+
     public function __construct()
     {
-        $this->favoris = new ArrayCollection();
         $this->participantEvent = new ArrayCollection();
+        $this->tutorials = new ArrayCollection();
     }
 
     //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
@@ -249,30 +249,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     } */
 
-    /**
-     * @return Collection<int, Favori>
-     */
-    public function getFavoris(): Collection
-    {
-        return $this->favoris;
-    }
-
-    public function addFavori(Favori $favori): static
-    {
-        if (!$this->favoris->contains($favori)) {
-            $this->favoris->add($favori);
-        }
-
-        return $this;
-    }
-
-    public function removeFavori(Favori $favori): static
-    {
-        $this->favoris->removeElement($favori);
-
-        return $this;
-    }
-
     public function getUserCreator(): ?UserCreator
     {
         return $this->userCreator;
@@ -317,6 +293,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tutorial>
+     */
+    public function getTutorials(): Collection
+    {
+        return $this->tutorials;
+    }
+
+    public function addTutorial(Tutorial $tutorial): static
+    {
+        if (!$this->tutorials->contains($tutorial)) {
+            $this->tutorials->add($tutorial);
+        }
+
+        return $this;
+    }
+
+    public function removeTutorial(Tutorial $tutorial): static
+    {
+        $this->tutorials->removeElement($tutorial);
 
         return $this;
     }
