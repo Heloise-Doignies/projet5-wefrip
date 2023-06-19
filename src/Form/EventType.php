@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\TypeEvent;
-use App\Entity\UserParticipant;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -58,14 +57,7 @@ class EventType extends AbstractType
                 'data'=>new \DateTimeImmutable(),
                 'label' => 'Ajouté le :',
             ])
-            ->remove('userParticipant', EntityType::class, [
-                'class' => UserParticipant::class,
-                'multiple' => true,
-                'expanded' => true,
-                'label' => 'Participant(s) à l\'événement',
-            ])
             ->remove('userCreator')
-            
             ->remove('infosLocation', EntityType::class,[
                 'class'=> 'App\Entity\InfoLocation',
                 'label' => 'Informations d\'accès',

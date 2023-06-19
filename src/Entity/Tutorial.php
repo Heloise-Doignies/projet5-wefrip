@@ -40,16 +40,16 @@ class Tutorial
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $tutoUpdatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Favori::class, inversedBy: 'tutorials')]
-    private Collection $tutoFavoris;
-
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'tutorials')]
     private Collection $categories;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'tutorials')]
+    private Collection $users;
+
     public function __construct()
     {
-        $this->tutoFavoris = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
@@ -160,30 +160,6 @@ class Tutorial
     }
 
     /**
-     * @return Collection<int, Favori>
-     */
-    public function getTutoFavoris(): Collection
-    {
-        return $this->tutoFavoris;
-    }
-
-    public function addTutoFavori(Favori $tutoFavori): static
-    {
-        if (!$this->tutoFavoris->contains($tutoFavori)) {
-            $this->tutoFavoris->add($tutoFavori);
-        }
-
-        return $this;
-    }
-
-    public function removeTutoFavori(Favori $tutoFavori): static
-    {
-        $this->tutoFavoris->removeElement($tutoFavori);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Category>
      */
     public function getCategories(): Collection
@@ -203,6 +179,33 @@ class Tutorial
     public function removeCategory(Category $category): static
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addTutorial($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeTutorial($this);
+        }
 
         return $this;
     }

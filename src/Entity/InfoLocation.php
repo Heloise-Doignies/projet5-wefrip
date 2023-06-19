@@ -31,14 +31,6 @@ class InfoLocation
     #[ORM\JoinColumn(nullable: false)]
     private ?UserCreator $userCreator = null;
 
-    #[ORM\ManyToMany(targetEntity: UserParticipant::class, inversedBy: 'infoLocations')]
-    private Collection $userParticipant;
-
-    public function __construct()
-    {
-        $this->userParticipant = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -109,27 +101,4 @@ class InfoLocation
         return $this;
     }
 
-    /**
-     * @return Collection<int, UserParticipant>
-     */
-    public function getUserParticipant(): Collection
-    {
-        return $this->userParticipant;
-    }
-
-    public function addUserParticipant(UserParticipant $userParticipant): static
-    {
-        if (!$this->userParticipant->contains($userParticipant)) {
-            $this->userParticipant->add($userParticipant);
-        }
-
-        return $this;
-    }
-
-    public function removeUserParticipant(UserParticipant $userParticipant): static
-    {
-        $this->userParticipant->removeElement($userParticipant);
-
-        return $this;
-    }
 }
