@@ -31,8 +31,10 @@ class AdminCategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $category->setCategorySlug(strtolower($slugger->slug($category->getCategoryName())));
+            $category->setCategoryName(mb_convert_case($category->getCategoryName(), MB_CASE_TITLE));
             $categoryRepository->save($category, true);
 
+            $this->addFlash('success', 'La catégorie '.$category->getCategoryName(). ' a bien été ajoutée.');
             return $this->redirectToRoute('app_admin_category_index', [], Response::HTTP_SEE_OTHER);
         }
 

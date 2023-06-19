@@ -18,15 +18,24 @@ class CategoryController extends AbstractController
         ]);
 
     }
+
     #[Route('/category/{categorySlug}', name: 'app_category_show')]
         public function showCategory($categorySlug, CategoryRepository $categoryRepository): Response
         {
-            //Jn récupère le video correspondant au slug
+            //On récupère le video correspondant au slug
             $category = $categoryRepository->findOneBy(['categorySlug' => $categorySlug]);
             // On rend la page en lui passant le video
             return $this->render('category/show.html.twig', [
                 'category' =>$category,
             ]);}
 
-    
+    #[Route('/category/new', name: 'app_category_new')]
+    public function newCategory($categorySlug, CategoryRepository $categoryRepository): Response
+    {
+        //On récupère le video correspondant au slug
+        $category = $categoryRepository->findOneBy(['categorySlug' => $categorySlug]);
+        // On rend la page en lui passant le video
+        return $this->render('category/new.html.twig', [
+            'category' =>$category,
+        ]);}
 }
