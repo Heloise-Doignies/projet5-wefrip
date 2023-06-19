@@ -21,15 +21,17 @@
 
                         {# Condition pour les favoris : si fav, bouton trash / si non fav, bouton heart #}
                         {% if is_granted('ROLE_USER')%}
-                        {% if tutorial not in app.user.favoris %}
-                        <a href="{{ path('add_favori', { id: tutorial.id }) }}" class="mt-3 btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
-                            <i data-feather="heart"></i>
-                        </a>
-                        {% else %}
-                        <a href="{{ path('remove_favori', { id: tutoFavoris.id }) }}" class="btn btn-dark rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
-                        <i data-feather="trash"></i>
-                        </a>
-                        {% endif %}
+                            {% if tutorial not in app.user.tutorials %}
+                                {# Le tutoriel n'est pas dans la liste des favoris de l'utilisateur #}
+                                <a href="{{ path('add_favori', { id: tutorial.id }) }}" class="mt-3 btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
+                                    <i data-feather="heart"></i>
+                                </a>
+                            {% else %}
+                                {# Le tutoriel est dans la liste des favoris de l'utilisateur #}
+                                <a href="{{ path('remove_favori', { id: tutorial.id }) }}" class="btn btn-dark rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
+                                    <i data-feather="trash"></i>
+                                </a>
+                            {% endif %}
                         {% endif %}
                     </div>
                     <div class="card-body m-auto d-flex flex-column align-items-center justify-content-center">
