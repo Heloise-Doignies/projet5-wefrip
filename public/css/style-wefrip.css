@@ -58,6 +58,12 @@ nav .avatarProfil {
     object-fit: cover;
 }
 
+/* CSS pour les types de support */
+.fichier{
+    height: 250px;
+    object-fit: contain;
+}
+
 /*CSS pour la map*/
 #maCarte{
     width: 100%;
@@ -124,6 +130,9 @@ nav .avatarProfil {
     color: #375CA6;
 }
 
+
+
+
 #card-img-top{
     padding: 3rem;
 }
@@ -137,3 +146,4 @@ nav .avatarProfil {
         }
     
 } */
+
