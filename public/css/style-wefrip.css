@@ -136,12 +136,3 @@ footer .media:hover, .profilInfo button:hover {
     padding: 3rem;
 }
 
-/* @media screen (max-width: 550px) {
-    
-    .home-media{
-        display: flex-wrap;
-        flex-direction: column;
-        width: auto;
-        }
-    
-} */
