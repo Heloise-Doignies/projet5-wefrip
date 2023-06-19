@@ -1,13 +1,20 @@
 /* font-family: 'Chewy', cursive;
 font-family: 'Red Hat Display', sans-serif; */
-
+@font-face {
+	font-family: 'Another shabby';
+	src: url('../fonts/fonts-AnotherShabby/Anothershabby_pro_regular_v3_trial.ttf') format('truetype')
+}
 body {
-    font-family: 'Red Hat Display', sans-serif;
+	font-family: 'Red Hat Display', sans-serif;
     background-color: #F7F3F3;
 }
 
-h1, h2 {
-    font-family: "Cherry Bomb One";
+h1{
+    font-family: "Another shabby";
+}
+
+h2, h3{
+    font-family:'Geologica';
 }
 
 a , a:hover {
@@ -124,3 +131,17 @@ footer .media:hover, .profilInfo button:hover {
     text-decoration: underline;
     color: #375CA6;
 }
+
+#card-img-top{
+    padding: 3rem;
+}
+
+/* @media screen (max-width: 550px) {
+    
+    .home-media{
+        display: flex-wrap;
+        flex-direction: column;
+        width: auto;
+        }
+    
+} */

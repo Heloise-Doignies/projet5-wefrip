@@ -220,7 +220,7 @@ if ($tutorial) {
     //Supprimer l'utilisateur de la liste
     $favori->removeUsersId($user);
     //Enregistrer les modifications
-    $this->addFlash('success',' favori a bien été supprimé de votre profil : vous n\'êtes plus considéré.e comme participant.e.');
+    $this->addFlash('success',' Le favori a bien été supprimé de votre profil : vous n\'êtes plus considéré.e comme participant.e.');
     $em->persist($user);
     $em->flush();
 }
