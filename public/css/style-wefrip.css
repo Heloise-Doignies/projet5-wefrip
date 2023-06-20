@@ -104,13 +104,32 @@ nav .avatarProfil {
     background-color: #E1C9B3;
     top: -700%;
     left: -650%;
-    width:60vw;
+    width:30em;
     transform: translateX(-50%);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
+
+@media (max-width: 576px) {
+.circle-info:hover .info-text {
+    opacity: 1;
+    visibility: visible;
+    left: -135px;
+    font-size: smaller;
+    }
+.info-text {
+        position: absolute;
+        background-color: #E1C9B3;
+        top: -748%;
+        left: -650%;
+        width:20em;
+        transform: translateX(-50%);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
 
 /* CSS pour le profil */
 .profilUser {
