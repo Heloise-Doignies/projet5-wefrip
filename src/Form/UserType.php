@@ -19,9 +19,9 @@ class UserType extends AbstractType
         $builder
             ->add('email')
             //->add('roles')
-            ->add('plainPassword',PasswordType::class,[
+            ->add('plainPassword', PasswordType::class,[
                 'mapped'=>false,
-                'label'=>'Changer le mot de passe',
+                'label'=>'Mot de passe',
             ])
             ->add('pseudo', TextType::class,[
                 'label'=>'Pseudo',

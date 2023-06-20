@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategoryRepository;
+use DateTime;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -21,10 +23,8 @@ class Category
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $categorySlug = null;
 
-   
-
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $categoryUpdatedAt = null;
+    private ?DateTimeImmutable $categoryUpdatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Tutorial::class, mappedBy: 'categories')]
     private Collection $tutorials;
@@ -35,6 +35,7 @@ class Category
     public function __construct()
     {
         $this->tutorials = new ArrayCollection();
+        $this->setCategoryUpdatedAt(new DateTimeImmutable('now'));
     }
 
     //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
