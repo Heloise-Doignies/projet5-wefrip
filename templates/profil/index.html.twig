@@ -77,13 +77,13 @@
             <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
 
                 {% if app.user.eventsParticipation|length > 0 %}
-                    <div class="row d-flex justify-content-center">
+                    <div class="row d-flex justify-content-center flex-column">
                         {% for event in app.user.eventsParticipation %}
                             <div class="card shadow mb-3">
-                                <div class="card-body text-center ">
+                                <div class="card-body text-center">
                                     <h3>{{event.eventName}}</h3>
                                     <p class="card-text">Date : {{event.eventDate.format('d/m/Y H:i') }}</p>
-                                    <p class="card-text">Organisé par : {{event.eventName}} </p>
+                                    <p class="card-text">Organisé par : {{event.creator}} </p>
                                     <p class="card-text">Informations pratiques : {{event.infoLocation|raw}}</p>
                                     <a href="{{ path('remove_event', { id: event.id }) }}" class="eventremove">Je me désinscris de cet événement</a>
                                 </div>

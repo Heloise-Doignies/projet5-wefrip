@@ -40,15 +40,21 @@ class TutorialType extends AbstractType
                 'label' => 'Image du tutoriel',
                 'data_class' => null,
                 ])
-            ->add('tutoSupportType', TextType::class,[
-                'label'=>'Type de support',
-                ])
+            ->add('tutoSupportType', ChoiceType::class, [
+                'label' => 'Type de support',
+                'choices' => [
+                    'Fiche' => 'Fiche',
+                    'Vidéo' => 'Vidéo',
+                ],
+                'multiple' => true,
+                'expanded' => true,
+            ])
             //->add('tutoSlug')
-/*             ->add('tutoUpdatedAt', DateTimeType::class, [
+             ->remove('tutoUpdatedAt', DateTimeType::class, [
                 'widget'=>'single_text',
                 'data'=>new DateTimeImmutable(),
                 'label' => 'Ajouté le',
-            ]) */
+            ]) 
             ->add('categories', EntityType::class, [
                 'class'=> 'App\Entity\Category',
                 'label' => 'Catégorie(s) du tutoriel',

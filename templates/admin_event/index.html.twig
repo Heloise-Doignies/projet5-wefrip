@@ -12,7 +12,9 @@
 {% endfor %}
 <div class="d-flex flex-wrap justify-content-between align-items-center">
     <h1>Evénements</h1>
-    <a href="{{ path('app_admin_event_new') }}" class="btn btn-primary"><i class="align-middle" data-feather="file-plus"></i></a>
+    {# <a href="{{ path('app_admin_event_new') }}" class="btn btn-dark"><i class="align-middle" data-feather="file-plus"></i></a> #}
+    <a href="{{ path('app_map') }}" class="btn btn-primary"><i class="align-middle" data-feather="file-plus"></i></a>
+
 </div>
     <table class="table">
         <thead>
@@ -26,6 +28,7 @@
                 <th>Coordonnées (lng)</th>
                 <th>Slug</th>
                 <th>Ajouté le</th>
+                <th>Créateur</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -41,9 +44,10 @@
                 <td>{{ event.coordinateLng }}</td>
                 <td>{{ event.eventSlug }}</td>
                 <td>{{ event.eventUpdatedAt ? event.eventUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.creator }}</td>
                 <td>
                     <a href="{{ path('app_admin_event_show', {'id': event.id}) }}" class="btn btn-warning"><i class="align-middle" data-feather="eye"></i></a>
-                    <a href="{{ path('app_admin_event_edit', {'id': event.id}) }}" class="btn btn-warning"><i class="align-middle" data-feather="edit-3"></i></a>
+                    <a href="{{ path('app_admin_event_edit', {'id': event.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-3"></i></a>
                 </td>
             </tr>
         {% else %}
