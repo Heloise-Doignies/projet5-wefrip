@@ -171,6 +171,7 @@ class Tutorial
     {
         if (!$this->categories->contains($category)) {
             $this->categories->add($category);
+          /*   $category->addCategory($this); */
         }
 
         return $this;
