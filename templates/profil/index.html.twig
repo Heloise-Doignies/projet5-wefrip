@@ -46,7 +46,6 @@
                             Non-renseigné
                         {% endif %}
                         </li>
-                        <li class="list-group-item p-1">Mot de passe : ****</li>
                     </ul>
 
                     <div>
@@ -59,7 +58,7 @@
                 </div>
 
                 <a href="{{ path('app_profil_edit') }}">
-                    <button class="btn bouton2">Modifier mes informations</button>
+                    <button class="btn bouton2 m-3">Modifier mes informations</button>
                 </a>
 
                 {% if is_granted('ROLE_ADMIN')%}

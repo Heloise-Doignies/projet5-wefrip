@@ -21,15 +21,19 @@ class UserType extends AbstractType
             //->add('roles')
             ->add('plainPassword', PasswordType::class,[
                 'mapped'=>false,
-                'label'=>'Mot de passe',
+                'label'=>'Changer de mot de passe',
+                'required' => false,
             ])
             ->add('pseudo', TextType::class,[
+                'required' => false,
                 'label'=>'Pseudo',
                 ])
             ->add('lastname', TextType::class,[
+                'required' => false,
                 'label'=>'Nom de famille',
                 ])
             ->add('firstname', TextType::class,[
+                'required' => false,
                 'label'=>'Prénom',
                 ])
             ->add('avatarName', FileType::class,[
