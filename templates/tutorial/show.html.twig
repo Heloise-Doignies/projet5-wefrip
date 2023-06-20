@@ -26,9 +26,9 @@
                 </a>
                 {% endfor %}  
 
-                {# Bouton pour le type de support pour le tuto #}              
-                <a href="#">
-                <button class="btn bouton2">{{ tutorial.tutoSupportType }}</button>
+                {# Bouton pour le type de support pour le tuto #}
+                <a href="{{ tutorial.tutoSupportType == 'Fiche' ? path('app_showFiche') : path('app_showVideo') }}">
+                    <button class="btn bouton2">{{ tutorial.tutoSupportType }}</button>
                 </a>
 
                 {# Condition pour les favoris : si fav, bouton trash / si non fav, bouton heart #}

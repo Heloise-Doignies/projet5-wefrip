@@ -1,15 +1,10 @@
- {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-
-
-
- {% block title %}Hello TypeSupportController!{% endblock %}
+{% block title %}Types de support des tutoriels - WeFrip'{% endblock %}
 
 {% block body %}
-{# {{ dump(typesSupport) }} #}
 
-
- <div class="d-flex">
+<div class="d-flex">
     <a href="{{ path('app_tutorial') }}">
         <button type="submit" class="btn bouton mt-3">Retour</button>
     </a>
@@ -20,13 +15,9 @@
     
 
 <div class="row m-3 gap-5 justify-content-center">
-   
         <div class="bouton2 btn h-100 w-25 shadow">
-        
-           <a href="{{ path('app_showFiche') }}">
-           
-           <img src="{{ asset('/img/imageTuto/image.fichier.png') }}" class="card-img-top rounded fichier"  alt="image pour les fiches">
-                
+            <a href="{{ path('app_showFiche') }}">
+            <img src="{{ asset('/img/imageTuto/image.fichier.png') }}" class="card-img-top rounded fichier"  alt="image pour les fiches">
                 <h3 class="text-center my-2">Fiche</h3>
             </a>
         </div>
@@ -36,13 +27,9 @@
                 <img src="{{ asset('/img/imageTuto/capture.PNG') }}" class="card-img-top rounded  fichier" alt="image pour les vidéos">
                 <h3 class="text-center my-2">Vidéo</h3>
             </a>
-         </div>
-     </div>
-    
-        
-     
-  
+        </div>
 </div>
+
 
 {% endblock %} 
 
