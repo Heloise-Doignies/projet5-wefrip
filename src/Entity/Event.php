@@ -40,24 +40,23 @@ class Event
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $eventUpdatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: UserParticipant::class, inversedBy: 'events')]
-    private Collection $userParticipant;
-
-    #[ORM\ManyToOne(inversedBy: 'events', cascade:['persist'])]
-    #[ORM\JoinColumn(nullable: true)] //Modif pour test
-    private ?UserCreator $userCreator = null;
-
     #[ORM\ManyToOne(inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: true)] //Modif pour test
     private ?TypeEvent $typeEvent = null;
 
-    #[ORM\OneToOne(inversedBy: 'event', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: true)] //Modif pour test
-    private ?InfoLocation $infosLocation = null;
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'eventsParticipation')]
+    private Collection $participants;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $infoLocation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'eventCreator')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?User $creator = null;
 
     public function __construct()
     {
-        $this->userParticipant = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
         //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
@@ -167,42 +166,6 @@ class Event
         return $this;
     }
 
-    /**
-     * @return Collection<int, UserParticipant>
-     */
-    public function getUserParticipant(): Collection
-    {
-        return $this->userParticipant;
-    }
-
-    public function addUserParticipant(UserParticipant $userParticipant): static
-    {
-        if (!$this->userParticipant->contains($userParticipant)) {
-            $this->userParticipant->add($userParticipant);
-        }
-
-        return $this;
-    }
-
-    public function removeUserParticipant(UserParticipant $userParticipant): static
-    {
-        $this->userParticipant->removeElement($userParticipant);
-
-        return $this;
-    }
-
-    public function getUserCreator(): ?UserCreator
-    {
-        return $this->userCreator;
-    }
-
-    public function setUserCreator(?UserCreator $userCreator): static
-    {
-        $this->userCreator = $userCreator;
-
-        return $this;
-    }
-
     public function getTypeEvent(): ?TypeEvent
     {
         return $this->typeEvent;
@@ -215,15 +178,52 @@ class Event
         return $this;
     }
 
-    public function getInfosLocation(): ?InfoLocation
+    /**
+     * @return Collection<int, User>
+     */
+    public function getParticipants(): Collection
     {
-        return $this->infosLocation;
+        return $this->participants;
     }
 
-    public function setInfosLocation(InfoLocation $infosLocation): static
+    public function addParticipant(User $participant): static
     {
-        $this->infosLocation = $infosLocation;
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+        }
 
         return $this;
     }
+
+    public function removeParticipant(User $participant): static
+    {
+        $this->participants->removeElement($participant);
+
+        return $this;
+    }
+
+    public function getInfoLocation(): ?string
+    {
+        return $this->infoLocation;
+    }
+
+    public function setInfoLocation(string $infoLocation): static
+    {
+        $this->infoLocation = $infoLocation;
+
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): static
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+    
 }

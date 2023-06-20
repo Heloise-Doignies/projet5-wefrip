@@ -1,13 +1,20 @@
 /* font-family: 'Chewy', cursive;
 font-family: 'Red Hat Display', sans-serif; */
-
+@font-face {
+	font-family: 'Another shabby';
+	src: url('../fonts/fonts-AnotherShabby/Anothershabby_pro_regular_v3_trial.ttf') format('truetype')
+}
 body {
-    font-family: 'Red Hat Display', sans-serif;
+	font-family: 'Red Hat Display', sans-serif;
     background-color: #F7F3F3;
 }
 
-h1, h2 {
-    font-family: "Cherry Bomb One";
+h1{
+    font-family: "Another shabby";
+}
+
+h2, h3{
+    font-family:'Geologica';
 }
 
 a , a:hover {
@@ -16,14 +23,16 @@ a , a:hover {
 }
 
 /* Tous les boutons #375CA6 texte #F7F3F3, hover #D98E04 */
-.bouton, .bouton2:hover {
+.bouton, .bouton2:hover, .media:hover  {
     background-color: #375CA6;
     color: #F7F3F3;
+    cursor:pointer;
 }
 
-.bouton:hover, .bouton2 {
+.bouton:hover, .bouton2, .media {
     background-color: #D98E04;
     color: #F7F3F3;
+    cursor:pointer;
 }
 
 /* Pour la barre de navigation */
@@ -35,16 +44,6 @@ nav .avatarProfil {
     width:40px;
 }
 
-/* Pour le footer */
-footer .media, .profilInfo button {
-    background-color: #D98E04;
-    cursor:pointer;
-}
-
-footer .media:hover, .profilInfo button:hover {
-    background-color: #375CA6;
-    color:#F7F3F3;
-}
 
 /* CSS pour la catégorie */
 .category-image {
@@ -57,6 +56,12 @@ footer .media:hover, .profilInfo button:hover {
 .images-tuto {
     height: 260px;
     object-fit: cover;
+}
+
+/* CSS pour les types de support */
+.fichier{
+    height: 250px;
+    object-fit: contain;
 }
 
 /*CSS pour la map*/
@@ -120,7 +125,14 @@ footer .media:hover, .profilInfo button:hover {
     background-color: #E1C9B3;
 }
 
-#login-inscrire a, .connecter a{
+#login-inscrire a, .connecter a, .eventremove, .info-text a{
     text-decoration: underline;
     color: #375CA6;
+}
+
+
+
+
+#card-img-top{
+    padding: 3rem;
 }

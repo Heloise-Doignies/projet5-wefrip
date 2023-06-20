@@ -52,22 +52,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /*     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $registeredAt = null; */
 
-    #[ORM\ManyToMany(targetEntity: Favori::class, inversedBy: 'users')]
-    private Collection $favoris;
-
-    #[ORM\OneToOne(inversedBy: 'userId', cascade: ['persist', 'remove'])]
-    private ?UserCreator $userCreator = null;
-
-    #[ORM\ManyToMany(targetEntity: UserParticipant::class, inversedBy: 'usersId')]
-    private Collection $participantEvent;
-
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\ManyToMany(targetEntity: Tutorial::class, inversedBy: 'users')]
+    private Collection $tutorials;
+
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'participants')]
+    private Collection $eventsParticipation;
+
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Event::class)]
+    private Collection $eventCreator;
+
     public function __construct()
     {
-        $this->favoris = new ArrayCollection();
-        $this->participantEvent = new ArrayCollection();
+        $this->tutorials = new ArrayCollection();
+        $this->eventsParticipation = new ArrayCollection();
+        $this->eventCreator = new ArrayCollection();
     }
 
     //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
@@ -249,66 +250,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     } */
 
-    /**
-     * @return Collection<int, Favori>
-     */
-    public function getFavoris(): Collection
-    {
-        return $this->favoris;
-    }
-
-    public function addFavori(Favori $favori): static
-    {
-        if (!$this->favoris->contains($favori)) {
-            $this->favoris->add($favori);
-        }
-
-        return $this;
-    }
-
-    public function removeFavori(Favori $favori): static
-    {
-        $this->favoris->removeElement($favori);
-
-        return $this;
-    }
-
-    public function getUserCreator(): ?UserCreator
-    {
-        return $this->userCreator;
-    }
-
-    public function setUserCreator(?UserCreator $userCreator): static
-    {
-        $this->userCreator = $userCreator;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, UserParticipant>
-     */
-    public function getParticipantEvent(): Collection
-    {
-        return $this->participantEvent;
-    }
-
-    public function addParticipantEvent(UserParticipant $participantEvent): static
-    {
-        if (!$this->participantEvent->contains($participantEvent)) {
-            $this->participantEvent->add($participantEvent);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipantEvent(UserParticipant $participantEvent): static
-    {
-        $this->participantEvent->removeElement($participantEvent);
-
-        return $this;
-    }
-
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -320,4 +261,86 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Tutorial>
+     */
+    public function getTutorials(): Collection
+    {
+        return $this->tutorials;
+    }
+
+    public function addTutorial(Tutorial $tutorial): static
+    {
+        if (!$this->tutorials->contains($tutorial)) {
+            $this->tutorials->add($tutorial);
+        }
+
+        return $this;
+    }
+
+    public function removeTutorial(Tutorial $tutorial): static
+    {
+        $this->tutorials->removeElement($tutorial);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEventsParticipation(): Collection
+    {
+        return $this->eventsParticipation;
+    }
+
+    public function addEventsParticipation(Event $eventsParticipation): static
+    {
+        if (!$this->eventsParticipation->contains($eventsParticipation)) {
+            $this->eventsParticipation->add($eventsParticipation);
+            $eventsParticipation->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventsParticipation(Event $eventsParticipation): static
+    {
+        if ($this->eventsParticipation->removeElement($eventsParticipation)) {
+            $eventsParticipation->removeParticipant($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEventCreator(): Collection
+    {
+        return $this->eventCreator;
+    }
+
+    public function addEventCreator(Event $eventCreator): static
+    {
+        if (!$this->eventCreator->contains($eventCreator)) {
+            $this->eventCreator->add($eventCreator);
+            $eventCreator->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventCreator(Event $eventCreator): static
+    {
+        if ($this->eventCreator->removeElement($eventCreator)) {
+            // set the owning side to null (unless already changed)
+            if ($eventCreator->getCreator() === $this) {
+                $eventCreator->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

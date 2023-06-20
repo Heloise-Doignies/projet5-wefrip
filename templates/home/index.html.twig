@@ -5,9 +5,9 @@
 {% block body %}
 <h1 class="text-center m-3">Bienvenue sur WeFrip'</h1>
 
-<div class="container-fluid m-3 d-flex justify-content-center flex-column">
+<div class="container-fluid m-3">
 	<div class="row justify-content-center m-3">
-		<div class="col-md-6 col-sm-12 d-flex align-items-center">
+		<div class="col-lg-5 col-md-6 col-sm-12 d-flex align-items-center">
 			<p>Chez nous, les vêtements prennent une seconde vie,
 			transformés avec amour et créativité.
 			<br>Chaque pièce raconte une histoire unique, mêlant style,
@@ -16,15 +16,14 @@
 			responsable, où la beauté se marie à la réduction des déchets.
 			<br>Ensemble, réinventons la mode, une couture à la fois.</p>
 		</div>
-		<div class="col-md-6 col-sm-12">
+		<div class="col-lg-6 col-md-6 col-sm-12">
 			<img src="{{ asset('img/imageHome/schemawefrip.png') }}" alt="schema" class="img-fluid">
 		</div>
 	</div>
 
-
 	<div class="row justify-content-center m-3">
-		<div class="col-md-5 col-sm-12">
-			<div class="card h-100">
+		<div class="col-lg-5 col-md-6 col-sm-12">
+			<div class="card h-100 p-3">
 				<img src="{{ asset('img/imageEvent/videdressing.jpg') }}" class="rounded-right rounded-top" alt="photo de vide dressing">
 				<div class="card-body text-center">
 					<h2 class="card-title"> Carte interactive </h2>
@@ -36,8 +35,8 @@
 			</div>
 		</div>
 
-		<div class="col-md-5 col-sm-12">
-			<div class="card h-100">
+		<div class="col-lg-5 col-md-6 col-sm-12 mt-3 mt-md-0">
+			<div class="card h-100 p-3">
 				<img src="{{ asset('img/imageTuto/fixtImage1.jpg') }}" class="rounded-right rounded-top" alt="femme faisant du do it yourself">
 				<div class="card-body text-center">
 					<h2 class="card-title-home"> Tutoriels upcycling </h2>
@@ -49,7 +48,6 @@
 			</div>
 		</div>
 	</div>
-
 </div>
 
 {% endblock %}

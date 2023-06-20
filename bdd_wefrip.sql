@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 08 juin 2023 à 13:16
+-- Généré le : lun. 19 juin 2023 à 11:15
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -33,8 +33,23 @@ CREATE TABLE IF NOT EXISTS `category` (
   `category_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `category_updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `category_image_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=281 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `category`
+--
+
+INSERT INTO `category` (`id`, `category_name`, `category_slug`, `category_updated_at`, `category_image_name`) VALUES
+(273, 'Maison', 'maison', NULL, 'maison.png'),
+(274, 'Couture', 'couture', NULL, 'Réparation.jpg'),
+(275, 'Réparation', 'reparation', NULL, 'couture.jpg'),
+(276, 'Teinture', 'teinture', NULL, 'Teinture.jpg'),
+(277, 'Accessoires', 'accessoires', NULL, 'Accessoires.jpg'),
+(278, 'Patron', 'patron', NULL, 'patron.png'),
+(279, 'Tricot', 'tricot', NULL, 'tricot.png'),
+(280, 'Broderie', 'broderie', NULL, 'broderie.png');
 
 -- --------------------------------------------------------
 
@@ -55,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20230608131344', '2023-06-08 13:13:48', 741);
+('DoctrineMigrations\\Version20230619101511', '2023-06-19 10:15:16', 303);
 
 -- --------------------------------------------------------
 
@@ -66,11 +81,11 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 DROP TABLE IF EXISTS `event`;
 CREATE TABLE IF NOT EXISTS `event` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_creator_id` int NOT NULL,
-  `type_event_id` int NOT NULL,
-  `infos_location_id` int NOT NULL,
+  `user_creator_id` int DEFAULT NULL,
+  `type_event_id` int DEFAULT NULL,
+  `infos_location_id` int DEFAULT NULL,
   `event_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `event_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:dateinterval)',
+  `event_date` datetime DEFAULT NULL,
   `event_description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `event_image_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `coordinate_lat` double NOT NULL,
@@ -81,36 +96,37 @@ CREATE TABLE IF NOT EXISTS `event` (
   UNIQUE KEY `UNIQ_3BAE0AA75CE9B6D9` (`infos_location_id`),
   KEY `IDX_3BAE0AA7C645C84A` (`user_creator_id`),
   KEY `IDX_3BAE0AA7BC08CF77` (`type_event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `event`
+--
+
+INSERT INTO `event` (`id`, `user_creator_id`, `type_event_id`, `infos_location_id`, `event_name`, `event_date`, `event_description`, `event_image_name`, `coordinate_lat`, `coordinate_lng`, `event_slug`, `event_updated_at`) VALUES
+(67, NULL, 36, NULL, 'Atelier de couture', '2023-07-09 14:00:00', 'Atelier pour apprendre les bases de la couture avec Henriette. Rdv chez moi samedi, de 14h à 17h.', 'videdressing.jpg', 48.8919423, 2.3421511, 'atelier-de-couture-Henriette', NULL),
+(68, NULL, 35, NULL, 'Vide dressing', '2023-07-10 14:00:00', 'La coloc organise son vide dressing annuel ! Nous sommes trois garçons et nous vendons des vêtements de taille S et M. Dimanche après-midi, jusqu\'à 19h.', 'videdressing.jpg', 48.8694901, 2.3893574, 'vide-dressing-Yani', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `event_user_participant`
+-- Structure de la table `event_user`
 --
 
-DROP TABLE IF EXISTS `event_user_participant`;
-CREATE TABLE IF NOT EXISTS `event_user_participant` (
+DROP TABLE IF EXISTS `event_user`;
+CREATE TABLE IF NOT EXISTS `event_user` (
   `event_id` int NOT NULL,
-  `user_participant_id` int NOT NULL,
-  PRIMARY KEY (`event_id`,`user_participant_id`),
-  KEY `IDX_5894414C71F7E88B` (`event_id`),
-  KEY `IDX_5894414CF699EF40` (`user_participant_id`)
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`event_id`,`user_id`),
+  KEY `IDX_92589AE271F7E88B` (`event_id`),
+  KEY `IDX_92589AE2A76ED395` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Structure de la table `favori`
+-- Déchargement des données de la table `event_user`
 --
 
-DROP TABLE IF EXISTS `favori`;
-CREATE TABLE IF NOT EXISTS `favori` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `is_fav` tinyint(1) DEFAULT NULL,
-  `fav_updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `event_user` (`event_id`, `user_id`) VALUES
+(67, 62);
 
 -- --------------------------------------------------------
 
@@ -127,21 +143,6 @@ CREATE TABLE IF NOT EXISTS `info_location` (
   `info_loc_updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   KEY `IDX_49ABF2A1C645C84A` (`user_creator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `info_location_user_participant`
---
-
-DROP TABLE IF EXISTS `info_location_user_participant`;
-CREATE TABLE IF NOT EXISTS `info_location_user_participant` (
-  `info_location_id` int NOT NULL,
-  `user_participant_id` int NOT NULL,
-  PRIMARY KEY (`info_location_id`,`user_participant_id`),
-  KEY `IDX_37AEFE85D9750B71` (`info_location_id`),
-  KEY `IDX_37AEFE85F699EF40` (`user_participant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -183,7 +184,17 @@ CREATE TABLE IF NOT EXISTS `tutorial` (
   `tuto_slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tuto_updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `tutorial`
+--
+
+INSERT INTO `tutorial` (`id`, `tuto_name`, `tuto_description`, `tuto_file_name`, `tuto_video_name`, `tuto_image_name`, `tuto_support_type`, `tuto_slug`, `tuto_updated_at`) VALUES
+(129, 'Broder un tee shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, 'fixtVideo1.mp4', 'fixtImage1.jpg', 'Fiche', 'broder-un-tee-shirt', NULL),
+(130, 'Réparer une fermeture éclair', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, 'fixtVideo2.mp4', 'fixtImage2.jpg', 'Vidéo', 'reparer-une-fermeture-eclair', NULL),
+(131, 'Apprendre à coudre avec une machine', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, 'fixtVideo3.mp4', 'fixtImage3.jpg', 'Fiche', 'apprendre-a-coudre-avec-une-machine', NULL),
+(132, 'Tie and Dye', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, 'fixtVideo4.mp4', 'fixtImage4.jpg', 'Vidéo', 'tie-and-dye', NULL);
 
 -- --------------------------------------------------------
 
@@ -200,20 +211,16 @@ CREATE TABLE IF NOT EXISTS `tutorial_category` (
   KEY `IDX_D652884112469DE2` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Structure de la table `tutorial_favori`
+-- Déchargement des données de la table `tutorial_category`
 --
 
-DROP TABLE IF EXISTS `tutorial_favori`;
-CREATE TABLE IF NOT EXISTS `tutorial_favori` (
-  `tutorial_id` int NOT NULL,
-  `favori_id` int NOT NULL,
-  PRIMARY KEY (`tutorial_id`,`favori_id`),
-  KEY `IDX_D98EFAC189366B7B` (`tutorial_id`),
-  KEY `IDX_D98EFAC1FF17033F` (`favori_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `tutorial_category` (`tutorial_id`, `category_id`) VALUES
+(129, 280),
+(130, 274),
+(131, 274),
+(132, 276),
+(132, 280);
 
 -- --------------------------------------------------------
 
@@ -231,7 +238,15 @@ CREATE TABLE IF NOT EXISTS `type_event` (
   `type_updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_35A28D506CF8280` (`type_vide_dressing_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `type_event`
+--
+
+INSERT INTO `type_event` (`id`, `type_vide_dressing_id`, `type_name`, `type_description`, `type_slug`, `type_updated_at`) VALUES
+(35, NULL, 'Vide dressing', NULL, 'vide-dressing', NULL),
+(36, NULL, 'Atelier', NULL, 'atelier', NULL);
 
 -- --------------------------------------------------------
 
@@ -265,12 +280,21 @@ CREATE TABLE IF NOT EXISTS `user` (
   `avatar_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `firstname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `is_verified` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`),
   UNIQUE KEY `UNIQ_8D93D649C645C84A` (`user_creator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `user_creator_id`, `email`, `roles`, `password`, `pseudo`, `avatar_name`, `lastname`, `firstname`, `user_slug`, `user_updated_at`, `is_verified`) VALUES
+(61, NULL, 'user@user.com', '[]', '$2y$13$vquFF2UHJq5JO4mpkOJS7OL0Jpb8NtMWBavYbC1dJO7Q8pUBwKZNi', 'User Toto', NULL, NULL, NULL, 'user-user', NULL, 1),
+(62, NULL, 'admin@wefrip.com', '[\"ROLE_USER\", \"ROLE_ADMIN\"]', '$2y$13$wR7EbElc75uU/B21OEK7buY0w9PDl5ETAnXDbvpB4jJw.vlXFgyd.', 'Admin Titi', NULL, NULL, NULL, 'admin-admin', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -282,51 +306,31 @@ DROP TABLE IF EXISTS `user_creator`;
 CREATE TABLE IF NOT EXISTS `user_creator` (
   `id` int NOT NULL AUTO_INCREMENT,
   `creator_updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `user_data` json DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user_favori`
+-- Structure de la table `user_tutorial`
 --
 
-DROP TABLE IF EXISTS `user_favori`;
-CREATE TABLE IF NOT EXISTS `user_favori` (
+DROP TABLE IF EXISTS `user_tutorial`;
+CREATE TABLE IF NOT EXISTS `user_tutorial` (
   `user_id` int NOT NULL,
-  `favori_id` int NOT NULL,
-  PRIMARY KEY (`user_id`,`favori_id`),
-  KEY `IDX_8AD7B9F1A76ED395` (`user_id`),
-  KEY `IDX_8AD7B9F1FF17033F` (`favori_id`)
+  `tutorial_id` int NOT NULL,
+  PRIMARY KEY (`user_id`,`tutorial_id`),
+  KEY `IDX_26E61BE9A76ED395` (`user_id`),
+  KEY `IDX_26E61BE989366B7B` (`tutorial_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Structure de la table `user_participant`
+-- Déchargement des données de la table `user_tutorial`
 --
 
-DROP TABLE IF EXISTS `user_participant`;
-CREATE TABLE IF NOT EXISTS `user_participant` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `participant_updated_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `user_user_participant`
---
-
-DROP TABLE IF EXISTS `user_user_participant`;
-CREATE TABLE IF NOT EXISTS `user_user_participant` (
-  `user_id` int NOT NULL,
-  `user_participant_id` int NOT NULL,
-  PRIMARY KEY (`user_id`,`user_participant_id`),
-  KEY `IDX_391E059A76ED395` (`user_id`),
-  KEY `IDX_391E059F699EF40` (`user_participant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `user_tutorial` (`user_id`, `tutorial_id`) VALUES
+(62, 129);
 
 --
 -- Contraintes pour les tables déchargées
@@ -341,11 +345,11 @@ ALTER TABLE `event`
   ADD CONSTRAINT `FK_3BAE0AA7C645C84A` FOREIGN KEY (`user_creator_id`) REFERENCES `user_creator` (`id`);
 
 --
--- Contraintes pour la table `event_user_participant`
+-- Contraintes pour la table `event_user`
 --
-ALTER TABLE `event_user_participant`
-  ADD CONSTRAINT `FK_5894414C71F7E88B` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_5894414CF699EF40` FOREIGN KEY (`user_participant_id`) REFERENCES `user_participant` (`id`) ON DELETE CASCADE;
+ALTER TABLE `event_user`
+  ADD CONSTRAINT `FK_92589AE271F7E88B` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_92589AE2A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `info_location`
@@ -354,25 +358,11 @@ ALTER TABLE `info_location`
   ADD CONSTRAINT `FK_49ABF2A1C645C84A` FOREIGN KEY (`user_creator_id`) REFERENCES `user_creator` (`id`);
 
 --
--- Contraintes pour la table `info_location_user_participant`
---
-ALTER TABLE `info_location_user_participant`
-  ADD CONSTRAINT `FK_37AEFE85D9750B71` FOREIGN KEY (`info_location_id`) REFERENCES `info_location` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_37AEFE85F699EF40` FOREIGN KEY (`user_participant_id`) REFERENCES `user_participant` (`id`) ON DELETE CASCADE;
-
---
 -- Contraintes pour la table `tutorial_category`
 --
 ALTER TABLE `tutorial_category`
   ADD CONSTRAINT `FK_D652884112469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_D652884189366B7B` FOREIGN KEY (`tutorial_id`) REFERENCES `tutorial` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `tutorial_favori`
---
-ALTER TABLE `tutorial_favori`
-  ADD CONSTRAINT `FK_D98EFAC189366B7B` FOREIGN KEY (`tutorial_id`) REFERENCES `tutorial` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_D98EFAC1FF17033F` FOREIGN KEY (`favori_id`) REFERENCES `favori` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `type_event`
@@ -387,18 +377,11 @@ ALTER TABLE `user`
   ADD CONSTRAINT `FK_8D93D649C645C84A` FOREIGN KEY (`user_creator_id`) REFERENCES `user_creator` (`id`);
 
 --
--- Contraintes pour la table `user_favori`
+-- Contraintes pour la table `user_tutorial`
 --
-ALTER TABLE `user_favori`
-  ADD CONSTRAINT `FK_8AD7B9F1A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_8AD7B9F1FF17033F` FOREIGN KEY (`favori_id`) REFERENCES `favori` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `user_user_participant`
---
-ALTER TABLE `user_user_participant`
-  ADD CONSTRAINT `FK_391E059A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_391E059F699EF40` FOREIGN KEY (`user_participant_id`) REFERENCES `user_participant` (`id`) ON DELETE CASCADE;
+ALTER TABLE `user_tutorial`
+  ADD CONSTRAINT `FK_26E61BE989366B7B` FOREIGN KEY (`tutorial_id`) REFERENCES `tutorial` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_26E61BE9A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
