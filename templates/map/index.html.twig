@@ -99,7 +99,7 @@ var videDressingIcon = L.icon({
         zoneCarte.classList.remove('col-md-12');
         zoneCarte.classList.add('col-md-8');
 
-        //Contenu à afficher quand on clique sur un marqueur
+        //Contenu à afficher quand on clique sur un marqueur (bouton je participe que pour les users connectés)
                 eventInfo.innerHTML = 
         '<div class="h-100 card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
             '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + '</h5>' +
@@ -107,7 +107,9 @@ var videDressingIcon = L.icon({
             '<p class="card-text">' + marker.options.typeEvent + '</p>' +
             '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
             '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
-            '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>' +
+                {% if is_granted('ROLE_USER')%}
+                '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>'+
+                {% endif %} 
         '</div>';
 
         // Insérer la nouvelle div d'informations dans le conteneur approprié (avant celle de la carte)
