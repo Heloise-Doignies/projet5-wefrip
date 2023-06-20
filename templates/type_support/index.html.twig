@@ -6,13 +6,11 @@
 
 <div class="d-flex">
     <a href="{{ path('app_tutorial') }}">
-        <button type="submit" class="btn bouton mt-3">Retour</button>
+        <button type="submit" class="btn bouton mt-3"><i data-feather="arrow-left"></i> Retour</button>
     </a>
 </div>
 
-<h1 class="text-center m-3">TypeSupportController</h1>
-
-    
+<h1 class="text-center m-3">{{TypeSupportController}}</h1>
 
 <div class="row m-3 gap-5 justify-content-center">
         <div class="bouton2 btn h-100 w-25 shadow">
@@ -24,12 +22,11 @@
 
         <div class="bouton2 btn h-100 w-25 shadow">
             <a href="{{ path('app_showVideo') }}">
-                <img src="{{ asset('/img/imageTuto/capture.PNG') }}" class="card-img-top rounded  fichier" alt="image pour les vidéos">
+                <img src="{{ asset('/img/imageTuto/image-video.png') }}" class="card-img-top rounded fichier" alt="image pour les vidéos">
                 <h3 class="text-center my-2">Vidéo</h3>
             </a>
         </div>
 </div>
-
 
 {% endblock %} 
 

@@ -14,9 +14,9 @@ class TutorialFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $tutorial = new Tutorial();
-        $tutorial -> setTutoName('Broder un tee shirt');
-        $tutorial -> setTutoDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
-        $tutorial -> setTutoVideoName('fixtVideo1.mp4');
+        $tutorial -> setTutoName('DIY T-shirts brodés');
+        $tutorial -> setTutoDescription('Aujourd\'hui je vous propose un tutoriel pour personnaliser vos vêtements et les rendre uniques.');
+        $tutorial -> setTutoVideoName('https://www.youtube.com/embed/zxsuMNaFVIk');
         $tutorial -> setTutoImageName('fixtImage1.jpg');
         $tutorial -> setTutoSupportType('Fiche');
         $supportType = self::FICHE; 
@@ -26,9 +26,9 @@ class TutorialFixtures extends Fixture
         $manager->persist($tutorial);
 
         $tutorial = new Tutorial();
-        $tutorial -> setTutoName('Réparer une fermeture éclair');
-        $tutorial -> setTutoDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
-        $tutorial -> setTutoVideoName('fixtVideo2.mp4');
+        $tutorial -> setTutoName('Comment réparer la fermeture éclair');
+        $tutorial -> setTutoDescription('Comment réparer une fermeture éclair. C\'est plus facile que de remplacer la fermeture à glissière et très économique');
+        $tutorial -> setTutoVideoName('https://www.youtube.com/embed/NhwaMNvrIlc');
         $tutorial -> setTutoImageName('fixtImage2.jpg');
         $supportType = self::VIDEO; 
         $tutorial->setTutoSupportType($supportType);
@@ -37,9 +37,9 @@ class TutorialFixtures extends Fixture
         $manager->persist($tutorial);
 
         $tutorial = new Tutorial();
-        $tutorial -> setTutoName('Apprendre à coudre avec une machine');
-        $tutorial -> setTutoDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
-        $tutorial -> setTutoVideoName('fixtVideo3.mp4');
+        $tutorial -> setTutoName('APPRENDRE À COUDRE À LA MACHINE');
+        $tutorial -> setTutoDescription(' Apprendre facilement manipuler le tissu pour faire les lignes droites, parallèles, les courbes, les arrondis, les angles à la machine. Et vous allez voir que la couture c’est facile et amusant !');
+        $tutorial -> setTutoVideoName('https://www.youtube.com/embed/CIj4lo9RFo0');
         $tutorial -> setTutoImageName('fixtImage3.jpg');
         $supportType = self::FICHE; 
         $tutorial->setTutoSupportType($supportType);
@@ -48,9 +48,9 @@ class TutorialFixtures extends Fixture
         $manager->persist($tutorial);
 
         $tutorial = new Tutorial();
-        $tutorial -> setTutoName('Tie and Dye');
-        $tutorial -> setTutoDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
-        $tutorial -> setTutoVideoName('fixtVideo4.mp4');
+        $tutorial -> setTutoName('17 idées étonnantes de projets DIY upcycling');
+        $tutorial -> setTutoDescription('Vous avez de vieux vêtements que vous ne portez plus ? Si vous pensiez les jeter, n\'en faites rien ! On peut réaliser une multitude de d\'objets de déco ou pratiques avec de vieux habits. Regardez !');
+        $tutorial -> setTutoVideoName('https://www.youtube.com/embed/rj8tyaG720c');
         $tutorial -> setTutoImageName('fixtImage4.jpg');
         $supportType = self::VIDEO; 
         $tutorial->setTutoSupportType($supportType);

@@ -4,15 +4,21 @@
 {% block body %}
 <div class="container-fluid w-75 m-auto my-3">
 
-<a href="{{ path('app_tutorial') }}" class="btn btn-primary mb-3"><i data-feather="arrow-left"></i> Retour</a>
+<a href="{{ path('app_tutorial') }}" class="btn bouton mb-3"><i data-feather="arrow-left"></i> Retour</a>
 
 <div class="row w-100 d-flex justify-content-center">
 
 	<div class="col-12">
         <div class="card">
-            <video controls>
+       
+       
+<div class="video-container">
+    <iframe width="100%" height="300" src="{{  tutorial.tutoVideoName  }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+
+            {# <video controls>
                 <source src="{{ asset('img/videoTuto/' ~ tutorial.tutoVideoName) }}" type="video/mp4"></source>
-            </video>
+            </video> #}
 
         <div class="card-body m-auto d-flex flex-column align-items-center justify-content-center m-auto">
                 <h2 class="card-title ">{{ tutorial.tutoName }}</h2>
