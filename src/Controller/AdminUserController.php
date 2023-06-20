@@ -36,7 +36,7 @@ class AdminUserController extends AbstractController
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('password')->getData()
                 )
             );
             $user->setUserSlug(strtolower($slugger->slug($user->getUserIdentifier())));
