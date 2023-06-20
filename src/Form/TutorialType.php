@@ -34,7 +34,7 @@ class TutorialType extends AbstractType
                 ])
             ->add('tutoVideoName', FileType::class,[
                 'required' => false,
-                'label' => 'Image du tutoriel',
+                'label' => 'Vidéo du tutoriel',
                 'data_class' => null,
                 ])
             ->add('tutoImageName', FileType::class,[
@@ -46,7 +46,7 @@ class TutorialType extends AbstractType
                 'label'=>'Type de support',
                 ])
             //->add('tutoSlug')
-            ->add('tutoUpdatedAt', DateTimeType::class, [
+            ->remove('tutoUpdatedAt', DateTimeType::class, [
                 'widget'=>'single_text',
                 'data'=>new DateTimeImmutable(),
                 'label' => 'Ajouté le',
