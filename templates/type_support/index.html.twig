@@ -1,48 +1,41 @@
- {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 
-
-
- {% block title %}Hello TypeSupportController!{% endblock %}
+{% block title %}Hello TypeSupportController!
+{% endblock %}
 
 {% block body %}
-{# {{ dump(typesSupport) }} #}
+	{# {{ dump(typesSupport) }} #}
 
 
- <div class="d-flex">
-    <a href="{{ path('app_tutorial') }}">
-        <button type="submit" class="btn bouton mt-3">Retour</button>
-    </a>
-</div>
+	<div class="d-flex">
+		<a href="{{ path('app_tutorial') }}">
+			<button type="submit" class="btn bouton mt-3">Retour</button>
+		</a>
+	</div>
 
-<h1 class="text-center m-3">TypeSupportController</h1>
+	<h1 class="text-center m-5">TypeSupportController</h1>
 
-    
 
-<div class="row m-3 gap-5 justify-content-center">
-   
-        <div class="bouton2 btn h-100 w-25 shadow">
-        
-           <a href="{{ path('app_showFiche') }}">
-           
-           <img src="{{ asset('/img/imageTuto/image.fichier.png') }}" class="card-img-top rounded fichier"  alt="image pour les fiches">
-                
-                <h3 class="text-center my-2">Fiche</h3>
-            </a>
-        </div>
+	<div class="row m-3 gap-5 justify-content-center">
 
-        <div class="bouton2 btn h-100 w-25 shadow">
-            <a href="{{ path('app_showVideo') }}">
-                <img src="{{ asset('/img/imageTuto/capture.PNG') }}" class="card-img-top rounded  fichier" alt="image pour les vidéos">
-                <h3 class="text-center my-2">Vidéo</h3>
-            </a>
-         </div>
-     </div>
-    
-        
-     
-  
-</div>
+		<div class="bouton2 btn h-100 w-25 shadow">
 
-{% endblock %} 
+			<a href="{{ path('app_showFiche') }}">
 
+				<img src="{{ asset('/img/imageTuto/image.fichier.png') }}" class="card-img-top rounded fichier" alt="image pour les fiches">
+
+				<h3 class="text-center my-2">Fiche</h3>
+			</a>
+		</div>
+
+		<div class="bouton2 btn h-100 w-25 shadow">
+			<a href="{{ path('app_showVideo') }}">
+				<img src="{{ asset('/img/imageTuto/capture.PNG') }}" class="card-img-top rounded  fichier" alt="image pour les vidéos">
+				<h3 class="text-center my-2">Vidéo</h3>
+			</a>
+		</div>
+	</div>
+
+
+</div>{% endblock %}
