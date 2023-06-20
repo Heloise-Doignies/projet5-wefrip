@@ -22,11 +22,11 @@ class CategoryType extends AbstractType
                 'label'=> 'Nom de la catégorie',
             ])
             //->add('categorySlug')
-            // ->add('categoryUpdatedAt', DateTimeImmutable::class, [
-            //     'widget'=>'single_text',
-            //     'data'=>new \DateTimeImmutable(),
-            //     'label'=>'Ajouté le',
-            // ])
+            ->remove('categoryUpdatedAt', DateTimeImmutable::class, [
+                'widget'=>'single_text',
+                'data'=>new \DateTimeImmutable(),
+                'label'=>'Ajouté le',
+            ])
 /*             ->add('tutorials', EntityType::class, [
                 'class'=> 'App\Entity\Tutorial',
                 'label' => 'Tutoriels dans la catégorie',

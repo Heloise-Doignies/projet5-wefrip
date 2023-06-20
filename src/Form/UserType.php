@@ -38,10 +38,10 @@ class UserType extends AbstractType
                     'data_class' => null,
                 ])
             //->add('userSlug')
-            // ->add('userUpdatedAt', DateTimeType::class, [
-            //     'widget'=>'single_text',
-            //     'data'=>new DateTimeImmutable(),
-            // ])
+            ->remove('userUpdatedAt', DateTimeType::class, [
+                'widget'=>'single_text',
+                'data'=>new DateTimeImmutable(),
+            ])
             ->remove('eventCreator')
         ;
     }
