@@ -10,6 +10,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class TutorialType extends AbstractType
 {
@@ -27,17 +29,12 @@ class TutorialType extends AbstractType
                 ])
             ->add('tutoFileName', FileType::class,[
                 'required' => false,
-                'label' => 'Image du document',
+                'label' => 'Visuel du tutoriel (pour un tutoriel "fiche")',
                 'data_class' => null,
                 ])
-            ->add('tutoVideoName', FileType::class,[
+            ->add('tutoVideoName', TextType::class,[
                 'required' => false,
-                'label' => 'Vidéo du tutoriel',
-                'data_class' => null,
-                ])
-            ->add('tutoImageName', FileType::class,[
-                'required' => false,
-                'label' => 'Image du tutoriel',
+                'label' => 'Lien Youtube (pour un tutoriel "vidéo")',
                 'data_class' => null,
                 ])
             ->add('tutoSupportType', ChoiceType::class, [
@@ -46,13 +43,16 @@ class TutorialType extends AbstractType
                     'Fiche' => 'Fiche',
                     'Vidéo' => 'Vidéo',
                 ],
-                'multiple' => true,
-                'expanded' => true,
             ])
+            ->add('tutoImageName', FileType::class,[
+                'required' => false,
+                'label' => 'Image du tutoriel (pour la miniature)',
+                'data_class' => null,
+                ])
             //->add('tutoSlug')
             ->remove('tutoUpdatedAt', DateTimeType::class, [
                 'widget'=>'single_text',
-                'data'=>new DateTimeImmutable(),
+                'data'=>new \DateTimeImmutable(),
                 'label' => 'Ajouté le',
             ]) 
             ->add('categories', EntityType::class, [
