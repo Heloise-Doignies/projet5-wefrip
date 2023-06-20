@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use DateTimeImmutable;
 use App\Entity\Tutorial;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -10,7 +9,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TutorialType extends AbstractType
@@ -46,11 +44,11 @@ class TutorialType extends AbstractType
                 'label'=>'Type de support',
                 ])
             //->add('tutoSlug')
-            ->add('tutoUpdatedAt', DateTimeType::class, [
+/*             ->add('tutoUpdatedAt', DateTimeType::class, [
                 'widget'=>'single_text',
                 'data'=>new DateTimeImmutable(),
                 'label' => 'Ajouté le',
-            ])
+            ]) */
             ->add('categories', EntityType::class, [
                 'class'=> 'App\Entity\Category',
                 'label' => 'Catégorie(s) du tutoriel',
