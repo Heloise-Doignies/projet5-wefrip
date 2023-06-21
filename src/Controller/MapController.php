@@ -29,15 +29,8 @@ class MapController extends AbstractController
             //On récupère les informations de l'utilisateur pour le UserCreator
             $user=$this->getUser();
 
-            // $userCreator = new UserCreator();
-            // $userCreator->setUserData([
-            //     'pseudo' => $user->getPseudo(),
-            //     'firstname' => $user->getFirstname(),
-            //     'lastname' => $user->getLastname(),
-            //     ]);
-
             // On associe le UserCreator à l'événement
-            // $newEvent->setUserCreator($userCreator);
+            $newEvent->setCreator($user);
 
             //On enregistre dans la base de données
             $eventRepository->save($newEvent, true);
