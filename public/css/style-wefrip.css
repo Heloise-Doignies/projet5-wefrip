@@ -9,6 +9,7 @@ body {
     background-color: #F7F3F3;
 }
 
+
 h1{
     font-family: "Another shabby";
 }
@@ -154,4 +155,11 @@ nav .avatarProfil {
 
 #card-img-top{
     padding: 3rem;
+}
+
+/* CSS pour le footer */
+footer{
+    /* Assurez-vous que le footer a un fond de couleur ou une bordure pour être visible */
+    background-color: #f8f9fa;
+    margin-top: auto;
 }
