@@ -16,6 +16,7 @@
     <a href="{{ path('app_map') }}" class="btn btn-primary"><i class="align-middle" data-feather="file-plus"></i></a>
 
 </div>
+<div class="table-responsive">
     <table class="table">
         <thead>
             <tr>
@@ -52,10 +53,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="10">Pas de données enregistrées</td>
+                <td colspan="11">Pas de données enregistrées</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+</div>
 
 {% endblock %}
