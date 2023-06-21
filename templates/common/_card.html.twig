@@ -1,0 +1,48 @@
+{# On affiche toutes les vidéos avec une boucle #}
+
+
+    <div class="col-12 col-md-4 col-xl-4 mb-3">
+        <div class="card h-100 p-3">
+            <div class="position-relative">
+                {% if tutorial.tutoImageName is defined and tutorial.tutoImageName is not null %}
+                    <img src="{{ asset('/img/imageTuto/' ~ tutorial.tutoImageName) }}" class="card-img-top images-tuto" alt="tutorial.tutoName">
+                {% else %}
+                    <img src="{{ asset('/img/imageTuto/tuto-noimage.png') }}" class="card-img-top images-tuto" alt="image par défaut">
+                {% endif %}
+
+                {# Condition pour les favoris : si fav, bouton trash / si non fav, bouton heart #}
+                {% if is_granted('ROLE_USER')%}
+                    {% if tutorial not in app.user.tutorials %}
+                        {# Le tutoriel n'est pas dans la liste des favoris de l'utilisateur #}
+                        <a href="{{ path('add_favori', { id: tutorial.id }) }}" class="mt-3 btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
+                            <i data-feather="heart"></i>
+                        </a>
+                    {% else %}
+                        {# Le tutoriel est dans la liste des favoris de l'utilisateur #}
+                        <a href="{{ path('remove_favori', { id: tutorial.id }) }}" class="btn btn-dark rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
+                            <i data-feather="trash"></i>
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <a href="{{ path('app_tutorial_show', { tutoSlug: tutorial.tutoSlug }) }}">
+                    <h2 class="card-title">{{ tutorial.tutoName|slice(0, 25) }}...</h2>
+                    {# On fait apparaître que les 100 premiers caractères de la description #}
+                    <p>{{ tutorial.tutoDescription|slice(0, 100) }}...</p>
+                </a>
+                <div class="d-flex gap-3">
+                    {# On affiche autant de boutons qu'il y a de catégorie(s) pour le tuto #}
+                    {% for category in tutorial.categories %}
+                        <a href="{{ path ('app_category_show', {categorySlug :category.categorySlug}) }}">
+                        <button class="btn bouton">{{ category }}</button>
+                        </a>
+                    {% endfor %}
+                    {# On affiche un bouton pour le type de support pour le tuto #}
+                    <a href="{{ tutorial.tutoSupportType == 'Fiche' ? path('app_showFiche') : path('app_showVideo') }}">
+                        <button class="btn bouton2">{{ tutorial.tutoSupportType }}</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>

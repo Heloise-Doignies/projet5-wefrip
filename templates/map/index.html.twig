@@ -20,7 +20,7 @@
         <span class="info-text text-dark rounded">
             <p class="m-2">Grâce à WeFrip', participez à des événements ajoutés par d'autres utilisateurs : vide-dressings ou ateliers. Cliquez sur un marqueur pour voir les informations associées. Attention, pour participer à un événement et voir les informations pratiques d'accès, il faut être connecté.
             <br>Pour organiser un événement, il faut également être connecté. Cliquez sur la carte pour ajouter un marqueur vers l'endroit où vous organisez votre événement et remplissez le formulaire. 
-            <br>Pour information, l'organisation d'un vide-dressing est soumise à la déclaration préalable d'une vente au déballage (<a href='https://entreprendre.service-public.fr/vosdroits/R18906' " target="_blank">formulaire de déclaration</a>).
+            <br>Pour information, l'organisation d'un vide-dressing est soumise à la déclaration préalable d'une vente au déballage (<a href="https://entreprendre.service-public.fr/vosdroits/R18906" target="_blank">formulaire de déclaration</a>).
             </p>
         </span>
     </div>
@@ -99,15 +99,17 @@ var videDressingIcon = L.icon({
         zoneCarte.classList.remove('col-md-12');
         zoneCarte.classList.add('col-md-8');
 
-        //Contenu à afficher quand on clique sur un marqueur
+        //Contenu à afficher quand on clique sur un marqueur (bouton je participe que pour les users connectés)
                 eventInfo.innerHTML = 
         '<div class="h-100 card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
             '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + '</h5>' +
-            '<p class="card-text text-uppercase fw-bold">' + marker.options.userCreator + '</p>' +
+            '<p class="card-text text-uppercase fw-bold">' + marker.options.creator + '</p>' +
             '<p class="card-text">' + marker.options.typeEvent + '</p>' +
             '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
             '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
-            '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>' +
+                {% if is_granted('ROLE_USER')%}
+                '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>'+
+                {% endif %} 
         '</div>';
 
         // Insérer la nouvelle div d'informations dans le conteneur approprié (avant celle de la carte)
@@ -150,7 +152,7 @@ var videDressingIcon = L.icon({
         var marker = L.marker([{{ event.coordinateLat }}, {{ event.coordinateLng }}], {
             icon: icon,
             eventName: '{{ event.eventName }}',
-            userCreator: '{{ event.eventName }}',
+            creator: '{{ event.creator }}',
             typeEvent: '{{ event.typeEvent }}',
             eventDate: '{{ event.eventDate.format('d/m/Y H:i') }}',
             eventDescription: '{{ event.eventDescription|e('js') }}',

@@ -3,13 +3,11 @@
 namespace App\Form;
 
 use App\Entity\User;
-use DateTimeImmutable;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserType extends AbstractType
@@ -19,7 +17,7 @@ class UserType extends AbstractType
         $builder
             ->add('email')
             //->add('roles')
-            ->add('plainPassword', PasswordType::class,[
+            ->add('password', PasswordType::class,[
                 'mapped'=>false,
                 'label'=>'Changer de mot de passe',
                 'required' => false,
@@ -42,10 +40,10 @@ class UserType extends AbstractType
                     'data_class' => null,
                 ])
             //->add('userSlug')
-            // ->add('userUpdatedAt', DateTimeType::class, [
-            //     'widget'=>'single_text',
-            //     'data'=>new DateTimeImmutable(),
-            // ])
+            ->remove('userUpdatedAt', DateTimeType::class, [
+                'widget'=>'single_text',
+                'data'=>new \DateTimeImmutable(),
+            ])
             ->remove('eventCreator')
         ;
     }

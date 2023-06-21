@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'E-mail déjà existant')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -30,6 +30,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+    /*pour pouvoir confirmer le mdp a mettre en private apres test*/
+    public $confirm_password;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pseudo = null;
@@ -74,7 +76,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
     public function __toString(): string
     {
-        return $this->email;
+        return(!is_null($this->pseudo)) ? $this->pseudo : $this->firstname." ".$this->lastname;
     }
     
     public function getId(): ?int

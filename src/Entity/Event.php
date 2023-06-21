@@ -19,7 +19,7 @@ class Event
     #[ORM\Column(length: 255)]
     private ?string $eventName = null;
 
-    #[ORM\Column (nullable: true)] //Modif pour test : en nullable true
+    #[ORM\Column (nullable: false)]
     private ?\DateTime $eventDate = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -222,7 +222,6 @@ class Event
     public function setCreator(?User $creator): static
     {
         $this->creator = $creator;
-
         return $this;
     }
     

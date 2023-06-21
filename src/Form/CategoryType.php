@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -18,11 +19,11 @@ class CategoryType extends AbstractType
                 'label'=> 'Nom de la catégorie',
             ])
             //->add('categorySlug')
-            // ->add('categoryUpdatedAt', DateTimeImmutable::class, [
-            //     'widget'=>'single_text',
-            //     'data'=>new \DateTimeImmutable(),
-            //     'label'=>'Ajouté le',
-            // ])
+            ->remove('categoryUpdatedAt', DateTimeType::class, [
+                'widget'=>'single_text',
+                'data'=>new \DateTimeImmutable(),
+                'label'=>'Ajouté le',
+            ])
 /*             ->add('tutorials', EntityType::class, [
                 'class'=> 'App\Entity\Tutorial',
                 'label' => 'Tutoriels dans la catégorie',
