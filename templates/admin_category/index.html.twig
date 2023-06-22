@@ -21,6 +21,7 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Slug</th>
+                <th>Image</th>
                 <th>Ajouté le :</th>
                 <th class="text-end">Actions</th>
             </tr>
@@ -31,6 +32,7 @@
                 <td>{{ category.id }}</td>
                 <td>{{ category.categoryName }}</td>
                 <td>{{ category.categorySlug }}</td>
+                <td>{{ category.categoryImageName }}</td>
                 <td>{{ category.categoryUpdatedAt ? category.categoryUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td class="text-end">
                     <a href="{{ path('app_admin_category_show', {'id': category.id}) }}" class="btn btn-warning"><i class="align-middle" data-feather="eye"></i></a>

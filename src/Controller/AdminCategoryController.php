@@ -30,6 +30,7 @@ class AdminCategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // dd($form->getData());
             $category->setCategorySlug(strtolower($slugger->slug($category->getCategoryName())));
             $category->setCategoryName(mb_convert_case($category->getCategoryName(), MB_CASE_TITLE));
             $categoryRepository->save($category, true);

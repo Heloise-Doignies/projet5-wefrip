@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Tutorial;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,10 +28,10 @@ class TutorialType extends AbstractType
                     'removePlugins' => 'exportpdf',
                 ],
                 ])
-            ->add('tutoFileName', FileType::class,[
+            ->add('tutoFile', FileType::class,[
                 'required' => false,
                 'label' => 'Visuel du tutoriel (pour un tutoriel "fiche")',
-                'data_class' => null,
+                // 'data_class' => null,
                 ])
             ->add('tutoVideoName', TextType::class,[
                 'required' => false,
@@ -44,10 +45,10 @@ class TutorialType extends AbstractType
                     'Vidéo' => 'Vidéo',
                 ],
             ])
-            ->add('tutoImageName', FileType::class,[
+            ->add('tutoImageFile', FileType::class,[
                 'required' => false,
                 'label' => 'Image du tutoriel (pour la miniature)',
-                'data_class' => null,
+                // 'data_class' => null,
                 ])
             //->add('tutoSlug')
             ->remove('tutoUpdatedAt', DateTimeType::class, [
