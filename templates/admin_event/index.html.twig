@@ -49,6 +49,7 @@
                 <td>
                     <a href="{{ path('app_admin_event_show', {'id': event.id}) }}" class="btn btn-warning"><i class="align-middle" data-feather="eye"></i></a>
                     <a href="{{ path('app_admin_event_edit', {'id': event.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-3"></i></a>
+                    <a href="{{ path('app_admin_event_edit', {'id': event.id}) }}" class="btn btn-danger"><i class="align-middle" data-feather="trash"></i></a>
                 </td>
             </tr>
         {% else %}
