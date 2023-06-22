@@ -33,9 +33,9 @@
             <tr>
                 <td>{{ tutorial.id }}</td>
                 <td>{{ tutorial.tutoName }}</td>
-                <td>{{ tutorial.tutoDescription }}</td>
-                <td>{{ tutorial.tutoFileName }} {{ tutorial.tutoVideoName }}</td>
-                <td>{{ tutorial.tutoImageName }}</td>
+                <td>{{ tutorial.tutoDescription|raw }}</td>
+                <td>{{ tutorial.tutoFile }} {{ tutorial.tutoVideoName }}</td>
+                <td>{{ tutorial.tutoImageFile }}</td>
                 <td>{{ tutorial.tutoSupportType }}</td>
                 <td>{{ tutorial.tutoSlug }}</td>
                 <td>{{ tutorial.tutoUpdatedAt ? tutorial.tutoUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>

@@ -24,7 +24,8 @@
 
             <div class="card-body m-auto d-flex flex-column align-items-center justify-content-center m-auto">
                     <h2 class="card-title ">{{ tutorial.tutoName }}</h2>
-                    <p>{{ tutorial.tutoDescription }}</p>
+                    <p>{{ tutorial.tutoDescription|raw }}</p>
+                    
 
                 <div class="d-flex flex-row align-items-center justify-content-center gap-3">
                     {# Bouton(s) pour les catégories #}
