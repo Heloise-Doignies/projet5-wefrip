@@ -23,7 +23,6 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Date</th>
-                <th>Description</th>
                 <th>Nom de l'image</th>
                 <th>Coordonnées (lat)</th>
                 <th>Coordonnées (lng)</th>
@@ -38,8 +37,7 @@
             <tr>
                 <td>{{ event.id }}</td>
                 <td>{{ event.eventName }}</td>
-                <td>{{ event.eventDate ? event.eventDate.format('%y year(s), %m month(s), %d day(s)') : '' }}</td>
-                <td>{{ event.eventDescription }}</td>
+                <td>{{ event.eventDate ? event.eventDate.format('d-m-Y H:i:s') : '' }}</td>
                 <td>{{ event.eventImageName }}</td>
                 <td>{{ event.coordinateLat }}</td>
                 <td>{{ event.coordinateLng }}</td>
