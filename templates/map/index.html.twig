@@ -6,42 +6,40 @@
 {# Code HTML pour la carte et les fonctionnalités #}
 <h1 class="text-center m-3">Tous les événements près de chez vous</h1>
     
-<div id="zoneCarteEvent" class="container d-flex flex-row w-100 my-3 align-items-center justify-content-center position-relative">
-    {# Affichage de la carte #}
-    <div id="zoneCarte" class="col-md-12">
-        <div id="maCarte" class="m-0 rounded border"></div> 
+<div class="container-fluid">
+    <div id="zoneCarteEvent" class="row">
+        <div id="maCarte" class="rounded border col-md-12">
+        {# Affichage de la carte ici #}
+        </div>
     </div>
+
+        {# Ajout d'un espace informations sur la carte #}
+        <div class="col-md-12">
+            <div class="d-flex justify-content-end m-3">
+                <div class="circle-info shadow text-dark d-flex align-items-center justify-content-center">
+                    ?
+                    <span class="info-text text-dark rounded">
+                        <p class="m-2">Grâce à WeFrip', participez à des événements ajoutés par d'autres utilisateurs : vide-dressings ou ateliers. Cliquez sur un marqueur pour voir les informations associées. Attention, pour participer à un événement et voir les informations pratiques d'accès, il faut être connecté.
+                        <br>Pour organiser un événement, il faut également être connecté. Cliquez sur la carte pour ajouter un marqueur vers l'endroit où vous organisez votre événement et remplissez le formulaire. 
+                        <br>Pour information, l'organisation d'un vide-dressing est soumise à la déclaration préalable d'une vente au déballage (<a href="https://entreprendre.service-public.fr/vosdroits/R18906" target="_blank">formulaire de déclaration</a>).
+                        </p>
+                    </span>
+                </div>
+            </div>
+        </div>
 </div>
 
-{# Ajout d'un espace informations sur la carte #}
-<div class="d-flex justify-content-end m-3 w-100 pe-5">
-    <div class="circle-info shadow text-dark d-flex align-items-center justify-content-center">
-        ?
-        <span class="info-text text-dark rounded">
-            <p class="m-2">Grâce à WeFrip', participez à des événements ajoutés par d'autres utilisateurs : vide-dressings ou ateliers. Cliquez sur un marqueur pour voir les informations associées. Attention, pour participer à un événement et voir les informations pratiques d'accès, il faut être connecté.
-            <br>Pour organiser un événement, il faut également être connecté. Cliquez sur la carte pour ajouter un marqueur vers l'endroit où vous organisez votre événement et remplissez le formulaire. 
-            <br>Pour information, l'organisation d'un vide-dressing est soumise à la déclaration préalable d'une vente au déballage (<a href="https://entreprendre.service-public.fr/vosdroits/R18906" target="_blank">formulaire de déclaration</a>).
-            </p>
-        </span>
-    </div>
-</div>
-
-
-<div id="maModale" class="h-75 w-75 m-3 position-absolute top-0 start-0">
-    <div class="h-100 w-75 text-center mt-5 p-3 d-flex align-items-center flex-column rounded border overflow-auto bg-light shadow">
-        {# Formulaire repris du modèle de l'admin (new event) #}
-        <div class="d-flex w-100 align-items-center justify-content-between">
-            <div></div>
-            <h3>Ajouter un événement</h3>
+<div id="maModale" class="container m-3">
+    <div id="centerDiv" class="text-center p-3 d-flex align-items-center flex-column rounded border overflow-auto bg-light shadow">
+        <div class="d-flex w-100 align-items-center justify-content-end">
             <button id="btnClose" type="button" class="btn-close" aria-label="Close"></button>
         </div>
-
+        <h3>Ajouter un événement</h3>
+        {# Formulaire pour nouveau event #}
         {{ form_start(form) }}
-
         {# Ajout de ces deux éléments pour gérer les coordonnées #}
         {{ form_row(form.coordinateLat) }}
         {{ form_row(form.coordinateLng) }}
-
         {{ form_widget(form) }}
         <button class="btn bouton2" id="btnSend">{{ button_label|default('Enregistrer') }}</button>
         {{ form_end(form) }}
@@ -95,20 +93,24 @@ var videDressingIcon = L.icon({
         eventInfo.className = 'col-md-4';
 
         //Modifier la div de la carte 
-        var zoneCarte = document.getElementById('zoneCarte');
-        zoneCarte.classList.remove('col-md-12');
-        zoneCarte.classList.add('col-md-8');
+        var maCarte = document.getElementById('maCarte');
+        maCarte.classList.remove('col-md-12');
+        maCarte.classList.add('col-md-8');
 
-        //Contenu à afficher quand on clique sur un marqueur (bouton je participe que pour les users connectés)
+        //Contenu à afficher quand on clique sur un marqueur (bouton je participe que pour les users connectés, modif pour les admin)
                 eventInfo.innerHTML = 
-        '<div class="h-100 card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
+        '<div class="cardEvent card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
             '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + '</h5>' +
             '<p class="card-text text-uppercase fw-bold">' + marker.options.creator + '</p>' +
             '<p class="card-text">' + marker.options.typeEvent + '</p>' +
             '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
             '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
                 {% if is_granted('ROLE_USER')%}
-                '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>'+
+                    '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>'+
+                    
+                    {% if is_granted('ROLE_ADMIN') %}
+                    '<a href="'+ marker.options.eventId +'/edit-event" class="btn btn-success mb-3">Modifier</a>'
+                    {% endif %} 
                 {% endif %} 
         '</div>';
 
@@ -133,11 +135,11 @@ var videDressingIcon = L.icon({
         });
     {% endif %}
 
-
     var btnClose = document.getElementById('btnClose');
     btnClose.addEventListener('click', function(e) {
         maModale.style.display = 'none';
     });
+
 
 
     //On affiche les marqueurs au chargement de la page
@@ -161,8 +163,8 @@ var videDressingIcon = L.icon({
             .addTo(carte)
             .bindPopup("{{ event.eventName }}")
             .on('click', onMarkerClick);
-    {% endfor %}
 
+    {% endfor %}
 
 </script>
 {% endblock %}

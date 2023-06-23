@@ -30,19 +30,17 @@
 
 			{{ form_row(registrationForm.password) }}
 
-			<div class="mb-3">
-				<label for="formFile" class="form-label">Avatar</label>
-				<input class="form-control" type="file" id="formFile">
-			</div>
+			{{ form_row(registrationForm.pseudo, {
+				'attr': {'placeholder':'Choisir un pseudo...'}
+			}) }}
 
-			<div class="mb-3">
-				<label for="exampleFormControlInput1" class="form-label">Pseudo</label>
-				<input type="text" class="form-control" placeholder="Choisir un pseudo...">
-			</div>
+			{{ form_row(registrationForm.avatarFile) }}
+
+
 
 			{{ form_row(registrationForm.agreeTerms) }}
 
-			<button type="submit" class="btn bouton my-3 d-grid gap-2 col-6 mx-auto">M'inscrire</button>
+			<button type="submit" class="btn bouton my-3 d-grid gap-2 col-2 mx-auto">M'inscrire</button>
 
 			<div id="login-inscrire">
 				<p>Déjà un compte ?
