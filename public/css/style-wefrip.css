@@ -77,23 +77,31 @@ nav .avatarProfil {
 
 /*CSS pour la map*/
 #maCarte{
-    width: 100%;
+    /* width: 100%; */
     height: 500px;
     z-index:0;
-}
-
-#zoneCarte, #zoneMaCarte {
-    z-index:0;
-    width:80%;
 }
 
 #eventInfo {
     height:500px;
 }
 
+.cardEvent {
+    height:100%;
+}
+
 #maModale {
     display:none;
     z-index:10;
+}
+
+#centerDiv {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 75%;
 }
 
 .circle-info {
@@ -123,7 +131,21 @@ nav .avatarProfil {
     }
 
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
+#zoneCarteEvent {
+    flex-direction: column;
+}
+
+#eventInfo {
+    height:auto;
+    width:100%;
+}
+
+.cardEvent {
+    height:auto;
+    width:100%;
+}
+
 .circle-info:hover .info-text {
     opacity: 1;
     visibility: visible;
@@ -157,7 +179,7 @@ nav .avatarProfil {
     background-color: #E1C9B3;
 }
 
-#login-inscrire a, .connecter a, .eventremove, .info-text a{
+#login-inscrire a, .connecter a, .info-text a{
     text-decoration: underline;
     color: #375CA6;
 }
