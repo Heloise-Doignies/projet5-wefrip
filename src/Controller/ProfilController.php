@@ -28,9 +28,9 @@ class ProfilController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // on vérifie si l'utilisateur a changé de mdp
-            if (!is_null($request->request->get('plainPassword'))) {
+            if (!is_null($request->request->get('password'))) {
                 // on encode le nouveau mdp et on l'affecte au user
-                $password = $encoder->hashPassword($user, $request->request->get('plainPassword'));
+                $password = $encoder->hashPassword($user, $request->request->get('password'));
                 $user->setPassword($password);
             }
             // on met en place un message flash
@@ -57,8 +57,8 @@ class ProfilController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!is_null($request->get('plainPassword'))) {
-                $password = $encoder->hashPassword($user, $request->request->get('plainPassword'));
+            if (!is_null($request->get('password'))) {
+                $password = $encoder->hashPassword($user, $request->request->get('password'));
                 $user->setPassword($password);
             }
             $this->addFlash('success', 'Votre profil a bien été modifié.');
@@ -70,7 +70,7 @@ class ProfilController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    
+
     // Ajouter un événement dans le profil (participation)
     #[Route('/add-event/{id}', name: 'add_event')]
     public function addEvent($id, EventRepository $eventRepository, EntityManagerInterface $em, Request $request): Response
@@ -92,7 +92,7 @@ class ProfilController extends AbstractController
 
     #[Route('/remove-event/{id}', name: 'remove_event')]
     public function removeEvent($id, EventRepository $eventRepository, EntityManagerInterface $em, Request $request): Response
-    { 
+    {
         // On récupère l'événement dans la base de données
         $event = $eventRepository->find($id);
         // On récupère l'utilisateur actuel
@@ -129,7 +129,7 @@ class ProfilController extends AbstractController
 
     #[Route('/remove-favori/{id}', name: 'remove_favori')]
     public function removeTutorial($id, TutorialRepository $tutorialRepository, EntityManagerInterface $em, Request $request): Response
-    { 
+    {
         // On récupère le tutoriel dans la base de données
         $tutorial = $tutorialRepository->find($id);
         // On récupère l'utilisateur actuel
@@ -144,7 +144,4 @@ class ProfilController extends AbstractController
         //On reste sur la page où on est
         return $this->redirect($request->headers->get('referer'));
     }
-
 }
-
-

@@ -1,8 +1,10 @@
 {% extends 'base-backend.html.twig' %}
 
-{% block title %}Tutoriels - WeFrip'{% endblock %}
+{% block title %}Tutoriels - WeFrip'
+{% endblock %}
 
 {% block body %}
+
 {% for label, messages in app.flashes() %}
     {% for message in messages %}
         <div class="alert alert-{{ label }}">
@@ -20,7 +22,6 @@
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th>Description</th>
                 <th>Document tutorial (lien ou fichier)</th>
                 <th>Nom de l'image</th>
                 <th>Type de support</th>
@@ -34,8 +35,7 @@
             <tr>
                 <td>{{ tutorial.id }}</td>
                 <td>{{ tutorial.tutoName }}</td>
-                <td>{{ tutorial.tutoDescription }}</td>
-                <td>{{ tutorial.tutoFileName }} {{ tutorial.tutoVideoName }}</td>
+                <td>{{ tutorial.tutoFile }} {{ tutorial.tutoVideoName }}</td>
                 <td>{{ tutorial.tutoImageName }}</td>
                 <td>{{ tutorial.tutoSupportType }}</td>
                 <td>{{ tutorial.tutoSlug }}</td>
@@ -43,6 +43,7 @@
                 <td>
                     <a href="{{ path('app_admin_tutorial_show', {'id': tutorial.id}) }}" class="btn btn-warning"><i class="align-middle" data-feather="eye"></i></a>
                     <a href="{{ path('app_admin_tutorial_edit', {'id': tutorial.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-3"></i></a>
+                    <a href="{{ path('app_admin_tutorial_edit', {'id': tutorial.id}) }}" class="btn btn-danger"><i class="align-middle" data-feather="trash"></i></a>
                 </td>
             </tr>
         {% else %}
@@ -50,8 +51,7 @@
                 <td colspan="9">Pas de données enregistrées</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
-</div>
-
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
