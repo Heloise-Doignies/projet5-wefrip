@@ -40,14 +40,16 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
-            
-           // on ajoute un role d l'utilisateur
+
+            // on ajoute un role d l'utilisateur
             $user->setRoles(['ROLE_USER']);
             $entityManager->persist($user);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('admin@wefrip.com', 'We frip'))
                     ->to($user->getEmail())
@@ -56,7 +58,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
             // on met en place un message flash ne pas oublier de mettre les doubles "for-endfor" dans base.html.twig
-            $this->addFlash('success','Inscription terminée, veuillez retourner dans vos mails pour valider votre compte.');
+            $this->addFlash('success', 'Inscription terminée, veuillez retourner dans vos mails pour valider votre compte.');
             return $this->redirectToRoute('app_home');
         }
 
@@ -78,11 +80,9 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_register');
         }
-        
+
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Tu es connecté(e)');
         return $this->redirectToRoute('app_home');
     }
-
-  
 }

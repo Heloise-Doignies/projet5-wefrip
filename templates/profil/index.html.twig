@@ -1,130 +1,138 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon profil - WeFrip'{% endblock %}
+{% block title %}Mon profil - WeFrip'
+{% endblock %}
 
 {% block body %}
 
-<nav class="nav-fill mt-3">
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-info" aria-selected="true">Mon profil</button>
-        <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Mes inscriptions aux évènements</button>
-        <button class="nav-link" id="nav-favoris-tab" data-bs-toggle="tab" data-bs-target="#nav-favoris" type="button" role="tab" aria-controls="nav-favoris" aria-selected="false">Mes tutoriels favoris</button>
-    </div>
-</nav>
+	<nav class="nav-fill mt-3">
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			<button class="nav-link active" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-info" aria-selected="true">Mon profil</button>
+			<button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Mes inscriptions aux évènements</button>
+			<button class="nav-link" id="nav-favoris-tab" data-bs-toggle="tab" data-bs-target="#nav-favoris" type="button" role="tab" aria-controls="nav-favoris" aria-selected="false">Mes tutoriels favoris</button>
+		</div>
+	</nav>
 
-<div class="tab-content my-3" id="nav-tabContent">
-    
-    {# Début de la zone "mon profil" #}
-    <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">
-        <div class="container text-center profilUser p-3 rounded profilInfo">
-            
-            <h2>Mes informations</h2>
-            
-                <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
-                    <ul class="list">
-                        <li class="list-group-item p-1">Email : {{app.user.email}}</li>
-                        <li class="list-group-item p-1">Pseudo : 
-                            {% if app.user.pseudo is not null %}
-                                {{app.user.pseudo}}
-                            {% else %}
-                                Non-renseigné
-                            {% endif %}
-                        </li>
+	<div
+		class="tab-content my-3" id="nav-tabContent">
 
-                        <li class="list-group-item p-1">Prénom : 
-                            {% if app.user.firstname is not null %}
-                            {{app.user.firstname}}
-                        {% else %}
-                            Non-renseigné
-                        {% endif %}
-                        </li>
+		{# Début de la zone "mon profil" #}
+		<div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">
+			<div class="container text-center profilUser p-3 rounded profilInfo">
 
-                        <li class="list-group-item p-1">Nom de famille : 
-                        {% if app.user.lastname is not null %}
-                            {{app.user.lastname}}
-                        {% else %}
-                            Non-renseigné
-                        {% endif %}
-                        </li>
-                    </ul>
+				<h2>Mes informations</h2>
 
-                    <div>
-                        {% if app.user.avatarName is not null %}
-                            <img src="{{app.user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil"> 
-                        {% else %}
-                            <img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
-                        {% endif %}
-                    </div>
-                </div>
+				<div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
+					<ul class="list">
+						<li class="list-group-item p-1">Email :
+							{{app.user.email}}</li>
+						<li class="list-group-item p-1">Pseudo :
+							{% if app.user.pseudo is not null %}
+								{{app.user.pseudo}}
+							{% else %}
+								Non-renseigné
+							{% endif %}
+						</li>
 
-                <a href="{{ path('app_profil_edit') }}">
-                    <button class="btn bouton2 m-3">Modifier mes informations</button>
-                </a>
+						<li class="list-group-item p-1">Prénom :
+							{% if app.user.firstname is not null %}
+								{{app.user.firstname}}
+							{% else %}
+								Non-renseigné
+							{% endif %}
+						</li>
 
-                {% if is_granted('ROLE_ADMIN')%}
-                <a href="{{ path('app_admin') }}">
-                    <button class="btn bouton">Aller sur l'administration</button>
-                </a>
-                {% endif %}
-        </div>
-    </div>
-    {# Fin de la zone "mon profil" #}
+						<li class="list-group-item p-1">Nom de famille :
+							{% if app.user.lastname is not null %}
+								{{app.user.lastname}}
+							{% else %}
+								Non-renseigné
+							{% endif %}
+						</li>
+					</ul>
 
-    {# Début de la zone "mes événements" #}
-    <div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab" tabindex="0">
-        <div class="container text-center profilUser p-3 rounded">
-            <h2>Mes inscriptions aux événements</h2>
-            <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
+					<div>
+						{% if app.user.avatarName is not null %}
+							<img src="{{app.user.avatarName}}" alt="{{ app.user.avantarName}}" class="avatar img-fluid rounded-circle shadow avatarProfil">
+						{% else %}
+							<img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+						{% endif %}
+					</div>
+				</div>
 
-                {% if app.user.eventsParticipation|length > 0 %}
-                    <div class="row d-flex justify-content-center flex-column">
-                        {% for event in app.user.eventsParticipation %}
-                            <div class="card shadow mb-3">
-                                <div class="card-body text-center">
-                                    <h3>{{event.eventName}}</h3>
-                                    <p class="card-text">Date : {{event.eventDate.format('d/m/Y H:i') }}</p>
-                                    <p class="card-text">Organisé par : {{event.creator}} </p>
-                                    <p class="card-text">Informations pratiques : {{event.infoLocation|raw}}</p>
-                                    <a href="{{ path('remove_event', { id: event.id }) }}" class="eventremove">Je me désinscris de cet événement</a>
-                                </div>
-                            </div>
-                        {% endfor %} 
-                    </div>
+				<a href="{{ path('app_profil_edit') }}">
+					<button class="btn bouton2 m-3">Modifier mes informations</button>
+				</a>
 
-                {% else %}
-                <p class="text-center">Vous n'avez aucun événement auquel vous participez ou que vous avez créé pour l'instant.</p>
+				{% if is_granted('ROLE_ADMIN')%}
+					<a href="{{ path('app_admin') }}">
+						<button class="btn bouton">Aller sur l'administration</button>
+					</a>
+				{% endif %}
+			</div>
+		</div>
+		{# Fin de la zone "mon profil" #}
 
-                {% endif %}
+		{# Début de la zone "mes événements" #}
+		<div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab" tabindex="0">
+			<div class="container text-center profilUser p-3 rounded">
+				<h2>Mes inscriptions aux événements</h2>
+				<div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
 
-            </div>
-        </div>
-    </div>
-    {# Fin de la zone "mes événements" #}
+					{% if app.user.eventsParticipation|length > 0 %}
+						<div class="row d-flex justify-content-center flex-column">
+							{% for event in app.user.eventsParticipation %}
+								<div class="card shadow mb-3">
+									<div class="card-body text-center">
+										<h3>{{event.eventName}}</h3>
+										<p class="card-text">Date :
+											{{event.eventDate.format('d/m/Y H:i') }}</p>
+										<p class="card-text">Organisé par :
+											{{event.creator}}
+										</p>
+										<p class="card-text">Informations pratiques :
+											{{event.infoLocation|raw}}</p>
+										<a href="{{ path('remove_event', { id: event.id }) }}" class="eventremove">Je me désinscris de cet événement</a>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
 
-    
-    <div class="tab-pane fade" id="nav-favoris" role="tabpanel" aria-labelledby="nav-favoris-tab" tabindex="0">
-        <div class="container text-center profilUser p-3 rounded">
-            <h2>Mes tutoriels favoris</h2>
-            <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
-    {# debut de la zone "mes favori" #}
-                {% if app.user.tutorials|length > 0 %}
-                    <div class="row d-flex justify-content-center mx-3">
-                        {% for tutorial in app.user.tutorials %}
-                            {% include 'common/_card.html.twig' %}
-                        {% endfor %} 
-                    </div>
+					{% else %}
+						<p class="text-center">Vous n'avez aucun événement auquel vous participez ou que vous avez créé pour l'instant.</p>
 
-                {% else %}
-                <p class="text-center">Vous n'avez aucun favori pour l'instant.</p>
+					{% endif %}
 
-                {% endif %}
+				</div>
+			</div>
+		</div>
+		{# Fin de la zone "mes événements" #}
 
-            </div>
-        </div>
-    </div>
 
-    {# Fin de la zone "mes favoris" #}
+		<div class="tab-pane fade" id="nav-favoris" role="tabpanel" aria-labelledby="nav-favoris-tab" tabindex="0">
+			<div class="container text-center profilUser p-3 rounded">
+				<h2>Mes tutoriels favoris</h2>
+				<div
+					class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
+					{# debut de la zone "mes favori" #}
+					{% if app.user.tutorials|length > 0 %}
+						<div class="row d-flex justify-content-center mx-3">
+							{% for tutorial in app.user.tutorials %}
+								{% include 'common/_card.html.twig' %}
+							{% endfor %}
+						</div>
 
-</div>
+					{% else %}
+						<p class="text-center">Vous n'avez aucun favori pour l'instant.</p>
+
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+
+		{# Fin de la zone "mes favoris" #}
+
+	</div>
 
 {% endblock %}

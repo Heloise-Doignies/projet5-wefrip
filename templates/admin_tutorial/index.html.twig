@@ -1,55 +1,63 @@
 {% extends 'base-backend.html.twig' %}
 
-{% block title %}Tutoriels - WeFrip'{% endblock %}
+{% block title %}Tutoriels - WeFrip'
+{% endblock %}
 
 {% block body %}
-{% for label, messages in app.flashes() %}
-    {% for message in messages %}
-        <div class="alert alert-{{ label }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
-<div class="d-flex flex-wrap justify-content-between align-items-center">
-    <h1>Tutoriels</h1>
-    <a href="{{ path('app_admin_tutorial_new') }}" class="btn btn-primary"><i class="align-middle" data-feather="file-plus"></i></a>
-</div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Document tutorial (lien ou fichier)</th>
-                <th>Nom de l'image</th>
-                <th>Type de support</th>
-                <th>Slug</th>
-                <th>Ajouté le :</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tutorial in tutorials %}
-            <tr>
-                <td>{{ tutorial.id }}</td>
-                <td>{{ tutorial.tutoName }}</td>
-                <td>{{ tutorial.tutoDescription }}</td>
-                <td>{{ tutorial.tutoFileName }} {{ tutorial.tutoVideoName }}</td>
-                <td>{{ tutorial.tutoImageName }}</td>
-                <td>{{ tutorial.tutoSupportType }}</td>
-                <td>{{ tutorial.tutoSlug }}</td>
-                <td>{{ tutorial.tutoUpdatedAt ? tutorial.tutoUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_admin_tutorial_show', {'id': tutorial.id}) }}" class="btn btn-warning"><i class="align-middle" data-feather="eye"></i></a>
-                    <a href="{{ path('app_admin_tutorial_edit', {'id': tutorial.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-3"></i></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">Pas de données enregistrées</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	{% for label, messages in app.flashes() %}
+		{% for message in messages %}
+			<div class="alert alert-{{ label }}">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endfor %}
+	<div class="d-flex flex-wrap justify-content-between align-items-center">
+		<h1>Tutoriels</h1>
+		<a href="{{ path('app_admin_tutorial_new') }}" class="btn btn-primary">
+			<i class="align-middle" data-feather="file-plus"></i>
+		</a>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Description</th>
+				<th>Document tutorial (lien ou fichier)</th>
+				<th>Nom de l'image</th>
+				<th>Type de support</th>
+				<th>Slug</th>
+				<th>Ajouté le :</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for tutorial in tutorials %}
+				<tr>
+					<td>{{ tutorial.id }}</td>
+					<td>{{ tutorial.tutoName }}</td>
+					<td>{{ tutorial.tutoDescription }}</td>
+					<td>{{ tutorial.tutoFileName }}
+						{{ tutorial.tutoVideoName }}</td>
+					<td>{{ tutorial.tutoImageName }}</td>
+					<td>{{ tutorial.tutoSupportType }}</td>
+					<td>{{ tutorial.tutoSlug }}</td>
+					<td>{{ tutorial.tutoUpdatedAt ? tutorial.tutoUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+					<td>
+						<a href="{{ path('app_admin_tutorial_show', {'id': tutorial.id}) }}" class="btn btn-warning">
+							<i class="align-middle" data-feather="eye"></i>
+						</a>
+						<a href="{{ path('app_admin_tutorial_edit', {'id': tutorial.id}) }}" class="btn btn-success">
+							<i class="align-middle" data-feather="edit-3"></i>
+						</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="10">Pas de données enregistrées</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
 {% endblock %}
