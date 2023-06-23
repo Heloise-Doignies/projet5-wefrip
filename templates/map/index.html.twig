@@ -97,11 +97,16 @@ var videDressingIcon = L.icon({
         maCarte.classList.remove('col-md-12');
         maCarte.classList.add('col-md-8');
 
+        if (marker.options.eventImageName == "") {
+            marker.options.eventImageName = "event-noimage.png";
+        }
+        
         //Contenu à afficher quand on clique sur un marqueur (bouton je participe que pour les users connectés, modif pour les admin)
                 eventInfo.innerHTML = 
         '<div class="cardEvent card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
             '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + '</h5>' +
             '<p class="card-text text-uppercase fw-bold">' + marker.options.creator + '</p>' +
+            '<img class="images-tuto" src="img/imageEvent/'+marker.options.eventImageName+'">'+
             '<p class="card-text">' + marker.options.typeEvent + '</p>' +
             '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
             '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
@@ -158,6 +163,7 @@ var videDressingIcon = L.icon({
             typeEvent: '{{ event.typeEvent }}',
             eventDate: '{{ event.eventDate.format('d/m/Y H:i') }}',
             eventDescription: '{{ event.eventDescription|e('js') }}',
+            eventImageName: '{{ event.eventImageName }}', 
             eventId: '{{ event.id }}',
         })
             .addTo(carte)
