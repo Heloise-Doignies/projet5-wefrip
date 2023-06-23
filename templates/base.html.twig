@@ -1,117 +1,154 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Bienvenue sur WeFrip'{% endblock %}</title>
-        {# Links pour les fonts #}
-        <link rel="shortcut icon" href="{{ asset('img/wefripLogo.png') }}" type="image/x-icon">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Red+Hat+Display:wght@400;700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Geologica&family=Pacifico&display=swap" rel="stylesheet">
-        {# Link pour Bootstrap #}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        {# Link pour Leaflet (map) #}
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-        {# Link pour le css de WeFrip #}
-        <link rel="stylesheet" href="/css/style-wefrip.css">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-        {% endblock %}
-    </head>
-<body>
-{# Navbar #}
-<header class="border-bottom">
-    <nav class="navbar navbar-expand-lg navbar-light text-center">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav d-flex align-items-center justify-content-between w-100 mx-3">
-                    <li class="nav-item">
-                        <a class="navbar-brand" href="{{ path('app_home')}}">
-                            <img src="/img/wefripLogo.png" alt="Logo WeFrip" class="logoWeFrip">
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_map') }}">
-                            <i data-feather="map"></i> Carte interactive
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_tutorial') }}">
-                        <i data-feather="book-open"></i>
-                        Tutoriels upcycling
-                        </a>
-                    </li>
-                    {% if is_granted('ROLE_USER')%}
-                        {# si l utilisateur est authentifié #}
-                        <li class="nav-item">
-                            <a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_profil') }}">
-                                {% if app.user.avatarName is not null %}
-                                <img src="{{user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil"> 
-                                {% else %}
-                                <img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
-                                {% endif %}
-                                Mon profil
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            {# <a class="nav-link" href="{{ path('app_profil') }}">Mon compte </a> #}
-                            <a class="nav-link" href="{{ path('app_logout') }}">
-                                <i data-feather="log-out">Déconnexion</i>
-                            </a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_register') }}">
-                            <i data-feather="user"></i>Compte</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
 
-<main class="content">
-    {% for label, messages in app.flashes() %}
-        {% for message in messages %}
-            <div class="m-3 alert alert-success alert-dismissible fade show -{{ label }}" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-    {% endfor %}
-    <div class="container m-auto">
-        {% block body %}{% endblock %}
-    </div>
-</main>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}Bienvenue sur WeFrip'
+			{% endblock %}
+		</title>
+		{# Links pour les fonts #}
+		<link rel="shortcut icon" href="{{ asset('img/wefripLogo.png') }}" type="image/x-icon">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Red+Hat+Display:wght@400;700&display=swap" rel="stylesheet">
+		<link
+		href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Geologica&family=Pacifico&display=swap" rel="stylesheet">
+		{# Link pour Bootstrap #}
+		<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+		{# Link pour Leaflet (map) #}
+		<link
+		rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+		{# Link pour le css de WeFrip #}
+		<link
+		rel="stylesheet" href="/css/style-wefrip.css">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}{% endblock %}
+	</head>
 
-{# Footer #}
-    <footer>
-        <div class="footer-light d-flex flex-wrap justify-content-between align-items-center py-1 border-top text-muted">
-            <ul class="nav col-md-4 justify-content-start list-unstyled d-flex flex-column">
-                <li class="ms-3"><span class="mb-3">©WeFrip' - 2023 </span></li>
-                <li class="ms-3"><a href="mailto:contact@wefrip.com" target="_blank">contact@wefrip.com</a></li>
-                <li class="ms-3"><a href="">Termes et confidentialité</a></li>
-            </ul>
+	<body>
 
-            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex fw-light">
-                <li class="mx-3 rounded-circle text-light p-2 shadow media"><i data-feather="facebook"></i></li>
-                <li class="mx-3 rounded-circle text-light p-2 shadow media"><i data-feather="instagram"></i></li>
-                <li class="mx-3 rounded-circle text-light p-2 shadow media"><i data-feather="linkedin"></i></li>
-            </ul>
-        </div>
-    </footer>
-    {# Script pour Bootstrap #}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
-    {# Script pour Leaflet #}
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    {% block javascripts %} {% endblock %}
-    </body>
-</html>
+
+		{# Navbar #}
+		<header class="border-bottom">
+			<nav class="navbar navbar-expand-lg navbar-light text-center">
+				<div class="container-fluid">
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav d-flex align-items-center justify-content-between w-100 mx-3">
+							<li class="nav-item">
+								<a class="navbar-brand" href="{{ path('app_home')}}">
+									<img src="/img/wefripLogo.png" alt="Logo WeFrip" class="logoWeFrip">
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_map') }}">
+									<i data-feather="map"></i>
+									Carte interactive
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_tutorial') }}">
+									<i data-feather="book-open"></i>
+									Tutoriels upcycling
+								</a>
+							</li>
+
+							{% if is_granted('ROLE_USER')%}
+								{# si l utilisateur est authentifié #}
+								<li class="nav-item">
+									<a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_profil') }}">
+										{% if app.user.avatarName is not null %}
+											<img src="{{app.user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+										{% else %}
+											<img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+										{% endif %}
+										Mon profil
+									</a>
+								</li>
+								<li
+									class="nav-item">
+									{# <a class="nav-link" href="{{ path('app_profil') }}">Mon compte </a> #}
+									<a class="nav-link" href="{{ path('app_logout') }}">
+										<i data-feather="log-out">Déconnexion</i>
+									</a>
+									{# Si l'utilisateur est authentifié et qu'il est admin #}
+									{#{% elseif is_granted('ROLE_ADMIN')%}
+									                                        </li>
+									                                            <a class="btn btn-outline-warning" href="{{ path('app_admin_dashboard') }}">admin</a>
+									                                        </li>  #}
+								{% else %}
+
+									<li class="nav-item">
+										<a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_register') }}">
+											<i data-feather="user"></i>Compte</a>
+									</li>
+
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+				</nav>
+
+			</header>
+
+			<main class="content">
+
+				{% for label, messages in app.flashes() %}
+					{% for message in messages %}
+						<div class="m-3 alert alert-success alert-dismissible fade show -{{ label }}" role="alert">
+							{{ message }}
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					{% endfor %}
+				{% endfor %}
+
+
+				<div class="container m-auto"> {% block body %}{% endblock %}
+					</div>
+				</main>
+
+				{# Footer #}
+				<footer>
+					<div class="footer-light d-flex flex-wrap justify-content-between align-items-center py-1 border-top text-muted">
+						<ul class="nav col-md-4 justify-content-start list-unstyled d-flex flex-column">
+							<li class="ms-3">
+								<span class="mb-3">©WeFrip' - 2023
+								</span>
+							</li>
+							<li class="ms-3">
+								<a href="mailto:contact@wefrip.com" target="_blank">contact@wefrip.com</a>
+							</li>
+							<li class="ms-3">
+								<a href="">Termes et confidentialité</a>
+							</li>
+						</ul>
+
+						<ul class="nav col-md-4 justify-content-end list-unstyled d-flex fw-light">
+							<li class="mx-3 rounded-circle text-light p-2 shadow media">
+								<i data-feather="facebook"></i>
+							</li>
+							<li class="mx-3 rounded-circle text-light p-2 shadow media">
+								<i data-feather="instagram"></i>
+							</li>
+							<li class="mx-3 rounded-circle text-light p-2 shadow media">
+								<i data-feather="linkedin"></i>
+							</li>
+						</ul>
+					</div>
+
+				</footer>
+				{# Script pour Bootstrap #}
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+				<script src="{{ asset('js/app.js') }}"></script>
+				{# Script pour Leaflet #}
+				<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+				{% block javascripts %}{% endblock %}
+			</body>
+		</body>
+	</html>
