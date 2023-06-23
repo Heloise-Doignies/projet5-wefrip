@@ -7,8 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[Vich\Uploadable]
 class Event
 {
     #[ORM\Id]
@@ -27,6 +30,9 @@ class Event
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $eventImageName = null;
+
+    #[Vich\UploadableField(mapping: 'events', fileNameProperty: 'eventImageName')]
+    private ?File $eventImageFile = null;
 
     #[ORM\Column]
     private ?float $coordinateLat = null;
@@ -117,6 +123,32 @@ class Event
 
         return $this;
     }
+
+    public function getEventImageFile(): ?File
+    {
+        return $this->eventImageFile;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $eventImageFile
+     */
+    public function setEventImageFile(?File $eventImageFile = null): void
+    {
+        $this->eventImageFile = $eventImageFile;
+
+        if (null !== $eventImageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->eventUpdatedAt= new \DateTimeImmutable();
+        }
+    }
+    
 
     public function getCoordinateLat(): ?float
     {

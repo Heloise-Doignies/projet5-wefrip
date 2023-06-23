@@ -30,6 +30,7 @@ class AdminTutorialController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // dd($form->getData());
             // // Ajout de cette ligne pour générer le slug automatiquement
             $tutorial->setTutoSlug(strtolower($slugger->slug($tutorial->getTutoName())));
             $tutorialRepository->save($tutorial, true);

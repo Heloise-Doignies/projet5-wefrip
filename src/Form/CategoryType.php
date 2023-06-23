@@ -33,7 +33,7 @@ class CategoryType extends AbstractType
                     "id"=>"select2-tutorials",
                 ]
             ]) */
-            ->add('categoryImageName', FileType::class,[
+            ->add('categoryImageFile', FileType::class,[
                 'required' => false,
                 'label' => 'Image de la catégorie',
                 'data_class' => null,
