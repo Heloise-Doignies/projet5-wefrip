@@ -193,4 +193,5 @@ footer{
     /* Assurez-vous que le footer a un fond de couleur ou une bordure pour être visible */
     background-color: #f8f9fa;
     margin-top: auto;
+    font-size: small;
 }
