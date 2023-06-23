@@ -45,12 +45,13 @@ class EventType extends AbstractType
                 ],
             ])
             
-            ->remove('eventImageName', FileType::class,[
+            ->add('eventImageFile', FileType::class,[
                 'required' => false,
                 'label' => 'Image de l\'événement',
                 ])
             ->add('coordinateLat', HiddenType::class)
             ->add('coordinateLng', HiddenType::class)
+
             ->remove('eventSlug')
             ->remove('eventUpdatedAt', DateTimeType::class, [
                 'widget'=>'single_text',
