@@ -8,10 +8,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'E-mail déjà existant')]
+#[UniqueEntity(fields: ['email'], message: "L'adresse e-mail existe déjà, veuillez en choisir un autre.")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -20,6 +21,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Email(
+        message: "L'email {{ value }} n'est pas un email valide"
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -45,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 255, nullable: true )]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $userSlug = null;
 
     #[ORM\Column(nullable: true)]
@@ -76,9 +80,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     //Fonction pour dire que si cette propriété est utilisée, elle est une chaine de caractères
     public function __toString(): string
     {
-        return(!is_null($this->pseudo)) ? $this->pseudo : $this->firstname." ".$this->lastname;
+        return (!is_null($this->pseudo)) ? $this->pseudo : $this->firstname . " " . $this->lastname;
     }
-    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -240,7 +244,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-/*     public function $registeredAt(): ?\DateTimeImmutable
+    /*     public function $registeredAt(): ?\DateTimeImmutable
     {
         return $this->registeredAt;
     }
@@ -344,5 +348,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 }
