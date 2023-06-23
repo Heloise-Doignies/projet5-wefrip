@@ -7,7 +7,7 @@
 <nav class="nav-fill mt-3">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <button class="nav-link active" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-info" aria-selected="true">Mon profil</button>
-        <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Mes inscriptions aux évènements</button>
+        <button class="nav-link" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event" type="button" role="tab" aria-controls="nav-event" aria-selected="false">Mes événements</button>
         <button class="nav-link" id="nav-favoris-tab" data-bs-toggle="tab" data-bs-target="#nav-favoris" type="button" role="tab" aria-controls="nav-favoris" aria-selected="false">Mes tutoriels favoris</button>
     </div>
 </nav>
@@ -73,6 +73,8 @@
     {# Début de la zone "mes événements" #}
     <div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab" tabindex="0">
         <div class="container text-center profilUser p-3 rounded">
+
+        {# Zone événements auxquels l'user est inscrit #}
             <h2>Mes inscriptions aux événements</h2>
             <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
 
@@ -85,18 +87,44 @@
                                     <p class="card-text">Date : {{event.eventDate.format('d/m/Y H:i') }}</p>
                                     <p class="card-text">Organisé par : {{event.creator}} </p>
                                     <p class="card-text">Informations pratiques : {{event.infoLocation|raw}}</p>
-                                    <a href="{{ path('remove_event', { id: event.id }) }}" class="eventremove">Je me désinscris de cet événement</a>
+                                    <a href="{{ path('remove_event', { id: event.id }) }}" class="btn bouton2">Je me désinscris de cet événement</a>
                                 </div>
                             </div>
                         {% endfor %} 
                     </div>
 
                 {% else %}
-                <p class="text-center">Vous n'avez aucun événement auquel vous participez ou que vous avez créé pour l'instant.</p>
+                <p class="text-center">Vous n'avez aucun événement auquel vous participez pour l'instant.</p>
 
                 {% endif %}
-
             </div>
+
+        {# Zone événements que l'user a créé #}
+            <h2>Mes événements créés</h2>
+            <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
+
+                {% if app.user.eventCreator|length > 0 %}
+                    <div class="row d-flex justify-content-center flex-column">
+                        {% for event in app.user.eventCreator %}
+                            <div class="card shadow mb-3">
+                                <div class="card-body text-center">
+                                    <h3>{{event.eventName}}</h3>
+                                    <p class="card-text">Date : {{event.eventDate.format('d/m/Y H:i') }}</p>
+                                    <p class="card-text">Organisé par : {{event.creator}} </p>
+                                    <p class="card-text">Informations pratiques : {{event.infoLocation|raw}}</p>
+                                    <a href="{{ path('app_event_edit', { id: event.id }) }}" class="btn btn-success mb-3">Modifier</a>
+                                </div>
+                            </div>
+                        {% endfor %} 
+                    </div>
+
+                {% else %}
+                <p class="text-center">Vous n'avez créé aucun événement pour l'instant.</p>
+
+                {% endif %}
+            </div>
+
+
         </div>
     </div>
     {# Fin de la zone "mes événements" #}
@@ -106,7 +134,7 @@
         <div class="container text-center profilUser p-3 rounded">
             <h2>Mes tutoriels favoris</h2>
             <div class="d-flex m-3 w-100 justify-content-evenly align-items-center text-start">
-    {# debut de la zone "mes favori" #}
+    {# debut de la zone "mes favoris"  #}
                 {% if app.user.tutorials|length > 0 %}
                     <div class="row d-flex justify-content-center mx-3">
                         {% for tutorial in app.user.tutorials %}
