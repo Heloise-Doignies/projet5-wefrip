@@ -1,8 +1,26 @@
+# on a telecharger la documentation de symfony VICH UPLOAD BUNDLE pour que nos images se chargent
 vich_uploader:
     db_driver: orm
 
+    metadata:
+        type: attribute
+
+    #    kernel project dir sera la racine de notre projet
     mappings:
-        products:
-            uri_prefix: /images/products
-            upload_destination: '%kernel.project_dir%/public/images/products'
+        tutorials:
+            uri_prefix: /img/imageTuto
+            upload_destination: '%kernel.project_dir%/public/img/imageTuto'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        categories:
+            uri_prefix: /img/imageCategory
+            upload_destination: '%kernel.project_dir%/public/img/imageCategory'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        events:
+            uri_prefix: /img/imageEvent
+            upload_destination: '%kernel.project_dir%/public/img/imageEvent'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+
+            # inject_on_load: false
+            # delete_on_update: true
+            # delete_on_remove: true

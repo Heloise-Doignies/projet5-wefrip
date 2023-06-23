@@ -56,7 +56,7 @@ nav .avatarProfil {
 
 /* CSS pour la catégorie */
 .category-image {
-    width: 250px; 
+    width: 200px; 
     height: 150px; 
     object-fit: cover; /* Ajustement de l'image pour remplir le conteneur */
 }
