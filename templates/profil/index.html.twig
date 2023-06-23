@@ -53,9 +53,9 @@
 
 					<div>
 						{% if app.user.avatarName is not null %}
-							<img src="{{app.user.avatarName}}" alt="{{ app.user.avantarName}}" class="avatar img-fluid rounded-circle shadow avatarProfil">
+							<img src="{{ asset('/img/imageUser/' ~ app.user.avatarName) }}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
 						{% else %}
-							<img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+							<img src="{{ asset('/img/user-noavatar.png') }}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
 						{% endif %}
 					</div>
 				</div>

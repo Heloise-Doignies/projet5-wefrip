@@ -51,6 +51,8 @@ nav .logoWeFrip {
 
 nav .avatarProfil {
     width:40px;
+    height:40px;
+    object-fit: cover;
 }
 
 
@@ -147,6 +149,8 @@ nav .avatarProfil {
 
 .profilUser .avatarProfil {
     width:100px;
+    height: 100px;
+    object-fit: cover;
 }
 
 #BGcontainer{

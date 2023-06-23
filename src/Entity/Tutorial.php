@@ -31,6 +31,9 @@ class Tutorial
     #[Vich\UploadableField(mapping: 'tutorials', fileNameProperty: 'tutoFileName')]
     private ?File $tutoFile = null;
     
+    #[Vich\UploadableField(mapping: 'tutorials', fileNameProperty: 'tutoVideoName')]
+    private ?File $tutoVideoFile = null;
+    
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $tutoVideoName = null;
 
@@ -134,7 +137,6 @@ class Tutorial
         return $this;
     }
 
-
     public function getTutoVideoName(): ?string
     {
         return $this->tutoVideoName;
@@ -145,6 +147,20 @@ class Tutorial
         $this->tutoVideoName = $tutoVideoName;
 
         return $this;
+    }
+    public function getTutoVideoFile(): ?File
+    {
+        return $this->tutoVideoFile;
+    }
+    public function setTutoVideoFile(?File $tutoVideoFile = null): void
+    {
+        $this->tutoVideoFile = $tutoVideoFile;
+
+        if (null !== $tutoVideoFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->tutoUpdatedAt = new \DateTimeImmutable();
+        }
     }
 
     public function getTutoImageName(): ?string
@@ -164,6 +180,7 @@ class Tutorial
     {
         return $this->tutoImageFile;
     }
+
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
