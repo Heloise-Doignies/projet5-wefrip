@@ -22,7 +22,6 @@
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th>Description</th>
                 <th>Document tutorial (lien ou fichier)</th>
                 <th>Nom de l'image</th>
                 <th>Type de support</th>
@@ -36,10 +35,8 @@
             <tr>
                 <td>{{ tutorial.id }}</td>
                 <td>{{ tutorial.tutoName }}</td>
-                <td>{{ tutorial.tutoDescription }}</td>
                 <td>{{ tutorial.tutoFile }} {{ tutorial.tutoVideoName }}</td>
-                <td>{{ tutorial.tutoVideoName }}</td>
-                <td>{{ tutorial.tutoImageFile }}</td>
+                <td>{{ tutorial.tutoImageName }}</td>
                 <td>{{ tutorial.tutoSupportType }}</td>
                 <td>{{ tutorial.tutoSlug }}</td>
                 <td>{{ tutorial.tutoUpdatedAt ? tutorial.tutoUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
