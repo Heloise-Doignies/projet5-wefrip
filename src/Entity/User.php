@@ -6,12 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[Vich\Uploadable]
 #[UniqueEntity(fields: ['email'], message: "L'adresse e-mail existe déjà, veuillez en choisir un autre.")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -42,6 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatarName = null;
+
+    #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'avatarName')]
+    private ?File $avatarFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastname = null;
@@ -194,6 +200,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->avatarName = $avatarName;
 
         return $this;
+    }
+    public function getAvatarFile(): ?File
+    {
+        return $this->avatarFile;
+    }
+    public function setAvatarFile(?File $AvatarFile = null): void
+    {
+        $this->avatarFile = $AvatarFile;
+
+        if (null !== $AvatarFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->userUpdatedAt = new \DateTimeImmutable();
+        }
     }
 
     public function getLastname(): ?string
