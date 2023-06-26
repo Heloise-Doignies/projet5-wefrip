@@ -63,9 +63,9 @@
 								<li class="nav-item">
 									<a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_profil') }}">
 										{% if app.user.avatarName is not null %}
-											<img src="{{app.user.avatarName}}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+											<img src="{{ asset('/img/imageUser/' ~ app.user.avatarName) }}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
 										{% else %}
-											<img src="/img/user-noavatar.png" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+											<img src="{{ asset('/img/user-noavatar.png') }}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
 										{% endif %}
 										Mon profil
 									</a>
@@ -78,7 +78,7 @@
 									</a>
 								{% else %}
 									<li class="nav-item">
-										<a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_register') }}">
+										<a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_login') }}">
 											<i data-feather="user"></i>Compte</a>
 									</li>
 								{% endif %}
@@ -118,14 +118,14 @@
 							</li>
 						</ul>
 
-						<ul class="nav col-md-4 justify-content-end list-unstyled d-flex fw-light">
-							<li class="mx-3 rounded-circle text-light p-2 shadow media">
+						<ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+							<li class="mx-1 rounded-circle text-light p-2 shadow media">
 								<i data-feather="facebook"></i>
 							</li>
-							<li class="mx-3 rounded-circle text-light p-2 shadow media">
+							<li class="mx-1 rounded-circle text-light p-2 shadow media">
 								<i data-feather="instagram"></i>
 							</li>
-							<li class="mx-3 rounded-circle text-light p-2 shadow media">
+							<li class="mx-1 rounded-circle text-light p-2 shadow media">
 								<i data-feather="linkedin"></i>
 							</li>
 						</ul>

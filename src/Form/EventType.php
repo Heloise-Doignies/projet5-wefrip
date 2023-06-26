@@ -22,22 +22,28 @@ class EventType extends AbstractType
     {
         $builder
             ->add('eventName', TextType::class, [
-                'label'=>"Nom de l'événement",
+                'label'=>"Nom de l'événement*",
             ])
             ->add('eventDate', DateTimeType::class, [
                 'widget' => 'single_text',
-                'label' => 'Organisé le',
+                'label' => 'Organisé le*',
             ])
             //Ajout pour le type d'événement
             ->add('typeEvent', EntityType::class, [
-                'label' => 'Type d\'événement',
+                'label' => 'Type d\'événement*',
                 'class'=> TypeEvent::class,
                 'choice_label'=> 'typeName',
                 'multiple' => false,
                 'required' => true,
             ])
+
+            ->add('eventImageFile', FileType::class,[
+                'required' => false,
+                'label' => 'Image de l\'événement',
+                ])
+
             ->add('eventDescription', CKEditorType::class, [
-                'label'=>"Description de l'événement",
+                'label'=>"Description de l'événement*",
                 'required' => true,
                 'config' => [
                     'removePlugins' => 'exportpdf',
@@ -45,12 +51,9 @@ class EventType extends AbstractType
                 ],
             ])
             
-            ->remove('eventImageName', FileType::class,[
-                'required' => false,
-                'label' => 'Image de l\'événement',
-                ])
             ->add('coordinateLat', HiddenType::class)
             ->add('coordinateLng', HiddenType::class)
+
             ->remove('eventSlug')
             ->remove('eventUpdatedAt', DateTimeType::class, [
                 'widget'=>'single_text',
@@ -58,7 +61,7 @@ class EventType extends AbstractType
                 'label' => 'Ajouté le :',
             ])
             ->add('infoLocation', CKEditorType::class, [
-                'label'=>"Informations pratiques",
+                'label'=>"Informations pratiques*",
                 'required' => true,
                 'config' => [
                     'removePlugins' => 'exportpdf',

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Form\UserType;
+use App\Form\EventType;
 use App\Repository\EventRepository;
 use App\Repository\TutorialRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 
 class ProfilController extends AbstractController
 {
@@ -125,7 +128,6 @@ class ProfilController extends AbstractController
         //On reste sur la page où on est
         return $this->redirect($request->headers->get('referer'));
     }
-
 
     // Ajouter un tutoriel en favori
     #[Route('/add-favori/{id}', name: 'add_favori')]

@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -40,6 +42,26 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+
+            ->add('pseudo', TextType::class, [
+                'required' => false,
+                'label' => 'Pseudo',
+            ])
+            ->remove('lastname', TextType::class, [
+                'required' => false,
+                'label' => 'Nom de famille',
+            ])
+            ->remove('firstname', TextType::class, [
+                'required' => false,
+                'label' => 'Prénom',
+            ])
+
+            ->add('avatarFile', FileType::class, [
+                'required' => false,
+                'label' => 'Avatar',
+                'data_class' => null,
+            ])
+
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => "En m'inscrivant, j'accepte les conditions générales d'utilisation et la politique de confidentialité. Nous protégeons vos données.",
                 'mapped' => false,
