@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formulaire d'inscription{% endblock %}
+{% block title %}Formulaire d'inscription
+{% endblock %}
 
 {% block body %}
 	{% if app.user is not null %}
@@ -17,7 +18,7 @@
 		</h3>
 	{% else %}
 
-{# py=padding vertical , je mets 2 mais ça peut aller jusqu'à 5#}
+		{# py=padding vertical , je mets 2 mais ça peut aller jusqu'à 5#}
 		<div class="container-fluid m-auto justify-content-center w-60 my-5 rounded py-2 p-5" id="BGcontainer">
 			<h1 class="text-center m-3">Formulaire d'inscription</h1>
 			{{ form_errors(registrationForm) }}
@@ -35,8 +36,6 @@
 			}) }}
 
 			{{ form_row(registrationForm.avatarFile) }}
-
-
 
 			{{ form_row(registrationForm.agreeTerms) }}
 
@@ -63,4 +62,3 @@
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }} #}
-
