@@ -49,21 +49,42 @@ class ProfilController extends AbstractController
 
     //Route pour modifier les informations du profil
     #[Route('/profil-edit', name: 'app_profil_edit')]
+
     public function editProfil(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $encoder): Response
     {
         // On récupère l'utilisateur
         $user = $this->getUser();
+
         // On crée un formulaire avec les données de l'utilisateur
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
+
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!is_null($request->get('password'))) {
+            // Récupérer les données soumises dans le formulaire
+            $formData = $form->getData();
+
+            // Verifier si un nouveau mot de passe a été fourni
+            $newPassword = $formData->getNewPassword();
+            var_dump($newPassword);
+
+            if (!empty($newPassword)) {
+                // Encoder et définir le nouveau mot de passe 
+                $hashedPassword = $encoder->hashPassword($user, $newPassword);
+                $user->setPassword($hashedPassword);
+            } else {
+                $this->addFlash('success', 'Annulation des modifications');
+            }
+
+            /*  if (!is_null($request->get('password'))) {
                 $password = $encoder->hashPassword($user, $request->request->get('password'));
                 $user->setPassword($password);
-            }
+            } */
+
             $this->addFlash('success', 'Votre profil a bien été modifié.');
             $em->persist($user);
             $em->flush();
+
             return $this->redirectToRoute('app_profil');
         }
         return $this->render('profil/edit.html.twig', [

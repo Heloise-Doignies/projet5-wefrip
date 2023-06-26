@@ -76,28 +76,19 @@
 									<a class="nav-link" href="{{ path('app_logout') }}">
 										<i data-feather="log-out">Déconnexion</i>
 									</a>
-									{# Si l'utilisateur est authentifié et qu'il est admin #}
-									{#{% elseif is_granted('ROLE_ADMIN')%}
-									                                        </li>
-									                                            <a class="btn btn-outline-warning" href="{{ path('app_admin_dashboard') }}">admin</a>
-									                                        </li>  #}
 								{% else %}
-
 									<li class="nav-item">
 										<a class="nav-link d-flex flex-column align-items-center py-2" href="{{ path('app_login') }}">
 											<i data-feather="user"></i>Compte</a>
 									</li>
-
 								{% endif %}
 							</ul>
 						</div>
 					</div>
 				</nav>
-
 			</header>
 
 			<main class="content">
-
 				{% for label, messages in app.flashes() %}
 					{% for message in messages %}
 						<div class="m-3 alert alert-success alert-dismissible fade show -{{ label }}" role="alert">
@@ -106,7 +97,6 @@
 						</div>
 					{% endfor %}
 				{% endfor %}
-
 
 				<div class="container m-auto"> {% block body %}{% endblock %}
 					</div>
