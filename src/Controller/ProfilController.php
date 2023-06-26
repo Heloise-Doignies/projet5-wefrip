@@ -23,6 +23,11 @@ class ProfilController extends AbstractController
         //On récupère les informations du profil de l'utilisateur
         $user = $this->getUser();
 
+        //Ajout d'un message flash pour les user qui n'ont pas confirmé leur mail
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY') && !$this->getUser()->isVerified()) {
+            $this->addFlash('warning', 'Pour rappel, veuillez confirmer votre profil avec le lien reçu par mail pour profiter de toutes les fonctionnalités.');
+        }
+
         // on crée un formulaire avec les données de l'utilisateur
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -103,7 +108,7 @@ class ProfilController extends AbstractController
         //On ajoute l'événement à la liste de l'utilisateur
         $user->addEventsParticipation($event);
         //On met en place un message flash
-        $this->addFlash('success', 'L\'événement a bien été ajouté dans votre profil : vous êtes considéré.e comme participant.e.');
+        $this->addFlash('success', 'L\'événement a bien été ajouté dans votre profil (vous pouvez retrouver dans votre profil les informations pratiques) : vous êtes considéré.e comme participant.e.');
         //On enregistre la modif
         $em->persist($user);
         $em->flush();

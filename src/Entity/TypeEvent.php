@@ -31,9 +31,6 @@ class TypeEvent
     #[ORM\OneToMany(mappedBy: 'typeEvent', targetEntity: Event::class)]
     private Collection $events;
 
-    #[ORM\OneToOne(inversedBy: 'typeEvent', cascade: ['persist', 'remove'])]
-    private ?TypeVideDressing $typeVideDressing = null;
-
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -128,15 +125,4 @@ class TypeEvent
         return $this;
     }
 
-    public function getTypeVideDressing(): ?TypeVideDressing
-    {
-        return $this->typeVideDressing;
-    }
-
-    public function setTypeVideDressing(?TypeVideDressing $typeVideDressing): static
-    {
-        $this->typeVideDressing = $typeVideDressing;
-
-        return $this;
-    }
 }

@@ -106,13 +106,12 @@ var videDressingIcon = L.icon({
         '<div class="cardEvent card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
             '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + '</h5>' +
             '<p class="card-text text-uppercase fw-bold">' + marker.options.creator + '</p>' +
-            '<img class="images-tuto" src="img/imageEvent/'+marker.options.eventImageName+'">'+
+            '<img class="images-event" src="img/imageEvent/'+ marker.options.eventImageName + '">' +
             '<p class="card-text">' + marker.options.typeEvent + '</p>' +
             '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
             '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
-                {% if is_granted('ROLE_USER')%}
+                {% if is_granted('ROLE_USER') and app.user.isVerified %}
                     '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>'+
-                    
                     {% if is_granted('ROLE_ADMIN') %}
                     '<a href="'+ marker.options.eventId +'/edit-event" class="btn btn-success mb-3">Modifier</a>'
                     {% endif %} 
@@ -127,7 +126,7 @@ var videDressingIcon = L.icon({
     var maModale = document.getElementById('maModale');
     //Fonction pour créer des nouveaux marqueurs seulement pour les utilisateurs authentifiés
     
-    {% if is_granted('ROLE_USER')%}
+    {% if is_granted('ROLE_USER') and app.user.isVerified %}
         carte.on ('click', function(e) {
             maModale.style.display = 'block';
 

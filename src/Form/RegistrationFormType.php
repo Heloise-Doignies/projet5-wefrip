@@ -27,7 +27,7 @@ class RegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options' => ['label' => 'mot de passe*', 'attr' => ['placeholder' => "Entrer un mot de passe"]],
+                'first_options' => ['label' => 'Mot de passe*', 'attr' => ['placeholder' => "Entrer un mot de passe"]],
                 'second_options' => ['label' => 'Confirmer mot de passe*', 'attr' => ['placeholder' => "Confirmer le mot de passe"]],
                 'mapped' => false,
                 'constraints' => [

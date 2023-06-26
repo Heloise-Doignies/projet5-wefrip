@@ -24,6 +24,11 @@ class MapController extends AbstractController
         $form->handleRequest($request);
         $user=$this->getUser();
 
+        //Ajout d'un message flash pour les user qui n'ont pas confirmé leur mail
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY') && !$this->getUser()->isVerified()) {
+            $this->addFlash('warning', 'Pour rappel, veuillez confirmer votre profil avec le lien reçu par mail pour profiter de toutes les fonctionnalités.');
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             // Ajout de cette ligne pour générer le slug automatiquement
             $newEvent->setEventSlug(strtolower($slugger->slug($newEvent->getEventName())));
