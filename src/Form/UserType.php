@@ -19,29 +19,30 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+        // Nous avons enlevé la modification de l'email et du password (on peut récupérer le password en demandant un reset du password)
+            //->add('email')
 
-            ->add('password', RepeatedType::class, [
+            //->add('password', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
-                'type' => PasswordType::class,
-                'options' => ['attr' => ['class' => 'password-field']],
-                'required' => true,
-                'first_options' => ['label' => 'Mot de passe*', 'attr' => ['placeholder' => "Entrer un mot de passe"]],
-                'second_options' => ['label' => 'Confirmer mot de passe*', 'attr' => ['placeholder' => "Confirmer le mot de passe"]],
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Entre ton mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Ton mot de passe doit avoir une longueur minimum de {{ limit }} caractères',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
+            //     'type' => PasswordType::class,
+            //     'options' => ['attr' => ['class' => 'password-field']],
+            //     'required' => true,
+            //     'first_options' => ['label' => 'Mot de passe*', 'attr' => ['placeholder' => "Entrer un mot de passe"]],
+            //     'second_options' => ['label' => 'Confirmer mot de passe*', 'attr' => ['placeholder' => "Confirmer le mot de passe"]],
+            //     'mapped' => false,
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Entre ton mot de passe',
+            //         ]),
+            //         new Length([
+            //             'min' => 6,
+            //             'minMessage' => 'Ton mot de passe doit avoir une longueur minimum de {{ limit }} caractères',
+            //             // max length allowed by Symfony for security reasons
+            //             'max' => 4096,
+            //         ]),
+            //     ],
+            // ])
 
             ->add('pseudo', TextType::class, [
                 'required' => false,

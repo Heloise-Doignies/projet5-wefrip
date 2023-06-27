@@ -194,6 +194,11 @@ nav .avatarProfil {
     padding: 3rem;
 }
 
+#login-inscrire .mdp-oublie a{
+    text-decoration: none;
+    color: black;
+}
+
 /* CSS pour le footer */
 footer{
     /* Assurez-vous que le footer a un fond de couleur ou une bordure pour être visible */
