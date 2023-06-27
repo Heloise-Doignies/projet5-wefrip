@@ -57,7 +57,9 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Prénom',
             ])
 
-            ->add('avatar', AvatarType::class)
+            ->add('avatar', AvatarType::class, [
+                'label' => false,
+            ])
 
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => "En m'inscrivant, j'accepte les conditions générales d'utilisation et la politique de confidentialité. Nous protégeons vos données.",
