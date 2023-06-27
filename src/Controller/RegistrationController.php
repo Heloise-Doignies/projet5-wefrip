@@ -51,15 +51,17 @@ class RegistrationController extends AbstractController
                 'app_verify_email',
                 $user,
                 (new TemplatedEmail())
-                    ->from(new Address('admin@wefrip.com', 'We frip'))
+                    ->from(new Address('admin@wefrip.com', 'We Frip'))
                     ->to($user->getEmail())
+
                     ->subject('Veuillez confirmer votre adresse e-mail')
+
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
             // on met en place un message flash ne pas oublier de mettre les doubles "for-endfor" dans base.html.twig
-            $this->addFlash('success', 'Inscription terminée, veuillez retourner dans vos mails pour valider votre compte.');
-            return $this->redirectToRoute('app_home');
+            $this->addFlash('success', 'Inscription terminée, veuillez valider votre compte avec le lien reçu par mail.');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [

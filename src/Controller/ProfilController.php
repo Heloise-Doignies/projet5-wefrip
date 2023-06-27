@@ -23,6 +23,11 @@ class ProfilController extends AbstractController
         //On récupère les informations du profil de l'utilisateur
         $user = $this->getUser();
 
+        //Ajout d'un message flash pour les user qui n'ont pas confirmé leur mail
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY') && !$this->getUser()->isVerified()) {
+            $this->addFlash('warning', 'Pour rappel, veuillez confirmer votre profil avec le lien reçu par mail pour profiter de toutes les fonctionnalités.');
+        }
+
         // on crée un formulaire avec les données de l'utilisateur
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -49,21 +54,42 @@ class ProfilController extends AbstractController
 
     //Route pour modifier les informations du profil
     #[Route('/profil-edit', name: 'app_profil_edit')]
+
     public function editProfil(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $encoder): Response
     {
         // On récupère l'utilisateur
         $user = $this->getUser();
+
         // On crée un formulaire avec les données de l'utilisateur
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
+
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!is_null($request->get('password'))) {
+            // Récupérer les données soumises dans le formulaire
+            $formData = $form->getData();
+
+            // Verifier si un nouveau mot de passe a été fourni
+            $newPassword = $formData->getNewPassword();
+            var_dump($newPassword);
+
+            if (!empty($newPassword)) {
+                // Encoder et définir le nouveau mot de passe 
+                $hashedPassword = $encoder->hashPassword($user, $newPassword);
+                $user->setPassword($hashedPassword);
+            } else {
+                $this->addFlash('success', 'Annulation des modifications');
+            }
+
+            /*  if (!is_null($request->get('password'))) {
                 $password = $encoder->hashPassword($user, $request->request->get('password'));
                 $user->setPassword($password);
-            }
+            } */
+
             $this->addFlash('success', 'Votre profil a bien été modifié.');
             $em->persist($user);
             $em->flush();
+
             return $this->redirectToRoute('app_profil');
         }
         return $this->render('profil/edit.html.twig', [
@@ -82,7 +108,7 @@ class ProfilController extends AbstractController
         //On ajoute l'événement à la liste de l'utilisateur
         $user->addEventsParticipation($event);
         //On met en place un message flash
-        $this->addFlash('success', 'L\'événement a bien été ajouté dans votre profil : vous êtes considéré.e comme participant.e.');
+        $this->addFlash('success', 'L\'événement a bien été ajouté dans votre profil (vous pouvez retrouver dans votre profil les informations pratiques) : vous êtes considéré.e comme participant.e.');
         //On enregistre la modif
         $em->persist($user);
         $em->flush();

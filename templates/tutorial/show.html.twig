@@ -2,13 +2,13 @@
 {% block title %}{{ tutorial.tutoName }} - WeFrip'{% endblock %}
 
 {% block body %}
-<div class="container-fluid w-75 m-auto my-3">
+<div class="container-fluid m-auto my-3">
 
 <a href="{{ path('app_tutorial') }}" class="btn bouton mb-3"><i data-feather="arrow-left"></i> Retour</a>
 
-<div class="row w-100 d-flex justify-content-center">
+<div class="row d-flex justify-content-center">
 
-	<div class="col-12">
+	<div class="col-11 col-md-9">
         <div class="card">
 
             {# Condition selon le type de tutoriel : fichier ou lien youtube #}
@@ -27,7 +27,7 @@
                     <p>{{ tutorial.tutoDescription|raw }}</p>
                     
 
-                <div class="d-flex flex-row align-items-center justify-content-center gap-3">
+                <div class="d-flex flex-row flex-wrap align-items-center justify-content-center gap-3">
                     {# Bouton(s) pour les catégories #}
                     {% for category in tutorial.categories %}
                     <a href="{{ path ('app_category_show', {categorySlug :category.categorySlug}) }}">
@@ -41,15 +41,15 @@
                     </a>
 
                     {# Condition pour les favoris : si fav, bouton trash / si non fav, bouton heart #}
-                    {% if is_granted('ROLE_USER')%}
+                    {% if is_granted('ROLE_USER') and app.user.isVerified %}
                         {% if tutorial not in app.user.tutorials %}
                             {# Le tutoriel n'est pas dans la liste des favoris de l'utilisateur #}
-                            <a href="{{ path('add_favori', { id: tutorial.id }) }}" class="mt-3 btn btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
+                            <a href="{{ path('add_favori', { id: tutorial.id }) }}" class="mt-3 btn btn-danger rounded-circle p-1 m-2 text-light">
                                 <i data-feather="heart"></i>
                             </a>
                         {% else %}
                             {# Le tutoriel est dans la liste des favoris de l'utilisateur #}
-                            <a href="{{ path('remove_favori', { id: tutorial.id }) }}" class="btn btn-dark rounded-circle position-absolute bottom-0 end-0 p-1 m-2 text-light">
+                            <a href="{{ path('remove_favori', { id: tutorial.id }) }}" class="btn btn-dark rounded-circle p-1 m-2 text-light">
                                 <i data-feather="trash"></i>
                             </a>
                         {% endif %}

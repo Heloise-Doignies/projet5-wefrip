@@ -28,9 +28,9 @@ class RegistrationFormType extends AbstractType
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options' => ['label' => 'Mot de passe*', 'attr' => ['placeholder' => "Entrer un mot de passe"]],
-                'second_options' => ['label' => 'Confirmer mot de passe*','attr' => ['placeholder' => "Confirmer le mot de passe"]], 
-                'mapped' => false, 
-                        'constraints' => [
+                'second_options' => ['label' => 'Confirmer mot de passe*', 'attr' => ['placeholder' => "Confirmer le mot de passe"]],
+                'mapped' => false,
+                'constraints' => [
                     new NotBlank([
                         'message' => 'Entre ton mot de passe',
                     ]),
@@ -40,7 +40,7 @@ class RegistrationFormType extends AbstractType
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
-                ], 
+                ],
             ])
 
             ->add('pseudo', TextType::class, [
@@ -63,7 +63,7 @@ class RegistrationFormType extends AbstractType
             ])
 
             ->add('agreeTerms', CheckboxType::class, [
-                'label'=>"En m'inscrivant, j'accepte les conditions générales d'utilisation et la politique de confidentialité. Nous protégeons vos données.",
+                'label' => "En m'inscrivant, j'accepte les conditions générales d'utilisation et la politique de confidentialité. Nous protégeons vos données.",
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([

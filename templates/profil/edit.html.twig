@@ -1,19 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier mes informations - WeFrip'{% endblock %}
+{% block title %}Modifier mes informations - WeFrip'
+{% endblock %}
 
 {% block body %}
-<div class="container-fluid w-50 m-auto mt-3">
-	<a href="{{ path('app_profil') }}" class="btn bouton2 mb-3"><i data-feather="arrow-left"></i> Retour au profil</a>
-</div>
+	<div class="container-fluid w-50 m-auto mt-3">
+		<a href="{{ path('app_profil') }}" class="btn bouton2 mb-3">
+			<i data-feather="arrow-left"></i>
+			Retour au profil</a>
+	</div>
 
-<div class="container m-auto w-60 rounded py-2 p-5 mb-3" id="BGcontainer">
-	<h1 class="text-center m-3">Modifier mes informations</h1>
-	{# On affiche un formulaire #}
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="bouton btn btn-primary">Modifier</button>
-        {{ form_end(form) }}
-</div>
+	<div class="container m-auto w-60 rounded py-2 p-5 mb-3" id="BGcontainer">
+		<h1 class="text-center m-3">Modifier mes informations</h1>
+		{# On affiche un formulaire #}
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button type="submit" class="bouton btn btn-primary">Modifier</button>
+		{{ form_end(form) }}
+	</div>
 
 {% endblock %}

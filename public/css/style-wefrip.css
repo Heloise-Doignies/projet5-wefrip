@@ -69,6 +69,12 @@ nav .avatarProfil {
     object-fit: cover;
 }
 
+/* CSS pour les images events */
+.images-event {
+    height: 150px;
+    object-fit: cover;
+}
+
 /* CSS pour les types de support */
 .fichier{
     height: 250px;
