@@ -54,16 +54,19 @@ class UserType extends AbstractType
                 'required' => false,
                 'label' => 'Prénom',
             ])
+
+            ->remove('userUpdatedAt', DateTimeType::class, [
+                'widget' => 'single_text',
+                'data' => new \DateTimeImmutable(),
+            ])
+            
             ->add('avatarFile', FileType::class, [
                 'required' => false,
                 'label' => 'Avatar',
                 'data_class' => null,
             ])
             //->add('userSlug')
-            ->remove('userUpdatedAt', DateTimeType::class, [
-                'widget' => 'single_text',
-                'data' => new \DateTimeImmutable(),
-            ])
+            
             ->remove('eventCreator');
     }
 

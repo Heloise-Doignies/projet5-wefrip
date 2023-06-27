@@ -25,6 +25,7 @@ class UserFixtures extends Fixture
         $user->setPseudo('User Toto');
         $user->setPassword($this->encoder->hashPassword($user, 'password'));
         $user->setRoles(['ROLE_USER']);
+        $user->setAvatarName('toto.jpg');
         $user->setIsVerified(true);
         $manager->persist($user);
 
@@ -34,6 +35,7 @@ class UserFixtures extends Fixture
         $user->setPseudo('Admin Titi');
         $user->setPassword($this->encoder->hashPassword($user, 'admin'));
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $user->setAvatarName('admin.jpg');
         $user->setIsVerified(true);
         $manager->persist($user);
 

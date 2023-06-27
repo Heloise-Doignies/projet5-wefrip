@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion - WeFrip'{% endblock %}
+{% block title %}Connexion - WeFrip'
+{% endblock %}
 
 {% block body %}
+
     <form method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}
@@ -50,4 +52,6 @@
             </div>
         </div>
     </form>
+
+		
 {% endblock %}
