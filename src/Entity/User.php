@@ -37,11 +37,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-    /*pour pouvoir confirmer le mdp a mettre en private apres test*/
-    /*  public $confirm_password; */
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $newPassword = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pseudo = null;
@@ -160,26 +155,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of newPassword
-     */
-    public function getNewPassword(): string
-    {
-        return $this->newPassword;
-    }
-
-    /**
-     * Set the value of newPassword
-     *
-     * @return  self
-     */
-    public function setNewPassword(string $newPassword): static
-    {
-        $this->newPassword = $newPassword;
 
         return $this;
     }
