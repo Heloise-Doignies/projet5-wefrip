@@ -8,12 +8,13 @@
     
 <div class="container-fluid">
     <div id="zoneCarteEvent" class="row">
+        {# Affichage des informations des marqueurs dans une div "zoneInfo" créée au clic ici #}
         <div id="maCarte" class="rounded border col-md-12">
-        {# Affichage de la carte ici #}
+        {# Affichage de la carte dans la div "maCarte" #}
         </div>
     </div>
 
-        {# Ajout d'un espace informations sur la carte #}
+        {# Ajout d'un espace informations sur la carte au survol du point d'interrogation #}
         <div class="col-md-12">
             <div class="d-flex justify-content-end m-3">
                 <div class="circle-info shadow text-dark d-flex align-items-center justify-content-center">
@@ -29,15 +30,16 @@
         </div>
 </div>
 
+{# Modale formulaire s'affichant au clic de la carte #}
 <div id="maModale" class="container m-3">
     <div id="centerDiv" class="text-center p-3 d-flex align-items-center flex-column rounded border overflow-auto bg-light shadow">
         <div class="d-flex w-100 align-items-center justify-content-end">
             <button id="btnClose" type="button" class="btn-close" aria-label="Close"></button>
         </div>
         <h3>Ajouter un événement</h3>
-        {# Formulaire pour nouveau event #}
+        {# Formulaire pour ajouter un nouveau event #}
         {{ form_start(form) }}
-        {# Ajout de ces deux éléments pour gérer les coordonnées #}
+        {# Ajout de ces deux éléments pour gérer les coordonnées automatiquement (récupère la latitude et longitude de l'endroit cliqué) #}
         {{ form_row(form.coordinateLat) }}
         {{ form_row(form.coordinateLng) }}
         {{ form_widget(form) }}
@@ -47,14 +49,13 @@
 </div>
 
 
-{# Script pour la carte #}
+{# Script Leaflet pour la carte : à mettre avant l'import de la carte #}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> 
-{#script à mettre avant l'import de la carte#}
 
 <script>
-    // On initialise la map
+    // On initialise la map centrée sur Paris
     var carte = L.map('maCarte').setView([48.866667, 2.333333], 12);
-    // On charge des tuiles (on pourra changer ici le fond de la carte)
+    // On charge des tuiles (changement du fond de la carte avec lien)
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
         // Lien vers la source des données
         attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -63,7 +64,7 @@
     }).addTo(carte);
 
     //On initialise les icones avec des filtres pour atelier et événement
-    var atelierIcon = L.icon({
+var atelierIcon = L.icon({
     iconUrl: '{{ asset('/img/marker-orange.png')}}',
     iconSize: [25, 41],
     iconAnchor: [12, 41],
@@ -77,77 +78,10 @@ var videDressingIcon = L.icon({
     popupAnchor: [0, -41]
 });
 
-    //On affiche le contenu au clic sur un marqueur d'événement
-    function onMarkerClick(e) {
-        var marker = e.target;
-        // Vérifier si la div d'informations existe déjà
-        var eventInfo = document.getElementById('eventInfo');
-        if (eventInfo) {
-            // Si la div existe, la supprimer
-            eventInfo.parentNode.removeChild(eventInfo);
-        }
 
-        // Créer une nouvelle div d'informations
-        eventInfo = document.createElement('div');
-        eventInfo.id = 'eventInfo';
-        eventInfo.className = 'col-md-4';
-
-        //Modifier la div de la carte 
-        var maCarte = document.getElementById('maCarte');
-        maCarte.classList.remove('col-md-12');
-        maCarte.classList.add('col-md-8');
-
-        if (marker.options.eventImageName == "") {
-            marker.options.eventImageName = "event-noimage.png";
-        }
-        
-        //Contenu à afficher quand on clique sur un marqueur (bouton je participe que pour les users connectés, modif pour les admin)
-                eventInfo.innerHTML = 
-        '<div class="cardEvent card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
-            '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + '</h5>' +
-            '<p class="card-text text-uppercase fw-bold">' + marker.options.creator + '</p>' +
-            '<img class="images-event" src="img/imageEvent/'+ marker.options.eventImageName + '">' +
-            '<p class="card-text">' + marker.options.typeEvent + '</p>' +
-            '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
-            '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
-                {% if is_granted('ROLE_USER') and app.user.isVerified %}
-                    '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>'+
-                    {% if is_granted('ROLE_ADMIN') %}
-                    '<a href="'+ marker.options.eventId +'/edit-event" class="btn btn-success mb-3">Modifier</a>'
-                    {% endif %} 
-                {% endif %} 
-        '</div>';
-
-        // Insérer la nouvelle div d'informations dans le conteneur approprié (avant celle de la carte)
-        var zoneCarteEvent = document.getElementById('zoneCarteEvent');
-        zoneCarteEvent.insertBefore(eventInfo, zoneCarteEvent.firstChild);
-    }
-
-    var maModale = document.getElementById('maModale');
-    //Fonction pour créer des nouveaux marqueurs seulement pour les utilisateurs authentifiés
-    
-    {% if is_granted('ROLE_USER') and app.user.isVerified %}
-        carte.on ('click', function(e) {
-            maModale.style.display = 'block';
-
-            //On récupère la lat et lng du point cliqué
-            var eventLat = e.latlng.lat;
-            var eventLng = e.latlng.lng;
-            //On attribue la lat et la lng aux éléments du formulaire
-            document.getElementById('event_coordinateLat').value = eventLat;
-            document.getElementById('event_coordinateLng').value = eventLng;
-        });
-    {% endif %}
-
-    var btnClose = document.getElementById('btnClose');
-    btnClose.addEventListener('click', function(e) {
-        maModale.style.display = 'none';
-    });
-
-
-
-    //On affiche les marqueurs au chargement de la page
+    //On affiche tous les marqueurs de la base de données au chargement de la page
     {% for event in events %}
+        //On définit l'icone qui s'affiche selon le type d'événement
         var icon;
         {% if event.typeEvent == 'Atelier' %}
             icon = atelierIcon;
@@ -155,6 +89,7 @@ var videDressingIcon = L.icon({
             icon = videDressingIcon;
         {% endif %}
 
+        //On affiche chaque marqueur en récupérant en twig toutes les données pour pouvoir les traiter en javascript
         var marker = L.marker([{{ event.coordinateLat }}, {{ event.coordinateLng }}], {
             icon: icon,
             eventName: '{{ event.eventName }}',
@@ -170,6 +105,80 @@ var videDressingIcon = L.icon({
             .on('click', onMarkerClick);
 
     {% endfor %}
+
+
+    //On affiche les informations d'un événemement au clic du marqueur
+    function onMarkerClick(e) {
+        var marker = e.target;
+        // Vérifier si la div d'informations existe déjà
+        var eventInfo = document.getElementById('eventInfo');
+        // Si la div existe, la supprimer
+        if (eventInfo) {
+            eventInfo.parentNode.removeChild(eventInfo);
+        }
+
+        // Créer une nouvelle div d'informations "eventInfo"
+        eventInfo = document.createElement('div');
+        eventInfo.id = 'eventInfo';
+        eventInfo.className = 'col-md-4';
+
+        //Modifier la div maCarte pour qu'elle soit moins large
+        var maCarte = document.getElementById('maCarte');
+        maCarte.classList.remove('col-md-12');
+        maCarte.classList.add('col-md-8');
+
+        //Si la propriété eventImageName est vide, on met une image par défaut
+        if (marker.options.eventImageName == "") {
+            marker.options.eventImageName = "event-noimage.png";
+        }
+        
+        //Contenu à afficher quand on clique sur un marqueur : les options sont définies en javascript, après les avoir récupéré en twig pour chaque marqueur (voir plus bas)
+                eventInfo.innerHTML = 
+        '<div class="cardEvent card-body text-center px-3 d-flex align-items-center flex-column rounded border overflow-auto">' +
+            '<h5 class="card-title mt-3 text-uppercase fw-bold">' + marker.options.eventName + '</h5>' +
+            '<p class="card-text text-uppercase fw-bold">' + marker.options.creator + '</p>' +
+            '<img class="images-event" src="img/imageEvent/'+ marker.options.eventImageName + '">' +
+            '<p class="card-text">' + marker.options.typeEvent + '</p>' +
+            '<p class="card-text fw-bold">' + marker.options.eventDate + '</p>' +
+            '<p class="card-text">Description : ' + marker.options.eventDescription + '</p>' +
+                //Pour les utilisateurs connectés ET vérifiés, on affiche un bouton "je participe"
+                {% if is_granted('ROLE_USER') and app.user.isVerified %}
+                    '<a href="add-event/'+ marker.options.eventId +'" class="btn bouton mb-3">Je participe</a>'+
+                    //Pour les admin, ajout d'un bouton "modifier"
+                    {% if is_granted('ROLE_ADMIN') %}
+                    '<a href="'+ marker.options.eventId +'/edit-event" class="btn btn-success mb-3">Modifier</a>'
+                    {% endif %} 
+                {% endif %} 
+        '</div>';
+
+        // Insérer la nouvelle div d'informations dans le conteneur approprié (dans zoneEventCarte et avant celle de la carte)
+        var zoneCarteEvent = document.getElementById('zoneCarteEvent');
+        zoneCarteEvent.insertBefore(eventInfo, zoneCarteEvent.firstChild);
+    }
+
+    //Fonction pour créer des nouveaux marqueurs seulement pour les utilisateurs authentifiés ET vérifiés
+    var maModale = document.getElementById('maModale');
+    
+    {% if is_granted('ROLE_USER') and app.user.isVerified %}
+        carte.on ('click', function(e) {
+            //Au clic, la modale (par défaut en display none) devient display block (affichage)
+            maModale.style.display = 'block';
+            //On récupère la latitude et la longitude du point cliqué
+            var eventLat = e.latlng.lat;
+            var eventLng = e.latlng.lng;
+            //On attribue la lat et la lng aux éléments du formulaire
+            document.getElementById('event_coordinateLat').value = eventLat;
+            document.getElementById('event_coordinateLng').value = eventLng;
+        });
+    {% endif %}
+
+    //Si on clique sur le bouton close de la modale, elle repasse en display none (disparition)
+    var btnClose = document.getElementById('btnClose');
+    btnClose.addEventListener('click', function(e) {
+        maModale.style.display = 'none';
+    });
+
+
 
 </script>
 {% endblock %}
