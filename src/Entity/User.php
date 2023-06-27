@@ -37,11 +37,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-    /*pour pouvoir confirmer le mdp a mettre en private apres test*/
-    /*  public $confirm_password; */
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $newPassword = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pseudo = null;
@@ -162,26 +157,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Get the value of newPassword
-     */
-    public function getNewPassword(): string
-    {
-        return $this->newPassword;
-    }
-
-    /**
-     * Set the value of newPassword
-     *
-     * @return  self
-     */
-    public function setNewPassword(string $newPassword): static
-    {
-        $this->newPassword = $newPassword;
-
-        return $this;
-    }
-
-    /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
@@ -238,7 +213,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $avatarFile
      */
-    
+
     public function setAvatarFile(?File $avatarFile = null): void
     {
         $this->avatarFile = $avatarFile;
