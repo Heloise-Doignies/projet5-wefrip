@@ -47,9 +47,9 @@ Déployer votre projet
 # Contribution
 Les contributions à ce projet sont les bienvenues. Si vous souhaitez apporter des améliorations, veuillez suivre ces étapes :
 
-# Fork du projet depuis le référentiel GitHub.
+# Fork du projet depuis le référentiel GitHub
 Créez une branche pour votre fonctionnalité
 
-# Il existe plusieurs endroits où vous pouvez partager votre solution :
+# Il existe plusieurs endroits où vous pouvez partager votre solution 
 Partagez votre page de solution dans le canal #finished-projects de la communauté Slack.
 Partagez votre solution sur d'autres canaux sociaux comme LinkedIn.
