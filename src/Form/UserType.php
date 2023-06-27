@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\AvatarType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
@@ -60,11 +61,7 @@ class UserType extends AbstractType
                 'data' => new \DateTimeImmutable(),
             ])
             
-            ->add('avatarFile', FileType::class, [
-                'required' => false,
-                'label' => 'Avatar',
-                'data_class' => null,
-            ])
+            ->add('avatar', AvatarType::class)
             //->add('userSlug')
             
             ->remove('eventCreator');
