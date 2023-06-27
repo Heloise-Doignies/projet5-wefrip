@@ -32,12 +32,6 @@ class ProfilController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // on vérifie si l'utilisateur a changé de mdp
-            if (!is_null($request->request->get('password'))) {
-                // on encode le nouveau mdp et on l'affecte au user
-                $password = $encoder->hashPassword($user, $request->request->get('password'));
-                $user->setPassword($password);
-            }
             // on met en place un message flash
             $this->addFlash('success', 'Votre profil a bien été ajouté');
             // on enregistre les modifications
@@ -66,32 +60,12 @@ class ProfilController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Récupérer les données soumises dans le formulaire
-            $formData = $form->getData();
-
-            // Verifier si un nouveau mot de passe a été fourni
-            $newPassword = $formData->getNewPassword();
-            var_dump($newPassword);
-
-            if (!empty($newPassword)) {
-                // Encoder et définir le nouveau mot de passe 
-                $hashedPassword = $encoder->hashPassword($user, $newPassword);
-                $user->setPassword($hashedPassword);
-            } else {
-                $this->addFlash('success', 'Annulation des modifications');
-            }
-
-            /*  if (!is_null($request->get('password'))) {
-                $password = $encoder->hashPassword($user, $request->request->get('password'));
-                $user->setPassword($password);
-            } */
-
             $this->addFlash('success', 'Votre profil a bien été modifié.');
             $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('app_profil');
-        }
+        };
         return $this->render('profil/edit.html.twig', [
             'form' => $form->createView()
         ]);
