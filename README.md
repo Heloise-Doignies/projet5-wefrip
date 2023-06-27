@@ -17,7 +17,7 @@ Vos utilisateurs devraient être en mesure de :
 Votre tâche consiste à élaborer le projet à partir de PHP et du framework SYMFONY. 
 Vous devez aussi télécharger la bibliothèque LEAFLET.
 
-# Pré requis pour le projet :
+# Pré requis pour le projet 
 – télécharger Composer (packages PHP) et l'exécuter
 – Faire un repository Git
 – s’assurer que la commande PHP est bien disponible dans le terminal : php -v
