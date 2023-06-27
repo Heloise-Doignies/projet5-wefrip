@@ -1,11 +1,11 @@
-# NOM DU PROJET : WEFRIP'
+# WEFRIP' PROJECT
 PROJET POUR NOTRE SOUTENANCE SUR L'UPCYCLING 
 Notre site propose une expérience interactive avec une carte interactive pour localiser les centres de collecte, les magasins de fripes ainsi que des tutoriels.
 
-Welcome! 👋
+# Welcome! 👋
 Pour relever cet exercice, vous devez avoir des connaissances de base en HTML, CSS, PHP ET SYMFONY. 
 
-L'exercice
+# L'exercice
 Votre exercice est de construire un site fonctionnel avec une map où les membres peuvent ajouter des marqueurs, les voir, les modifier et également voir des tutorials qu'ils peuvent mettre en favori. 
 
 Vos utilisateurs devraient être en mesure de :
@@ -13,11 +13,11 @@ Vos utilisateurs devraient être en mesure de :
 - Naviguer sur le site en tant qu'utilisateur anonyme et voir les évènements et les tutorials
 - Naviguer sur le site en tant que membre inscrit, proposer des évènements (vides-dressings, ateliers) et voir des tutorials et pouvoir les mettre en favori dans leur profil. 
 
-Où tout trouver
+# Où tout trouver
 Votre tâche consiste à élaborer le projet à partir de PHP et du framework SYMFONY. 
 Vous devez aussi télécharger la bibliothèque LEAFLET.
 
-Pré requis pour le projet :
+# Pré requis pour le projet :
 – télécharger Composer (packages PHP) et l'exécuter
 – Faire un repository Git
 – s’assurer que la commande PHP est bien disponible dans le terminal : php -v
@@ -25,7 +25,7 @@ Pré requis pour le projet :
 – Lancer la commande symfony check:requirements pour s’assurer que tout est ok
 – Relancer tous les terminaux et lancer la commande symfony -v
 
-Construction de votre projet
+# Construction de votre projet
 N'hésitez pas à utiliser le flux de travail qui vous convient. Vous trouverez ci-dessous une suggestion de processus, mais ne vous sentez pas obligé de suivre ces étapes :
 
 Une fois que tous les pré-requis sont réunis, on lance la commande pour créer l’arborescence de notre projet Symfony : symfony new ProjectName –webapp –version=5.4
@@ -44,12 +44,12 @@ Configurez votre dépôt pour publier votre code à une adresse web. Cela sera �
 Déployer votre projet
 
 
-Contribution
+# Contribution
 Les contributions à ce projet sont les bienvenues. Si vous souhaitez apporter des améliorations, veuillez suivre ces étapes :
 
-Fork du projet depuis le référentiel GitHub.
+# Fork du projet depuis le référentiel GitHub.
 Créez une branche pour votre fonctionnalité
 
-Il existe plusieurs endroits où vous pouvez partager votre solution :
+# Il existe plusieurs endroits où vous pouvez partager votre solution :
 Partagez votre page de solution dans le canal #finished-projects de la communauté Slack.
 Partagez votre solution sur d'autres canaux sociaux comme LinkedIn.
