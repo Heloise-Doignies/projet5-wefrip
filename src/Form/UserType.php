@@ -62,7 +62,9 @@ class UserType extends AbstractType
                 'data' => new \DateTimeImmutable(),
             ])
             
-            ->add('avatar', AvatarType::class)
+            ->add('avatar', AvatarType::class, [
+                'label' => false,
+            ])
             //->add('userSlug')
             
             ->remove('eventCreator');
