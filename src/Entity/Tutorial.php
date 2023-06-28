@@ -21,6 +21,9 @@ class Tutorial
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $tutoName = null;
+    
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $tutoShortDescription = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $tutoDescription = null;
@@ -83,6 +86,18 @@ class Tutorial
     public function setTutoName(?string $tutoName): static
     {
         $this->tutoName = $tutoName;
+
+        return $this;
+    }
+
+    public function getTutoShortDescription(): ?string
+    {
+        return $this->tutoShortDescription;
+    }
+
+    public function setTutoShortDescription(?string $tutoShortDescription): static
+    {
+        $this->tutoShortDescription = $tutoShortDescription;
 
         return $this;
     }

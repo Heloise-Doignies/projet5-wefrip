@@ -29,7 +29,7 @@
                 <a href="{{ path('app_tutorial_show', { tutoSlug: tutorial.tutoSlug }) }}">
                     <h2 class="card-title">{{ tutorial.tutoName|slice(0, 25) }}...</h2>
                     {# On fait apparaître que les 100 premiers caractères de la description #}
-                    <p>{{ tutorial.tutoDescription|slice(0, 100) }}...</p>
+                    <p>{{ tutorial.tutoShortDescription|slice(0, 100) }}...</p>
                 </a>
                 <div class="d-flex flex-wrap justify-content-center gap-3">
                     {# On affiche autant de boutons qu'il y a de catégorie(s) pour le tuto #}
