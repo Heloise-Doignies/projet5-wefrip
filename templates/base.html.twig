@@ -30,6 +30,11 @@
 
 	<body>
 
+		<div class="element-flex loader">
+			<div class="element-flex spinner"></div>
+			<i class="fa-solid fa-shirt t-shirt"></i>
+			<p class="load-text">Loading ...</p>
+		</div>
 
 		{# Navbar #}
 		<header class="border-bottom">
@@ -138,6 +143,8 @@
 				<script src="{{ asset('js/app.js') }}"></script>
 				{# Script pour Leaflet #}
 				<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+				{# Script fontawsome #}
+				<script src="https://kit.fontawesome.com/862738513d.js" crossorigin="anonymous"></script>
 				{% block javascripts %}{% endblock %}
 			</body>
 		</body>

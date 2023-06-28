@@ -206,3 +206,70 @@ footer{
     margin-top: auto;
     font-size: small;
 }
+
+.element-flex{
+    display: flex;
+}
+
+.loader{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader{
+    visibility:hidden; 
+    background-image:linear-gradient(rgb(55 92 166 / 78%), rgb(255 201 179 / 78%));
+    position:fixed;
+    z-index: 1;
+    top:0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    animation-name:loader;
+    animation-duration: 1s;
+}
+
+.t-shirt, .load-text{
+    color: #D98E04;
+}
+
+.t-shirt {
+    font-size: 52px;
+    position: absolute;
+    top: 44%;
+}
+
+.load-text{
+    font-size: 29px;
+}
+
+.spinner{
+    border: 16px solid transparent;
+    border-top: 16px solid #9356DC;
+    border-bottom: 16px solid #FF79DA;
+    border-radius:50%;
+    width: 120px;
+    height: 120px;
+    animation:spin 200ms linear infinite;
+}
+
+@keyframes loader {
+    from{
+        visibility: hidden;
+    }
+    to{
+        visibility: visible;
+    }
+}
+
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+
+    }
+    100%{transform: rotate(360deg);}
+}
+
+/* #D98E04 #E1C9B3 #375CA6 */
