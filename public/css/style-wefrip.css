@@ -21,9 +21,13 @@ h2, h3{
     font-family:'Geologica';
 }
 
-a , a:hover {
-    color: inherit;
+a{
+    color:black;
     text-decoration: none;
+}
+
+a:hover {
+    color: #375CA6;
 }
 
 /* Tous les boutons #375CA6 texte #F7F3F3, hover #D98E04 */
@@ -219,7 +223,7 @@ footer{
 
 .loader{
     visibility:hidden; 
-    background-image:linear-gradient(rgb(55 92 166 / 78%), rgb(255 201 179 / 78%));
+    background-image:linear-gradient(rgb(55 92 166 / 78%), #D98E04);
     position:fixed;
     z-index: 1;
     top:0;
@@ -242,12 +246,13 @@ footer{
 
 .load-text{
     font-size: 29px;
+    color: #375CA6;
 }
 
 .spinner{
     border: 16px solid transparent;
-    border-top: 16px solid #9356DC;
-    border-bottom: 16px solid #FF79DA;
+    border-top: 16px solid #375CA6;
+    border-bottom: 16px solid #D98E04;
     border-radius:50%;
     width: 120px;
     height: 120px;
