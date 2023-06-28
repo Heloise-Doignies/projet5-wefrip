@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class TutorialType extends AbstractType
 {
@@ -21,6 +22,12 @@ class TutorialType extends AbstractType
         $builder
             ->add('tutoName', TextType::class,[
                 'label'=>'Nom du tutoriel',
+                ])
+            ->add('tutoShortDescription', TextareaType::class, [
+                'label'=>'Titre',
+                // 'config' => [
+                //     'removePlugins' => 'exportpdf',
+                // ],
                 ])
             ->add('tutoDescription', CKEditorType::class, [
                 'label'=>'Description',
