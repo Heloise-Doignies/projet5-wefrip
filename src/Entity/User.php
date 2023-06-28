@@ -11,11 +11,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+// use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: "L'adresse e-mail existe déjà, veuillez en choisir un autre.")]
-#[Vich\Uploadable]
+// #[Vich\Uploadable]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -44,8 +44,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatarName = null;
 
-    #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'avatarName')]
-    private ?File $avatarFile = null;
+    // #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'avatarName')]
+    // private ?File $avatarFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastname = null;
@@ -191,17 +191,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAvatarName(): ?string
-    {
-        return $this->avatarName;
-    }
+    // public function getAvatarName(): ?string
+    // {
+    //     return $this->avatarName;
+    // }
 
-    public function setAvatarName(?string $avatarName): static
-    {
-        $this->avatarName = $avatarName;
+    // public function setAvatarName(?string $avatarName): static
+    // {
+    //     $this->avatarName = $avatarName;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getLastname(): ?string
     {

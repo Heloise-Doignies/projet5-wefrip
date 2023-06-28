@@ -20,7 +20,7 @@ class AvatarType extends AbstractType
                 'label' => 'Avatar',
                 'data_class' => null,
             ])
-            ->remove('userUpdatedAt', DateTimeType::class, [
+            ->remove('updatedAt', DateTimeType::class, [
                 'widget' => 'single_text',
                 'data' => new \DateTimeImmutable(),
             ])
