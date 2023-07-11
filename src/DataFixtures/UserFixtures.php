@@ -38,9 +38,9 @@ class UserFixtures extends Fixture
         $user->setPseudo('Admin Titi');
         $user->setPassword($this->encoder->hashPassword($user, 'admin'));
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-        $avatar = new Avatar();
-        $avatar -> setImageName('admin.jpg');
-    $user->setAvatar($avatar);
+            $avatar = new Avatar();
+            $avatar -> setImageName('admin.jpg');
+        $user->setAvatar($avatar);
         $user->setIsVerified(true);
         $manager->persist($user);
 
