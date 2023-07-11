@@ -50,10 +50,10 @@
                     </ul>
 
                     <div>
-                        {% if app.user.avatar is not null %}
-                        <img src="{{ asset('/img/imageUser/' ~ app.user.avatar) }}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
-                        {% else %}
+                        {% if app.user.avatar == "" %}
                         <img src="{{ asset('/img/user-noavatar.png') }}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
+                        {% else %}
+                        <img src="{{ asset('/img/imageUser/' ~ app.user.avatar) }}" alt="Avatar profil" class="avatar img-fluid rounded-circle shadow avatarProfil">
                         {% endif %}
                     </div>
                 </div>
