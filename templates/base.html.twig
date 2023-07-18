@@ -103,9 +103,10 @@
 					{% endfor %}
 				{% endfor %}
 
-				<div class="container m-auto"> {% block body %}{% endblock %}
-					</div>
-				</main>
+				<div class="container m-auto"> 
+				{% block body %}{% endblock %}
+				</div>
+			</main>
 
 				{# Footer #}
 				<footer>
@@ -119,7 +120,7 @@
 								<a href="mailto:contact@wefrip.com" target="_blank">contact@wefrip.com</a>
 							</li>
 							<li class="ms-3">
-								<a href="">Termes et confidentialité</a>
+								<a href="{{ asset('https://www.example.com') }}">Termes et confidentialité</a>
 							</li>
 						</ul>
 
@@ -146,6 +147,6 @@
 				{# Script fontawsome #}
 				<script src="https://kit.fontawesome.com/862738513d.js" crossorigin="anonymous"></script>
 				{% block javascripts %}{% endblock %}
-			</body>
+			
 		</body>
 	</html>
