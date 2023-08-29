@@ -24,7 +24,7 @@ class UserFixtures extends Fixture
         $user->setEmail('user@user.com');
         $user->setUserSlug('user-user');
         $user->setPseudo('User Toto');
-        $user->setPassword($this->encoder->hashPassword($user, 'password'));
+        $user->setPassword($this->encoder->hashPassword($user, 'password123?'));
         $user->setRoles(['ROLE_USER']);
             $avatar = new Avatar();
             $avatar -> setImageName('toto.jpg');
@@ -36,7 +36,7 @@ class UserFixtures extends Fixture
         $user->setEmail('admin@wefrip.com');
         $user->setUserSlug('admin-admin');
         $user->setPseudo('Admin Titi');
-        $user->setPassword($this->encoder->hashPassword($user, 'admin'));
+        $user->setPassword($this->encoder->hashPassword($user, 'admin1234!!!'));
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
             $avatar = new Avatar();
             $avatar -> setImageName('admin.jpg');
