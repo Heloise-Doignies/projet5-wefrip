@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class EventType extends AbstractType
 {
@@ -45,6 +46,9 @@ class EventType extends AbstractType
             ->add('eventDescription', CKEditorType::class, [
                 'label'=>"Description de l'événement*",
                 'required' => true,
+                'constraints' => [
+                    new Assert\NotBlank(),
+                ],
                 'config' => [
                     'removePlugins' => 'exportpdf',
                     'editorplaceholder' => 'Pour un vide-dressing, précisez le type de vêtements disponibles (tailles, genres). Pour un atelier, précisez le matériel dont les participants auront besoin.',
@@ -63,6 +67,9 @@ class EventType extends AbstractType
             ->add('infoLocation', CKEditorType::class, [
                 'label'=>"Informations pratiques*",
                 'required' => true,
+                'constraints' => [
+                    new Assert\NotBlank(),
+                ],
                 'config' => [
                     'removePlugins' => 'exportpdf',
                     'editorplaceholder' => 'Précisez comment accéder à l\'événement (adresse, interphone, numéro de téléphone...). Ces informations ne seront visibles que par les utilisateurs inscrits à l\'événement.',

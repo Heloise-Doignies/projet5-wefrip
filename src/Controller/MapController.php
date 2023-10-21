@@ -29,22 +29,28 @@ class MapController extends AbstractController
             $this->addFlash('warning', 'Pour rappel, veuillez confirmer votre profil avec le lien reçu par mail pour profiter de toutes les fonctionnalités.');
         }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Ajout de cette ligne pour générer le slug automatiquement
-            $newEvent->setEventSlug(strtolower($slugger->slug($newEvent->getEventName())));
-    
-            //On récupère les informations de l'utilisateur pour le UserCreator
-            $user=$this->getUser();
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                // Ajout de cette ligne pour générer le slug automatiquement
+                $newEvent->setEventSlug(strtolower($slugger->slug($newEvent->getEventName())));
+        
+                //On récupère les informations de l'utilisateur pour le UserCreator
+                $user=$this->getUser();
 
-            // On associe le UserCreator à l'événement
-            $newEvent->setCreator($user);
+                // On associe le UserCreator à l'événement
+                $newEvent->setCreator($user);
 
-            //On enregistre dans la base de données
-            $eventRepository->save($newEvent, true);
-            $this->addFlash('success', 'L\'événement a été ajouté, vous pouvez aussi le retrouver dans votre profil.');
-            //On redirige l'utilisateur vers la map
-            return $this->redirectToRoute('app_map', [], Response::HTTP_SEE_OTHER);
+                //On enregistre dans la base de données
+                $eventRepository->save($newEvent, true);
+                $this->addFlash('success', 'L\'événement a été ajouté, vous pouvez aussi le retrouver dans votre profil.');
+                //On redirige l'utilisateur vers la map
+                return $this->redirectToRoute('app_map', [], Response::HTTP_SEE_OTHER);
+            } else {
+            $this->addFlash('error', 'Le formulaire contient des erreurs. Veuillez les corriger.');
         }
+    }
+    
+
         
         //Affichage des events (markers) déjà enregistrés
         $events = $eventRepository->findAll();

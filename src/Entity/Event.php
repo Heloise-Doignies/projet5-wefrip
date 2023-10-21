@@ -26,7 +26,7 @@ class Event
     private ?\DateTime $eventDate = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $eventDescription = null;
+    private ?string $eventDescription;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $eventImageName = null;
@@ -54,7 +54,7 @@ class Event
     private Collection $participants;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $infoLocation = null;
+    private ?string $infoLocation;
 
     #[ORM\ManyToOne(inversedBy: 'eventCreator')]
     #[ORM\JoinColumn(nullable: true)]
