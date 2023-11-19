@@ -139,7 +139,9 @@
                 {% if app.user.tutorials|length > 0 %}
                     <div class="row d-flex justify-content-center mx-3">
                         {% for tutorial in app.user.tutorials %}
+                            <div class="col-12 col-md-6 col-xl-6 mb-3">
                             {% include 'common/_card.html.twig' %}
+                            </div>
                         {% endfor %} 
                     </div>
 

@@ -27,9 +27,9 @@ class TutorialController extends AbstractController
     #[Route('/tutorial/{tutoSlug}', name: 'app_tutorial_show')]
     public function showTutorial($tutoSlug, TutorialRepository $tutorialRepository): Response
     {
-        //Jn récupère le video correspondant au slug
+        //On récupère le tutoriel correspondant au slug
         $tutorial = $tutorialRepository->findOneBy(['tutoSlug' => $tutoSlug]);
-        // On rend la page en lui passant le video
+        // On rend la page en lui passant le tutoriel
         return $this->render('tutorial/show.html.twig', [
             'tutorial' =>$tutorial,
         ]);}

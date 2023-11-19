@@ -41,7 +41,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // on ajoute un role d l'utilisateur
+            // on ajoute un role de l'utilisateur
             $user->setRoles(['ROLE_USER']);
             $entityManager->persist($user);
             $entityManager->flush();
@@ -58,7 +58,6 @@ class RegistrationController extends AbstractController
 
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
             // on met en place un message flash ne pas oublier de mettre les doubles "for-endfor" dans base.html.twig
             $this->addFlash('success', 'Inscription terminée, veuillez valider votre compte avec le lien reçu par mail.');
             return $this->redirectToRoute('app_login');
