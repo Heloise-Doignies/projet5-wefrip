@@ -10,7 +10,9 @@
     <div class="row">
 
         {% for tutorial in category.tutorials %}
-            {% include 'common/_card.html.twig' %}
+            <div class="col-12 col-md-4 col-xl-4 mb-3">
+                {% include 'common/_card.html.twig' %}
+            </div>
         {% endfor %}
     </div>
 

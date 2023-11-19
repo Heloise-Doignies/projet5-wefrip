@@ -17,7 +17,9 @@
     <div class="row">
         {# On affiche toutes les vidéos avec une boucle #}
         {% for tutorial in tutorials %}
+            <div class="col-12 col-md-4 col-xl-4 mb-3">
                 {% include 'common/_card.html.twig' %}
+            </div>
         {% endfor %}
     </div>
 {% endblock %}
